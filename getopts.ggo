@@ -1,0 +1,30 @@
+package "zncc"
+version "1.0"
+#purpose "Generate ZNCC based depthmap of two given images im0.png and im1.png"
+usage "zncc [OPTIONS]"
+description "Simple ZNCC depthmap implementation. Looks for im0.png and im1.png in working directory. Outputs to outputs/ relative to working directory. See zncc.cpp for details."
+versiontext "Multithreaded implementation"
+
+#args "<command line options>"
+
+option "maximum-disparity" d "The maximum disparity between images." int default="65" optional
+option "threshold" t "The threshold used for cross-checking." int default="8" optional
+option "window-size" w "The length of zncc window. This parameter represents one side of the window used for zncc. (Block size is square of the value specified here)" int default="8" optional
+option "nthreads" - "Number of threads for zncc computation." int default="1" optional
+option "skip-depthmapping" s "Skip computation of disparity images. Skip computation of disparity images. This option will use supplied images, and if none is supplied, looks for previously output files at ./output/ directory. Missing files will cause the program to terminate." flag off
+option "image-0" - "Image 0 filepath" string optional
+option "image-1" - "Image 1 filepath" string optional
+option "shrink-by" - "Shrink factor to downscale image. Typically set to 1 when skipping depthmapping step." int default="4" optional
+
+#{typestr="<type descr>"}
+#{values="<value1>","<value2>",...}
+#{default="<default value>"}
+#{dependon="<other option>"}
+#{required} {argoptional} {multiple}
+#{hidden}
+#option <long> <short> "<desc>" flag <on/off>
+
+section "About"
+text "\n"
+text "Author: Kaushik Sundarajayaraman Venkat\n"
+text "E-mail: speak2kaushik@gmail.com, kaushik.sv@student.oulu.fi\n"

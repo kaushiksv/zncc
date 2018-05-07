@@ -1,0 +1,7 @@
+#!/bin/bash
+
+dt=$(date)
+mkdir -p ".code_backups/$dt/"
+cp lodepng.h lodepng.cpp zncc.cpp zncc.h main.cpp ".code_backups/$dt/"
+echo ".code_backups/$dt:"
+ls ".code_backups/$dt"
