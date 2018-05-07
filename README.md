@@ -1,11 +1,11 @@
 # ZNCC Multithreaded CPU Implementation
 
-
 Example usage:
-	./zncc --nthreads=25
-	./zncc --nthreads=20 -w 9
-	./zncc --nthreads=20 --image-0="path/to/im0.png"
-
+```
+      ./zncc --nthreads=25
+      ./zncc --nthreads=20 --image-0="path/to/im0.png"
+      ./zncc --nthreads=20 -w 9
+```
 im0.png and im1.png are used by default. Outputs 4 images (2 prelim disparity maps, cross-checked, and occlusion filled images) to 'outputs/'. See 'exec_project' in zncc.pp for details. Also, the params, and timing information is appended to outputs/log.txt
 
 
