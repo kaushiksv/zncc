@@ -36,6 +36,7 @@ const char *gengetopt_args_info_description = "Simple ZNCC depthmap implementati
 const char *gengetopt_args_info_help[] = {
   "  -h, --help                   Print help and exit",
   "  -V, --version                Print version and exit",
+  "      --use-gpu                Use GPU for computation.  (default=off)",
   "  -d, --maximum-disparity=INT  The maximum disparity between images.\n                                 (default=`65')",
   "  -t, --threshold=INT          The threshold used for cross-checking.\n                                 (default=`8')",
   "  -w, --window-size=INT        The length of zncc window. This parameter\n                                 represents one side of the window used for\n                                 zncc. (Block size is square of the value\n                                 specified here)  (default=`8')",
@@ -72,6 +73,7 @@ void clear_given (struct gengetopt_args_info *args_info)
 {
   args_info->help_given = 0 ;
   args_info->version_given = 0 ;
+  args_info->use_gpu_given = 0 ;
   args_info->maximum_disparity_given = 0 ;
   args_info->threshold_given = 0 ;
   args_info->window_size_given = 0 ;
@@ -86,6 +88,7 @@ static
 void clear_args (struct gengetopt_args_info *args_info)
 {
   FIX_UNUSED (args_info);
+  args_info->use_gpu_flag = 0;
   args_info->maximum_disparity_arg = 65;
   args_info->maximum_disparity_orig = NULL;
   args_info->threshold_arg = 8;
@@ -111,14 +114,15 @@ void init_args_info(struct gengetopt_args_info *args_info)
 
   args_info->help_help = gengetopt_args_info_help[0] ;
   args_info->version_help = gengetopt_args_info_help[1] ;
-  args_info->maximum_disparity_help = gengetopt_args_info_help[2] ;
-  args_info->threshold_help = gengetopt_args_info_help[3] ;
-  args_info->window_size_help = gengetopt_args_info_help[4] ;
-  args_info->nthreads_help = gengetopt_args_info_help[5] ;
-  args_info->skip_depthmapping_help = gengetopt_args_info_help[6] ;
-  args_info->image_0_help = gengetopt_args_info_help[7] ;
-  args_info->image_1_help = gengetopt_args_info_help[8] ;
-  args_info->shrink_by_help = gengetopt_args_info_help[9] ;
+  args_info->use_gpu_help = gengetopt_args_info_help[2] ;
+  args_info->maximum_disparity_help = gengetopt_args_info_help[3] ;
+  args_info->threshold_help = gengetopt_args_info_help[4] ;
+  args_info->window_size_help = gengetopt_args_info_help[5] ;
+  args_info->nthreads_help = gengetopt_args_info_help[6] ;
+  args_info->skip_depthmapping_help = gengetopt_args_info_help[7] ;
+  args_info->image_0_help = gengetopt_args_info_help[8] ;
+  args_info->image_1_help = gengetopt_args_info_help[9] ;
+  args_info->shrink_by_help = gengetopt_args_info_help[10] ;
   
 }
 
@@ -245,6 +249,8 @@ cmdline_parser_dump(FILE *outfile, struct gengetopt_args_info *args_info)
     write_into_file(outfile, "help", 0, 0 );
   if (args_info->version_given)
     write_into_file(outfile, "version", 0, 0 );
+  if (args_info->use_gpu_given)
+    write_into_file(outfile, "use-gpu", 0, 0 );
   if (args_info->maximum_disparity_given)
     write_into_file(outfile, "maximum-disparity", args_info->maximum_disparity_orig, 0);
   if (args_info->threshold_given)
@@ -517,6 +523,7 @@ cmdline_parser_internal (
       static struct option long_options[] = {
         { "help",	0, NULL, 'h' },
         { "version",	0, NULL, 'V' },
+        { "use-gpu",	0, NULL, 0 },
         { "maximum-disparity",	1, NULL, 'd' },
         { "threshold",	1, NULL, 't' },
         { "window-size",	1, NULL, 'w' },
@@ -592,8 +599,20 @@ cmdline_parser_internal (
           break;
 
         case 0:	/* Long option with no short option */
+          /* Use GPU for computation..  */
+          if (strcmp (long_options[option_index].name, "use-gpu") == 0)
+          {
+          
+          
+            if (update_arg((void *)&(args_info->use_gpu_flag), 0, &(args_info->use_gpu_given),
+                &(local_args_info.use_gpu_given), optarg, 0, 0, ARG_FLAG,
+                check_ambiguity, override, 1, 0, "use-gpu", '-',
+                additional_error))
+              goto failure;
+          
+          }
           /* Number of threads for zncc computation..  */
-          if (strcmp (long_options[option_index].name, "nthreads") == 0)
+          else if (strcmp (long_options[option_index].name, "nthreads") == 0)
           {
           
           

@@ -39,6 +39,8 @@ struct gengetopt_args_info
 {
   const char *help_help; /**< @brief Print help and exit help description.  */
   const char *version_help; /**< @brief Print version and exit help description.  */
+  int use_gpu_flag;	/**< @brief Use GPU for computation. (default=off).  */
+  const char *use_gpu_help; /**< @brief Use GPU for computation. help description.  */
   int maximum_disparity_arg;	/**< @brief The maximum disparity between images. (default='65').  */
   char * maximum_disparity_orig;	/**< @brief The maximum disparity between images. original value given at command line.  */
   const char *maximum_disparity_help; /**< @brief The maximum disparity between images. help description.  */
@@ -65,6 +67,7 @@ struct gengetopt_args_info
   
   unsigned int help_given ;	/**< @brief Whether help was given.  */
   unsigned int version_given ;	/**< @brief Whether version was given.  */
+  unsigned int use_gpu_given ;	/**< @brief Whether use-gpu was given.  */
   unsigned int maximum_disparity_given ;	/**< @brief Whether maximum-disparity was given.  */
   unsigned int threshold_given ;	/**< @brief Whether threshold was given.  */
   unsigned int window_size_given ;	/**< @brief Whether window-size was given.  */

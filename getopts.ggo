@@ -7,6 +7,7 @@ versiontext "Multithreaded implementation"
 
 #args "<command line options>"
 
+option "use-gpu" - "Use GPU for computation." flag off
 option "maximum-disparity" d "The maximum disparity between images." int default="65" optional
 option "threshold" t "The threshold used for cross-checking." int default="8" optional
 option "window-size" w "The length of zncc window. This parameter represents one side of the window used for zncc. (Block size is square of the value specified here)" int default="8" optional
