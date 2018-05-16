@@ -5,7 +5,113 @@
 #include <stdlib.h>
 #include <algorithm>
 #include <sys/time.h>
+#include <CL/cl.h>
 #include "zncc.h"
+
+
+const char *shrink_and_grey_kernel_src = "\
+__kernel void shrink_and_grey(__global const unsigned char *inbuf, __global unsigned char *outbuf, unsigned char shrink_factor, int w){ \
+  int i = get_global_id(0); \
+  int j = get_global_id(1); \
+  int ws = (w/shrink_factor); \
+  unsigned long addr = ((unsigned long)(i*w + j)) * 4 * shrink_factor; \
+  outbuf[i*ws + j] = (unsigned char)(0.2126*inbuf[addr] + 0.7152*inbuf[addr + 1] + 0.0722*inbuf[addr + 2]); \
+}";
+  //outbuf[i*ws + j] = (unsigned char)((inbuf[addr] + inbuf[addr + 1] + inbuf[addr + 2])/3); \
+  //outbuf[i*ws + j] = (unsigned char)(0.2126*(float)inbuf[addr] + 0.7152*(float)inbuf[addr + 1] + 0.0722*(float)inbuf[addr + 2]); \
+
+  // outbuf[i*ws + j] = (unsigned char)((	1*(double)(inbuf[addr]) + \
+  // 								1*(double)(inbuf[addr + 1]) + \
+  // 		   						1*(double)(inbuf[addr + 2]) )/3); \
+
+
+int read_png_grey_and_shrink_gpu(cl_device_id *devices, cl_context context, const char * const filepath, BYTE * * image, SIZE *size, const int reserve_size, const int shrink_factor){
+	std::vector<unsigned char> img_vector;
+	unsigned int temp_w, temp_h; //, i, j;
+	unsigned error = lodepng::decode(img_vector, temp_w, temp_h, filepath);
+	if (error){
+		handle_lodepng_error(error); 
+		return -1;
+	}
+	size->cy = temp_h / shrink_factor;
+	size->cx = temp_w / shrink_factor;
+	const unsigned int num_elements_large = temp_w * temp_h;
+	const unsigned int num_elements_small = size->cx * size->cy;
+	int allocation_size = num_elements_small + 2*reserve_size; // For output small image
+	*image = (BYTE *)(malloc(allocation_size));
+	memset(*image, 0, reserve_size);
+	memset((*image) + num_elements_small, 0, reserve_size);
+	*image = (*image) + reserve_size;
+	cl_program program;
+	//int program_length = strlen(shrink_and_grey_kernel_src);
+	program = CL_CHECK_ERR(clCreateProgramWithSource(context, 1, &shrink_and_grey_kernel_src, NULL, &_err));
+	if (clBuildProgram(program, 1, devices, "", NULL, NULL) != CL_SUCCESS) {
+		char buffer[10240];
+		clGetProgramBuildInfo(program, devices[0], CL_PROGRAM_BUILD_LOG, sizeof(buffer), buffer, NULL);
+		fprintf(stderr, "CL Compilation failed:\n%s", buffer);
+		abort();
+	}
+	CL_CHECK(clUnloadCompiler());
+
+	cl_mem input_buffer_cl, output_buffer_cl;
+	input_buffer_cl = CL_CHECK_ERR(clCreateBuffer(context, CL_MEM_READ_ONLY,   4*sizeof(BYTE)*num_elements_large, NULL, &_err));
+	output_buffer_cl = CL_CHECK_ERR(clCreateBuffer(context, CL_MEM_WRITE_ONLY,   sizeof(BYTE)*num_elements_small, NULL, &_err));
+
+	unsigned char sf_c = (unsigned char)shrink_factor;
+
+	cl_kernel kernel = CL_CHECK_ERR(clCreateKernel(program, "shrink_and_grey", &_err));
+	CL_CHECK(clSetKernelArg(kernel, 0, sizeof(input_buffer_cl), &input_buffer_cl));
+	CL_CHECK(clSetKernelArg(kernel, 1, sizeof(output_buffer_cl), &output_buffer_cl));
+	CL_CHECK(clSetKernelArg(kernel, 2, sizeof(sf_c), &sf_c));
+	CL_CHECK(clSetKernelArg(kernel, 3, sizeof(temp_w), &temp_w));
+
+	cl_command_queue queue;
+	queue = CL_CHECK_ERR(clCreateCommandQueue(context, devices[0], 0, &_err));
+
+	//for (int i=0; i<num_elements; i++) {
+	BYTE *b = (BYTE *)malloc(img_vector.capacity());
+	std::copy(img_vector.begin(), img_vector.end(), b);
+	CL_CHECK(clEnqueueWriteBuffer(	queue,
+									input_buffer_cl,
+									CL_TRUE,
+									0 /*i*sizeof(int)*/ ,
+									4*num_elements_large,
+									b /*&img_vector*/,
+									0,
+									NULL,
+									NULL	));
+	//}
+
+	cl_event kernel_completion;
+	size_t global_work_size[2] = { size->cy, size->cx };
+	CL_CHECK(clEnqueueNDRangeKernel(queue, kernel, 2, NULL, global_work_size, NULL, 0, NULL, &kernel_completion));
+	CL_CHECK(clWaitForEvents(1, &kernel_completion));
+	CL_CHECK(clReleaseEvent(kernel_completion));
+
+	puts("Copying result...");
+	//for (int i=0; i<NUM_DATA; i++) {
+	//	int data;
+	CL_CHECK(clEnqueueReadBuffer(	queue,
+									output_buffer_cl,
+									CL_TRUE,
+									0 /*i*sizeof(int)*/,
+									num_elements_small * sizeof(BYTE),
+									*image,
+									0,
+									NULL,
+									NULL	));
+	//	printf(" %d", data);
+	//}
+	
+	CL_CHECK(clReleaseMemObject(input_buffer_cl));
+	CL_CHECK(clReleaseMemObject(output_buffer_cl));
+
+	CL_CHECK(clReleaseKernel(kernel));
+	CL_CHECK(clReleaseProgram(program));
+	CL_CHECK(clReleaseContext(context));
+
+	return 0;
+}
 
 int	read_png_grey_and_shrink(const char * const filepath, BYTE * * image, SIZE *size, const int reserve_size, const int shrink_factor){
 	std::vector<unsigned char> temp;

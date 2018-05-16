@@ -1,10 +1,44 @@
 
 #include <iostream>
 #include <stdio.h>
+#include <CL/cl.h>
 #include "lodepng.h"
 
 #ifndef ZNCC_H
 #define ZNCC_H
+
+inline void clPrintErrorMacro(int enumber){
+	const char *s = "Unknown error";
+	switch(enumber){ 
+		case CL_INVALID_CONTEXT: s="CL_INVALID_CONTEXT"; break; 
+		case CL_INVALID_VALUE: s="CL_INVALID_VALUE"; break; 
+		case CL_OUT_OF_HOST_MEMORY: s="CL_OUT_OF_HOST_MEMORY"; break; 
+
+	}
+	puts(s);
+}
+
+
+#define CL_CHECK(_expr)                                                         \
+   do {                                                                         \
+     cl_int _err = _expr;                                                       \
+     if (_err == CL_SUCCESS)                                                    \
+       break;                                                                   \
+     fprintf(stderr, "CL_CHECK; OpenCL Error: '%s' returned %d!\n", #_expr, (int)_err);   \
+     abort();                                                                   \
+   } while (0)
+
+#define CL_CHECK_ERR(_expr)                                                     \
+   ({                                                                           \
+     cl_int _err = CL_INVALID_VALUE;                                            \
+     typeof(_expr) _ret = _expr;                                                \
+     if (_err != CL_SUCCESS) {                                                  \
+       fprintf(stderr, "CL_CHECK_ERR; OpenCL Error: '%s' returned %d!\n", #_expr, (int)_err); \
+       clPrintErrorMacro((int)_err); \
+       abort();                                                                 \
+     }                                                                          \
+     _ret;                                                                      \
+   })
 
 #define sprintf_s snprintf
 
@@ -33,6 +67,10 @@ void	exec_project			(const int maximum_disparity = 65, const int window_size = 9
 /*	I/O functions						*/
 int		read_png_grey_and_shrink (const char * const filename, BYTE * * image, SIZE * size, int reserve_size = 0 );
 void	handle_lodepng_error	(int error);
+
+
+/*	OpenCL helpers */
+int		read_png_grey_and_shrink_gpu (cl_device_id *devices, cl_context context, const char * const filepath, BYTE * * image, SIZE *size, const int reserve_size, const int shrink_factor);
 
 /* Inline helpers */
 inline int point_in_image(point const pt, SIZE const size){
