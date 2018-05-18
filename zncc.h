@@ -7,13 +7,12 @@
 #ifndef ZNCC_H
 #define ZNCC_H
 
-inline void clPrintErrorMacro(int enumber){
+inline void clPrintErrorMacro(cl_int enumber){
 	const char *s = "Unknown error";
 	switch(enumber){ 
 		case CL_INVALID_CONTEXT: s="CL_INVALID_CONTEXT"; break; 
 		case CL_INVALID_VALUE: s="CL_INVALID_VALUE"; break; 
 		case CL_OUT_OF_HOST_MEMORY: s="CL_OUT_OF_HOST_MEMORY"; break; 
-
 	}
 	puts(s);
 }
@@ -25,6 +24,7 @@ inline void clPrintErrorMacro(int enumber){
      if (_err == CL_SUCCESS)                                                    \
        break;                                                                   \
      fprintf(stderr, "CL_CHECK; OpenCL Error: '%s' returned %d!\n", #_expr, (int)_err);   \
+     clPrintErrorMacro(_err); \
      abort();                                                                   \
    } while (0)
 
@@ -34,7 +34,7 @@ inline void clPrintErrorMacro(int enumber){
      typeof(_expr) _ret = _expr;                                                \
      if (_err != CL_SUCCESS) {                                                  \
        fprintf(stderr, "CL_CHECK_ERR; OpenCL Error: '%s' returned %d!\n", #_expr, (int)_err); \
-       clPrintErrorMacro((int)_err); \
+       clPrintErrorMacro(_err); \
        abort();                                                                 \
      }                                                                          \
      _ret;                                                                      \
