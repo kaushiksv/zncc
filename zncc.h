@@ -3,20 +3,10 @@
 #include <stdio.h>
 #include <CL/cl.h>
 #include "lodepng.h"
+#include "util.h"
 
 #ifndef ZNCC_H
 #define ZNCC_H
-
-inline void clPrintErrorMacro(cl_int enumber){
-	const char *s = "Unknown error";
-	switch(enumber){ 
-		case CL_INVALID_CONTEXT: s="CL_INVALID_CONTEXT"; break; 
-		case CL_INVALID_VALUE: s="CL_INVALID_VALUE"; break; 
-		case CL_OUT_OF_HOST_MEMORY: s="CL_OUT_OF_HOST_MEMORY"; break; 
-	}
-	puts(s);
-}
-
 
 #define CL_CHECK(_expr)                                                         \
    do {                                                                         \
