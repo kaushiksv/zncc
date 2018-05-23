@@ -37,7 +37,7 @@ const char *gengetopt_args_info_help[] = {
   "  -h, --help                   Print help and exit",
   "  -V, --version                Print version and exit",
   "      --use-gpu                Use GPU for computation.  (default=off)",
-  "  -d, --maximum-disparity=INT  The maximum disparity between images.\n                                 (default=`65')",
+  "  -d, --maximum-disparity=INT  The maximum disparity between images.\n                                 (default=`64')",
   "  -t, --threshold=INT          The threshold used for cross-checking.\n                                 (default=`8')",
   "  -w, --window-size=INT        The length of zncc window. This parameter\n                                 represents one side of the window used for\n                                 zncc. (Block size is square of the value\n                                 specified here)  (default=`8')",
   "      --nthreads=INT           Number of threads for zncc computation.\n                                 (default=`1')",
@@ -89,7 +89,7 @@ void clear_args (struct gengetopt_args_info *args_info)
 {
   FIX_UNUSED (args_info);
   args_info->use_gpu_flag = 0;
-  args_info->maximum_disparity_arg = 65;
+  args_info->maximum_disparity_arg = 64;
   args_info->maximum_disparity_orig = NULL;
   args_info->threshold_arg = 8;
   args_info->threshold_orig = NULL;
@@ -556,7 +556,7 @@ cmdline_parser_internal (
         
           if (update_arg( (void *)&(args_info->maximum_disparity_arg), 
                &(args_info->maximum_disparity_orig), &(args_info->maximum_disparity_given),
-              &(local_args_info.maximum_disparity_given), optarg, 0, "65", ARG_INT,
+              &(local_args_info.maximum_disparity_given), optarg, 0, "64", ARG_INT,
               check_ambiguity, override, 0, 0,
               "maximum-disparity", 'd',
               additional_error))

@@ -41,7 +41,7 @@ struct gengetopt_args_info
   const char *version_help; /**< @brief Print version and exit help description.  */
   int use_gpu_flag;	/**< @brief Use GPU for computation. (default=off).  */
   const char *use_gpu_help; /**< @brief Use GPU for computation. help description.  */
-  int maximum_disparity_arg;	/**< @brief The maximum disparity between images. (default='65').  */
+  int maximum_disparity_arg;	/**< @brief The maximum disparity between images. (default='64').  */
   char * maximum_disparity_orig;	/**< @brief The maximum disparity between images. original value given at command line.  */
   const char *maximum_disparity_help; /**< @brief The maximum disparity between images. help description.  */
   int threshold_arg;	/**< @brief The threshold used for cross-checking. (default='8').  */

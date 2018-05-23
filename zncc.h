@@ -60,7 +60,14 @@ void	handle_lodepng_error	(int error);
 
 
 /*	OpenCL helpers */
-int		read_png_grey_and_shrink_gpu (cl_device_id *devices, cl_context context, const char * const filepath, BYTE * * image, SIZE *size, const int reserve_size, const int shrink_factor);
+int read_png_grey_and_shrink_gpu( cl_device_id device,
+                  cl_context context,
+                  const char * const filepath1,
+                  const char * const filepath2,
+                  const int maximum_disparity,
+                  const int shrink_factor,
+                  BYTE * * result,
+                  SIZE *size  );
 
 /* Inline helpers */
 inline int point_in_image(point const pt, SIZE const size){

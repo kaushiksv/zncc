@@ -56,9 +56,12 @@ int main(int argc, char *argv[]){
 		context = CL_CHECK_ERR(clCreateContext(NULL, 1, devices, &pfn_notify, NULL, &_err));
 		BYTE *img;
 		SIZE size;
-		read_png_grey_and_shrink_gpu(devices, context, "im0.png", &img, &size, args_info.maximum_disparity_arg, args_info.shrink_by_arg);
+		VARLOG(args_info.maximum_disparity_arg)
+		read_png_grey_and_shrink_gpu(devices[0], context, "im0.png", "im1.png",
+			args_info.maximum_disparity_arg, args_info.shrink_by_arg,
+			&img, &size);
 		lodepng::encode("outputs/gpu_shrinked.png", img, size.cx, size.cy, LCT_GREY, 8U);
-		free(img-args_info.maximum_disparity_arg);
+		free(img - args_info.maximum_disparity_arg);
 		return 0;
 	} else {
 
