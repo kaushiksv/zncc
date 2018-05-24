@@ -20,6 +20,8 @@ namespace cl_objects {
 	cl_program			program;
 	cl_kernel			kernel_sgrey;
 	cl_kernel			kernel_zncc;
+	cl_kernel			kernel_cc;
+	cl_kernel			kernel_ofill;
 	cl_command_queue	queue;
 	cl_event			kernel_completion[5];
 	cl_mem				im0_raw_buffer, im0_small_buffer, im0_sub_buffer;
@@ -60,6 +62,8 @@ void opencl_init(int platform_number, int device_number){
 	queue = CL_CHECK_ERR(clCreateCommandQueue(context, device, 0, &_err));
 	kernel_sgrey = CL_CHECK_ERR(clCreateKernel(program, "shrink_and_grey", &_err));
 	kernel_zncc = CL_CHECK_ERR(clCreateKernel(program, "compute_disparity", &_err));
+	kernel_cc = CL_CHECK_ERR(clCreateKernel(program, "cross_check_inplace", &_err));
+	kernel_ofill = CL_CHECK_ERR(clCreateKernel(program, "occlusion_fill_inplace", &_err));
 }
 
 void opencl_create_buffers(int inpng_buffer_size, int result_buffer_size, BYTE *png1_buffer, BYTE *png2_buffer, BYTE *blank_buffer){
@@ -125,6 +129,7 @@ int exec_project_gpu	(
 	unsigned char 	sf_c = (unsigned char)shrink_factor;
 	size_t global_work_size_sgrey[2] = { size_t(result_h), size_t(result_w) };
 	size_t global_work_size_zncc[3] =  { size_t(result_h), size_t(result_w), maximum_disparity};
+	size_t global_work_size_cc[2] = { size_t(result_h), size_t(result_w) };
 	size_t local_size_zncc[3] = { 1, 1, maximum_disparity};
 	
 	CL_CHECK(clSetKernelArg(kernel_sgrey, 0, sizeof(im0_raw_buffer), &im0_raw_buffer));
@@ -161,13 +166,29 @@ int exec_project_gpu	(
 	CL_CHECK(clSetKernelArg(kernel_zncc, 4, sizeof(result_h), &result_h));
 	CL_CHECK(clSetKernelArg(kernel_zncc, 5, sizeof(window_size), &window_size));
 	CL_CHECK(clSetKernelArg(kernel_zncc, 6, sizeof(maxdisp_offset), &maxdisp_offset));
-	
 	CL_CHECK(clEnqueueNDRangeKernel(queue, kernel_zncc, 3, NULL, global_work_size_zncc, local_size_zncc, 0, NULL, &kernel_completion[2]));
 	CL_CHECK(clWaitForEvents(1, &kernel_completion[2]));
 	CL_CHECK(clReleaseEvent(kernel_completion[2]));
 
+	// Cross Check
+	CL_CHECK(clSetKernelArg(kernel_cc, 0, sizeof(dmap1), &dmap1));
+	CL_CHECK(clSetKernelArg(kernel_cc, 1, sizeof(dmap2), &dmap2));
+	CL_CHECK(clSetKernelArg(kernel_cc, 2, sizeof(threshold), &threshold));
+	CL_CHECK(clEnqueueNDRangeKernel(queue, kernel_cc, 2, NULL, global_work_size_cc, NULL, 0, NULL, &kernel_completion[3]));
+	CL_CHECK(clWaitForEvents(1, &kernel_completion[3]));
+	CL_CHECK(clReleaseEvent(kernel_completion[3]));
 
-	cl_mem copy_from_buf_cl = dmap2;
+	// Occlusion Fill
+	int half_win = (window_size-1)/2;
+	size_t global_work_size_ofill[2] = { size_t(result_h)-2*half_win, size_t(result_w)-2*half_win};
+	CL_CHECK(clSetKernelArg(kernel_ofill, 0, sizeof(dmap1), &dmap1));
+	CL_CHECK(clSetKernelArg(kernel_ofill, 1, sizeof(half_win), &half_win));
+	CL_CHECK(clEnqueueNDRangeKernel(queue, kernel_ofill, 2, NULL, global_work_size_ofill, NULL, 0, NULL, &kernel_completion[4]));
+	CL_CHECK(clWaitForEvents(1, &kernel_completion[4]));
+	CL_CHECK(clReleaseEvent(kernel_completion[4]));
+	
+
+	cl_mem copy_from_buf_cl = dmap1;
 	printf("im0_small_buffer==im0_sub_buffer? %d\n", im0_small_buffer==im0_sub_buffer);
 	puts("Copying result...");
 	size->cy = result_h;
