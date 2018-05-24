@@ -23,9 +23,7 @@ void pfn_notify(const char *errinfo, const void *private_info, size_t cb, void *
 int main(int argc, char *argv[]){
 	using namespace std;
 	struct gengetopt_args_info args_info;
-	cl_platform_id platforms[100];
-	cl_device_id devices[100];
-	cl_uint platforms_n = 0, devices_n = 0;
+	char f[][8]={"im0.png", "im1.png"};
 	
 	// Also fills default values. See cmdline.h or "./zncc --help"
 	cmdline_parser(argc, argv, &args_info);
@@ -48,18 +46,14 @@ int main(int argc, char *argv[]){
 	}
 
 	if(args_info.use_gpu_given){
-		CL_CHECK(clGetPlatformIDs(100, platforms, &platforms_n));
-		if (platforms_n == 0) return 1;
-		CL_CHECK(clGetDeviceIDs(platforms[0], CL_DEVICE_TYPE_GPU, 100, devices, &devices_n));
-		if (devices_n == 0) return 1;
-		cl_context context;
-		context = CL_CHECK_ERR(clCreateContext(NULL, 1, devices, &pfn_notify, NULL, &_err));
-		BYTE *img;
-		SIZE size;
-		VARLOG(args_info.maximum_disparity_arg)
-		read_png_grey_and_shrink_gpu(devices[0], context, "im0.png", "im1.png",
-			args_info.maximum_disparity_arg, args_info.shrink_by_arg,
-			&img, &size);
+		unsigned char *img; SIZE size;
+		exec_project_gpu(	args_info.image_0_given?args_info.image_0_arg:f[0],
+							args_info.image_1_given?args_info.image_1_arg:f[1],
+							args_info.maximum_disparity_arg,
+							args_info.window_size_arg,
+							args_info.threshold_arg,
+							args_info.shrink_by_arg,
+							&img, &size);
 		lodepng::encode("outputs/gpu_shrinked.png", img, size.cx, size.cy, LCT_GREY, 8U);
 		free(img - args_info.maximum_disparity_arg);
 		return 0;
@@ -70,8 +64,8 @@ int main(int argc, char *argv[]){
 					args_info.nthreads_arg,
 					args_info.threshold_arg,
 					args_info.skip_depthmapping_given,
-					args_info.image_0_given?args_info.image_0_arg:NULL,
-					args_info.image_0_given?args_info.image_1_arg:NULL,
+					args_info.image_0_given?args_info.image_0_arg:f[0],
+					args_info.image_1_given?args_info.image_1_arg:f[1],
 					args_info.shrink_by_arg );
 
 	}

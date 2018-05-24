@@ -9,7 +9,7 @@
 
 void				clPrintErrorMacro	(cl_int enumber);
 unsigned char * 	readFile			(const char * const filename);
-
+void 				pfn_notify			(const char *errinfo, const void *private_info, size_t cb, void *user_data);
 
 /* Inline functions */
 
