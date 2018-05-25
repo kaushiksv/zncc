@@ -9,38 +9,21 @@
 #include "zncc.h"
 #include "util.h"
 
-int	read_png_grey_and_shrink(const char * const filepath, BYTE * * image, SIZE *size, const int reserve_size, const int shrink_factor){
-	std::vector<unsigned char> temp;
-	unsigned int temp_w, temp_h, i, j;
-	unsigned error = lodepng::decode(temp, temp_w, temp_h, filepath);
-	if (error){
-		handle_lodepng_error(error); 
-		return -1;
-	}
-	size->cx = temp_w / shrink_factor;
-	size->cy = temp_h / shrink_factor;
-	int allocation_size = size->cx * size->cy + 2*reserve_size;
-	*image = (BYTE *)(malloc(allocation_size));
-	memset(*image, 0, allocation_size);
-	*image = (*image) + reserve_size;
-	for (i = 0; i < temp_h; i+=shrink_factor){
-		for (j = 0; j < temp_w; j+=shrink_factor){
-			(*image)[(i/shrink_factor)*size->cx + (j/shrink_factor)] = BYTE(	0.2126*temp[4 * (i*temp_w + j)    ] + \
-																				0.7152*temp[4 * (i*temp_w + j) + 1] + \
-																				0.0722*temp[4 * (i*temp_w + j) + 2] );
+void shrink_and_grey(const BYTE * i1, const BYTE * i2, BYTE *o1, BYTE *o2, int w, int h, int shrink_factor){
+	int small_w, small_h, i, j, allocation_size;
+	small_w = w / shrink_factor;
+	small_h = h / shrink_factor;
+	for (i = 0; i < small_h; i++){
+		for (j = 0; j < small_w; j++){
+			o1[i*small_w + j] = BYTE(	0.2126*i1[4 * shrink_factor * (i*w + j)    ] + \
+										0.7152*i1[4 * shrink_factor * (i*w + j) + 1] + \
+										0.0722*i1[4 * shrink_factor * (i*w + j) + 2] );
+			o2[i*small_w + j] = BYTE(	0.2126*i2[4 * shrink_factor * (i*w + j)    ] + \
+										0.7152*i2[4 * shrink_factor * (i*w + j) + 1] + \
+										0.0722*i2[4 * shrink_factor * (i*w + j) + 2] );
 		}
 	}
-	return 0;
 }
-
-void handle_lodepng_error(int error){
-	if (error) {
-		char s[128];
-		sprintf_s(s, 128, "%d\n%s", error, lodepng_error_text(error));
-		std::cout<<"Error: "<<s<<std::endl;
-	}
-}
-
 
 void pack_zncc_worker_args(zncc_worker_args * const s, int const x_begin, int const x_end, 
 		int const y_begin, int const y_end,	const BYTE * const image_left,	const BYTE * const image_right,
@@ -84,7 +67,7 @@ int zncc_worker(zncc_worker_args *s){
 	const BYTE *window_left, *window_right;
 	BYTE *disparity_image;
 	int x_begin, x_end, y_begin, y_end;
-	int image_width, image_height, window_size, disparity_width, minimum_disparity, maximum_disparity, disparity_range;
+	int image_width, image_height, window_size, minimum_disparity, maximum_disparity, disparity_range;
 	int x, y, i, j, d, gap;
 	float zncc;
 	float mean_l = 0, std_l = 0, mean_r = 0, std_r = 0, N = 0;
@@ -93,9 +76,8 @@ int zncc_worker(zncc_worker_args *s){
 	
 	unpack_zncc_worker_args(s, x_begin, x_end, y_begin, y_end, &image_left, &image_right, &image_width, &image_height, &window_size, &minimum_disparity, &maximum_disparity, &disparity_image);
 	gap = (window_size - 1) / 2;
-	disparity_width = image_width - 2 * gap;
 	disparity_range = (maximum_disparity-minimum_disparity)	;
-	//printf("mind=%d, maxd%d\n", minimum_disparity, maximum_disparity);
+
 	for (y = y_begin; y < y_end; y++){
 		for (x = x_begin; x < x_end; x++){
 
@@ -103,7 +85,7 @@ int zncc_worker(zncc_worker_args *s){
 			window_left = image_left + (y*image_width + x);
 			window_right = image_right + (y*image_width + x);
 
-			disparity_image[(y - gap)*disparity_width + x - gap] = 0;
+			disparity_image[y*image_width + x] = 0;
 
 			// Find mean and std of left image
 			mean_l = 0; std_l = 0;
@@ -151,7 +133,7 @@ int zncc_worker(zncc_worker_args *s){
 				if (new_zncc > zncc)
 				{
 					zncc = new_zncc;
-					disparity_image[(y - gap)*disparity_width + (x - gap)] = BYTE(255*abs(float(d))/disparity_range);
+					disparity_image[y*image_width + x] = BYTE(255*abs(float(d))/disparity_range);
 				}
 			}
 		}
@@ -160,33 +142,24 @@ int zncc_worker(zncc_worker_args *s){
 }
 
 
-void get_disparity(const BYTE * const image_left, const BYTE * const image_right, SIZE const image_size, int const window_size, BYTE * * disparity_image, SIZE * disparity_size, const int minimum_disparity, const int maximum_disparity, const int n_threads) {
+void get_disparity(const BYTE * const image_left, const BYTE * const image_right, const int image_width, const int image_height, int const window_size, BYTE * disparity_image, const int minimum_disparity, const int maximum_disparity, const int n_threads) {
 	
-	const int &image_width = image_size.cx;
-	const int &image_height = image_size.cy;
 	const int gap = (window_size - 1) / 2;
-	const int disparity_width = image_width - 2 * gap;
-	const int disparity_height = image_height - 2 * gap;
 	int xstart, xend, ystart, yend, t;
 	
-	*disparity_image = new BYTE[disparity_height*disparity_width];
-
 #ifdef _MSC_VER
 	std::thread **threads = (std::thread **)(malloc(n_threads*sizeof(std::thread *)));
 #else
 	pthread_t *threads = new pthread_t[n_threads];
 #endif
 	zncc_worker_args *s = new zncc_worker_args[n_threads];
-	#ifdef LOG_ALGO
-	FILE *f = fopen("displog.txt", "w");
-	#endif
 
 	xstart = ystart = gap;
 	xend = image_width - gap;
 	yend = image_height - gap;
 
 	for (t = 0; t < n_threads; t++){
-		pack_zncc_worker_args(s+t, xstart, xend, ystart+(t*(yend-ystart)/n_threads), ystart+((t+1)*(yend-ystart)/n_threads), image_left, image_right, image_width, image_height, window_size, minimum_disparity, maximum_disparity, *disparity_image);
+		pack_zncc_worker_args(s+t, xstart, xend, ystart+(t*(yend-ystart)/n_threads), ystart+((t+1)*(yend-ystart)/n_threads), image_left, image_right, image_width, image_height, window_size, minimum_disparity, maximum_disparity, disparity_image);
 #ifdef _MSC_VER
 		threads[t] = new std::thread{ zncc_worker, s+t };
 #else
@@ -202,12 +175,6 @@ void get_disparity(const BYTE * const image_left, const BYTE * const image_right
 #endif
 	}
 
-
-#ifdef LOG_ALGO
-	fclose(f);
-#endif
-	disparity_size->cx = disparity_width;
-	disparity_size->cy = disparity_height;
 	delete[] s;
 #ifdef _MSC_VER
 	for (t = 0; t < n_threads; t++){
@@ -218,9 +185,7 @@ void get_disparity(const BYTE * const image_left, const BYTE * const image_right
 
 }
 
-void cross_check_inplace(BYTE * const buf, const BYTE * const buf_cross_check, const SIZE size, int threshold){
-	const int w = size.cx;
-	const int h = size.cy;
+void cross_check_inplace(BYTE * const buf, const BYTE * const buf_cross_check, const int w, const int h, int threshold){
 	int i, j;
 	for (i = 0; i < h; i++){
 		for (j = 0; j < w; j++){
@@ -231,9 +196,7 @@ void cross_check_inplace(BYTE * const buf, const BYTE * const buf_cross_check, c
 }
 
 
-void occlusion_fill_inplace(BYTE * image, const SIZE size, int neighbourhood_size){
-	const int w = size.cx;
-	const int h = size.cy;
+void occlusion_fill_inplace(BYTE * image, const int w, const int h, int neighbourhood_size){
 	int i, j, abort;
 	register int left, right, bottom, top, x, y, r;
 	for (i = 0; i < h; i++)
@@ -269,76 +232,143 @@ void occlusion_fill_inplace(BYTE * image, const SIZE size, int neighbourhood_siz
 }
 
 
-void exec_project(const int maximum_disparity, const int window_size, const int n_threads, const int threshold, const int skip_depthmapping, const char *img0_fp, const char *img1_fp, const int shrink_factor){
-	char d0_filepath[128], d1_filepath[128], cc_filepath[128], of_filepath[128], s[256];
-	const char *ip_filepath0 = "im0.png", *ip_filepath1 = "im1.png";
-	BYTE * image_left, * image_right, * disparity_image_0, * disparity_image_1;
-	SIZE image_size, disparity_size;
-	struct timeval t1, t2;
-    double elapsedTime;
-    int error;
+void exec_project_cpu(	const char *img0_arg,
+						const char *img1_arg,
+						const int maximum_disparity,
+						const int window_size,
+						const int threshold,
+						const int shrink_factor,
+						const int neighbourhood_size,
+						const int n_threads,
+						const int skip_depthmapping ) {
 
-	sprintf_s(d0_filepath, 128, "outputs/d0_%02d_%02d_%02d.png", maximum_disparity, threshold, window_size);
-	sprintf_s(d1_filepath, 128, "outputs/d1_%02d_%02d_%02d.png", maximum_disparity, threshold, window_size);
-	sprintf_s(cc_filepath, 128, "outputs/cc_%02d_%02d_%02d.png", maximum_disparity, threshold, window_size);
-	sprintf_s(of_filepath, 128, "outputs/of_%02d_%02d_%02d.png", maximum_disparity, threshold, window_size);
+	std::vector<BYTE>	im0, im1;
+	const char 			*im0_filepath = "im0.png";
+	const char 			*im1_filepath = "im1.png";
+    unsigned int 		im0_h = 0;
+    unsigned int 		im0_w = 0;
+    unsigned int 		im1_h = 0;
+    unsigned int 		im1_w = 0;
+	BYTE *				image_left;
+	BYTE *				image_right;
+	BYTE *				disparity_image_0;
+	BYTE *				disparity_image_1;
+    int 				error;
+    int 				small_w;
+    int 				small_h;
+    int 				allocation_size;
+	struct timeval 		t[10];
+    double 				elapsedTimes[5];
+	char 				d0_filepath[128];
+	char 				d1_filepath[128];
+	char 				cc_filepath[128];
+	char 				of_filepath[128];
+	char 				s[256];
+
+	memset(t, 0, sizeof(t));
+
+	/* Intermediate images' pathnames */
+	sprintf_s(d0_filepath, 128, "outputs/MD%02d_T%02d_W%02d_d0.png", maximum_disparity, threshold, window_size);
+	sprintf_s(d1_filepath, 128, "outputs/MD%02d_T%02d_W%02d_d1.png", maximum_disparity, threshold, window_size);
+	sprintf_s(cc_filepath, 128, "outputs/MD%02d_T%02d_W%02d_cc.png", maximum_disparity, threshold, window_size);
+	sprintf_s(of_filepath, 128, "outputs/MD%02d_T%02d_W%02d_of.png", maximum_disparity, threshold, window_size);
 
 	
 	if (skip_depthmapping) {
-		// If file not specified, default to previously made prelim dmaps.
-		ip_filepath0 = d0_filepath;
-		ip_filepath1 = d1_filepath;
+		im0_filepath = d0_filepath; // Default to previously made prelim dmaps.
+		im1_filepath = d1_filepath;
 	} 
 
-	// If filepaths(s) specified, override any previous setting.
-	ip_filepath0 = img0_fp?img0_fp:ip_filepath0;
-	ip_filepath1 = img1_fp?img1_fp:ip_filepath1;
-    
-    gettimeofday(&t1, NULL); // <-- Starting time
-	if (read_png_grey_and_shrink(ip_filepath0, &image_left, &image_size, maximum_disparity, shrink_factor) || read_png_grey_and_shrink(ip_filepath1, &image_right, &image_size, maximum_disparity, shrink_factor)) {
-		std::cout << "Unable to read at least 1 input image: " << ip_filepath0 << ", "<< ip_filepath1 << std::endl;
+	/*		Read Input PNG Images 		*/
+	status_update("Reading png files...\n");
+	im0_filepath = img0_arg?img0_arg:im0_filepath;
+	im1_filepath = img1_arg?img1_arg:im1_filepath;
+    if ((error=lodepng::decode(im0, im0_w, im0_h, im0_filepath)) || (error=lodepng::decode(im1, im1_w, im1_h, im1_filepath))){
+		std::cout << "Unable to read at least 1 input image: " << im0_filepath << ", "<< im1_filepath << std::endl;
+		handle_lodepng_error(error);
+		return;
+	}
+	if(im0_w!=im1_w || im0_h!=im1_h){
+		printf("Image sizes mismatch.\n");
 		return;
 	}
 
+	/*		Allocate memory for small images (including small leading/trailing reserves of size maxdisp each) */
+	small_w = im0_w/shrink_factor;
+	small_h = im0_h/shrink_factor;
+	allocation_size = small_w * small_h + 2*maximum_disparity;
+	image_left = ((BYTE *)(calloc(allocation_size))) + maximum_disparity;
+	image_right = ((BYTE *)(calloc(allocation_size))) + maximum_disparity;
+	if(!image_left || !image_right){
+		printf("Memory allocation failed. Aborting....");
+		abort();
+	}
+
+    /*		Shrink and get greyscale of both images 	*/
+    gettimeofday(&t[0], NULL);
+	shrink_and_grey(&im0[0], &im1[0], image_left, image_right, im0_w, im0_h, shrink_factor);
+	gettimeofday(&t[1], NULL);
+
 	if(skip_depthmapping)
-	{
+	{						//
+		// If skip_depthmapping==TRUE, then small images are actually dmaps.
 		disparity_image_0 = image_left;
 		disparity_image_1 = image_right;
-		disparity_size = image_size;
+		
+		/////////////////////////////////////////////////////////////////////////////////////////
+		///// 			skip_depthmapping FEATURE IS NOT SUPPORTED NOW.
+		/////
+		/////  Since `shrink_and_grey` function doesn't (R+G+B)/3, but uses specific weights, it causes
+		/////  depthmaps loaded from .png to be slightly altered before the cross-checking and occlusion
+		/////  fill. It can be fixed, but ignored for now.
+		/////////////////////////////////////////////////////////////////////////////////////////
 	} 
 	else
 	{
-		std::cout<< "Depthmapping image 0..." << std::endl;
-		get_disparity(image_left, image_right, image_size, window_size, &disparity_image_0, &disparity_size, 0, maximum_disparity, n_threads);
-		error = lodepng::encode(d0_filepath, disparity_image_0, disparity_size.cx, disparity_size.cy, LCT_GREY, 8U);
+		// Multithreaded ZNCC based depth mapping (left on right, and right on left)
+		disparity_image_0 = (BYTE *)calloc(small_w * small_h);
+		status_update("Computing depthmap 1 of 2...\n");
+		gettimeofday(&t[2], NULL);
+		get_disparity(image_left, image_right, small_w, small_h, window_size, disparity_image_0, 0, maximum_disparity, n_threads);
+		gettimeofday(&t[3], NULL);
+		error = lodepng::encode(d0_filepath, disparity_image_0, small_w, small_h, LCT_GREY, 8U);
 		handle_lodepng_error(error);
 
-		std::cout<< "Depthmapping image 1..." << std::endl;
-		get_disparity(image_right, image_left, image_size, window_size, &disparity_image_1, &disparity_size, -maximum_disparity, 0, n_threads);
-		error = lodepng::encode(d1_filepath, disparity_image_1, disparity_size.cx, disparity_size.cy, LCT_GREY, 8U);
+		disparity_image_1 = (BYTE *)calloc(small_w * small_h);
+		status_update("Computing depthmap 2 of 2...\n");
+		gettimeofday(&t[4], NULL);
+		get_disparity(image_right, image_left, small_w, small_h, window_size, disparity_image_1, -maximum_disparity, 0, n_threads);
+		gettimeofday(&t[5], NULL);
+		error = lodepng::encode(d1_filepath, disparity_image_1, small_w, small_h, LCT_GREY, 8U);
 		handle_lodepng_error(error);
 	}
 
-	std::cout << "Cross checking..." << std::endl;
-	cross_check_inplace(disparity_image_0, disparity_image_1, disparity_size, threshold);
-	error = lodepng::encode(cc_filepath, disparity_image_0, disparity_size.cx, disparity_size.cy, LCT_GREY, 8U);
+	status_update("Cross checking...\n");
+	gettimeofday(&t[6], NULL);
+	cross_check_inplace(disparity_image_0, disparity_image_1, small_w, small_h, threshold);
+	gettimeofday(&t[7], NULL);
+	error = lodepng::encode(cc_filepath, disparity_image_0, small_w, small_h,  LCT_GREY, 8U);
 	handle_lodepng_error(error);
 
-	std::cout << "Occlusion fill..." << std::endl;
-	occlusion_fill_inplace(disparity_image_0, disparity_size, 5);
-	error = lodepng::encode(of_filepath, disparity_image_0, disparity_size.cx, disparity_size.cy, LCT_GREY, 8U);
+	status_update("Occlusion fill...\n");
+	gettimeofday(&t[8], NULL);
+	occlusion_fill_inplace(disparity_image_0, small_w, small_h, neighbourhood_size);
+	gettimeofday(&t[9], NULL);
+	error = lodepng::encode(of_filepath, disparity_image_0, small_w, small_h, LCT_GREY, 8U);
 	handle_lodepng_error(error);
 
-	gettimeofday(&t2, NULL);
-	elapsedTime = (t2.tv_sec - t1.tv_sec) * 1000.0;
-    elapsedTime += (t2.tv_usec - t1.tv_usec) / 1000.0;
+	calc_elapsed_times(t, elapsedTimes, 10);
 
-	std::cout << "Done" << std::endl;
+	status_update("Done\n");
 
-	sprintf_s(s, sizeof(s), "echo \"maxdisp=%02d; thres=%02d; winsize=%02d; nthreads=%02d; t_exec=%f\n\" >> outputs/log.txt", maximum_disparity, threshold, window_size, n_threads, elapsedTime);
+	sprintf_s(s, sizeof(s), "echo \"$(date) :: maxdisp = %02d;  thres = %02d;  winsize = %02d;  nhood = %02d, nthreads = %02d;  t_sg = %0.4lf ms;  t_d0 = %0.4lf ms;  t_d1 = %0.4lf ms;  t_cc = %0.4lf ms;  t_of = %0.4lf ms\n\"",
+				maximum_disparity, threshold, window_size, neighbourhood_size, n_threads, elapsedTimes[0], elapsedTimes[1], elapsedTimes[2], elapsedTimes[3], elapsedTimes[4]);
+	system(s);
+	sprintf_s(s + strlen(s), sizeof(s), " >> \"%s\"", LOGFILE);
 	system(s);
 
-	system("chmod ugo+rx outputs/*.png"); // To make accessible through web
+	// For web-access on server. 
+	// system("chmod ugo+rx outputs/*.png");
 
 	if(!skip_depthmapping){
 		free(disparity_image_0);

@@ -47,14 +47,25 @@ struct gengetopt_args_info
   int threshold_arg;	/**< @brief The threshold used for cross-checking. (default='8').  */
   char * threshold_orig;	/**< @brief The threshold used for cross-checking. original value given at command line.  */
   const char *threshold_help; /**< @brief The threshold used for cross-checking. help description.  */
-  int window_size_arg;	/**< @brief The length of zncc window. This parameter represents one side of the window used for zncc. (Block size is square of the value specified here) (default='8').  */
-  char * window_size_orig;	/**< @brief The length of zncc window. This parameter represents one side of the window used for zncc. (Block size is square of the value specified here) original value given at command line.  */
-  const char *window_size_help; /**< @brief The length of zncc window. This parameter represents one side of the window used for zncc. (Block size is square of the value specified here) help description.  */
-  int nthreads_arg;	/**< @brief Number of threads for zncc computation. (default='1').  */
-  char * nthreads_orig;	/**< @brief Number of threads for zncc computation. original value given at command line.  */
-  const char *nthreads_help; /**< @brief Number of threads for zncc computation. help description.  */
-  int skip_depthmapping_flag;	/**< @brief Skip computation of disparity images. Skip computation of disparity images. This option will use supplied images, and if none is supplied, looks for previously output files at ./output/ directory. Missing files will cause the program to terminate. (default=off).  */
-  const char *skip_depthmapping_help; /**< @brief Skip computation of disparity images. Skip computation of disparity images. This option will use supplied images, and if none is supplied, looks for previously output files at ./output/ directory. Missing files will cause the program to terminate. help description.  */
+  int window_size_arg;	/**< @brief Side of the window used for zncc. Must be odd. (Ex: 11, window has 121 elements) (default='9').  */
+  char * window_size_orig;	/**< @brief Side of the window used for zncc. Must be odd. (Ex: 11, window has 121 elements) original value given at command line.  */
+  const char *window_size_help; /**< @brief Side of the window used for zncc. Must be odd. (Ex: 11, window has 121 elements) help description.  */
+  int neighbourhood_size_arg;	/**< @brief The neighbourhood size for occlusion filling. (default='8').  */
+  char * neighbourhood_size_orig;	/**< @brief The neighbourhood size for occlusion filling. original value given at command line.  */
+  const char *neighbourhood_size_help; /**< @brief The neighbourhood size for occlusion filling. help description.  */
+  int show_status_flag;	/**< @brief Print status-update messages that describe the ongoing activity. (default=off).  */
+  const char *show_status_help; /**< @brief Print status-update messages that describe the ongoing activity. help description.  */
+  int platform_number_arg;	/**< @brief The platform number (different from platform ID) varies from 0..N_PLATFORMS-1. Use a tool like clinfo to customize this. (default='0').  */
+  char * platform_number_orig;	/**< @brief The platform number (different from platform ID) varies from 0..N_PLATFORMS-1. Use a tool like clinfo to customize this. original value given at command line.  */
+  const char *platform_number_help; /**< @brief The platform number (different from platform ID) varies from 0..N_PLATFORMS-1. Use a tool like clinfo to customize this. help description.  */
+  int device_number_arg;	/**< @brief The device number (different from device ID) varies from 0..N_DEVICES-1. Use a tool like clinfo to customize this. (default='0').  */
+  char * device_number_orig;	/**< @brief The device number (different from device ID) varies from 0..N_DEVICES-1. Use a tool like clinfo to customize this. original value given at command line.  */
+  const char *device_number_help; /**< @brief The device number (different from device ID) varies from 0..N_DEVICES-1. Use a tool like clinfo to customize this. help description.  */
+  int nthreads_arg;	/**< @brief Number of threads for zncc computation. Has no effect when using GPU. (default='1').  */
+  char * nthreads_orig;	/**< @brief Number of threads for zncc computation. Has no effect when using GPU. original value given at command line.  */
+  const char *nthreads_help; /**< @brief Number of threads for zncc computation. Has no effect when using GPU. help description.  */
+  int skip_depthmapping_flag;	/**< @brief OBSELETE. Previously, this flag had been used to skip computation of preliminary depthmaps, and reuse previously output images. Has no effect when using GPU. This option will use images specified by --image-0 and --image-1 options. if ommitted, it looks for previously output files at ./outputs/ directory, and use them to perform just cross-checking and occlusion-filling. Missing files would cause the program to terminate. `d0_filepath` and `d1_filepath` in zncc.cpp define the default files that will be looked for. (default=off).  */
+  const char *skip_depthmapping_help; /**< @brief OBSELETE. Previously, this flag had been used to skip computation of preliminary depthmaps, and reuse previously output images. Has no effect when using GPU. This option will use images specified by --image-0 and --image-1 options. if ommitted, it looks for previously output files at ./outputs/ directory, and use them to perform just cross-checking and occlusion-filling. Missing files would cause the program to terminate. `d0_filepath` and `d1_filepath` in zncc.cpp define the default files that will be looked for. help description.  */
   char * image_0_arg;	/**< @brief Image 0 filepath.  */
   char * image_0_orig;	/**< @brief Image 0 filepath original value given at command line.  */
   const char *image_0_help; /**< @brief Image 0 filepath help description.  */
@@ -71,6 +82,10 @@ struct gengetopt_args_info
   unsigned int maximum_disparity_given ;	/**< @brief Whether maximum-disparity was given.  */
   unsigned int threshold_given ;	/**< @brief Whether threshold was given.  */
   unsigned int window_size_given ;	/**< @brief Whether window-size was given.  */
+  unsigned int neighbourhood_size_given ;	/**< @brief Whether neighbourhood-size was given.  */
+  unsigned int show_status_given ;	/**< @brief Whether show-status was given.  */
+  unsigned int platform_number_given ;	/**< @brief Whether platform-number was given.  */
+  unsigned int device_number_given ;	/**< @brief Whether device-number was given.  */
   unsigned int nthreads_given ;	/**< @brief Whether nthreads was given.  */
   unsigned int skip_depthmapping_given ;	/**< @brief Whether skip-depthmapping was given.  */
   unsigned int image_0_given ;	/**< @brief Whether image-0 was given.  */

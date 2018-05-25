@@ -8,13 +8,33 @@
 #ifndef ZNCC_H
 #define ZNCC_H
 
+
+#define TRUE	1
+#define FALSE	0
+
+#define LOGFILE			  "performance_log.txt"
+
+/* Maximum-disparity, Window size, and Threshold configurable by command line arguments */
+#define CPU_MAX_MAX_DISP  230
+#define CPU_MAX_WIN_SIZE  100
+#define GPU_MAX_MAX_DISP  64
+#define GPU_MAX_WIN_SIZE  50
+#define MAX_THRESHOLD     50
+
+#define sprintf_s snprintf
+
+/*
+  The following macros CL_CHECK and CL_CHECK_ERR were originally written by Clifford Wolf
+  and available at URL: http://svn.clifford.at/tools/trunk/examples/cldemo.c
+    (in public domain)
+*/
 #define CL_CHECK(_expr)                                                         \
    do {                                                                         \
      cl_int _err = _expr;                                                       \
      if (_err == CL_SUCCESS)                                                    \
        break;                                                                   \
      fprintf(stderr, "CL_CHECK; OpenCL Error: '%s' returned %d!\n", #_expr, (int)_err);   \
-     clPrintErrorMacro(_err); \
+     cl_decode_error(_err); \
      abort();                                                                   \
    } while (0)
 
@@ -24,18 +44,14 @@
      typeof(_expr) _ret = _expr;                                                \
      if (_err != CL_SUCCESS) {                                                  \
        fprintf(stderr, "CL_CHECK_ERR; OpenCL Error: '%s' returned %d!\n", #_expr, (int)_err); \
-       clPrintErrorMacro(_err); \
+       cl_decode_error(_err); \
        abort();                                                                 \
      }                                                                          \
      _ret;                                                                      \
    })
 
-#define sprintf_s snprintf
-
 typedef unsigned char BYTE;
-typedef struct SIZE{long cx; long cy;} *PSIZE;
 
-struct point { int x; int y; };
 struct zncc_worker_args {
 	int x_begin, x_end, y_begin, y_end;
 	const BYTE *image_left, *image_right;
@@ -48,25 +64,61 @@ struct zncc_worker_args {
 };
 
 /*	Image manipulation functions		*/
-void	get_disparity			(const BYTE * const image_left, const BYTE * const image_right, SIZE const image_size, int const window_size, BYTE *disparity_image, SIZE *disparity_size, const int minimum_disparity, const int maximum_disparity, const int n_threads = 3);
-void	cross_check_inplace		(BYTE * const buf, const BYTE * const buf_cross_check, const SIZE size, int threshold);
-//void	post_process_inplace	(BYTE * const buf, const BYTE * const buf_cross_check, const SIZE disparity_size, int threshold = 8);
-void	occlusion_fill_inplace	(BYTE * buf, const SIZE size, int neighbourhood_size);
-void	exec_project			(const int maximum_disparity = 65, const int window_size = 9, const int n_threads = 3, const int threshold = 8, const int reuse_depthmap_output_files = 0, const char *img0_fp = NULL, const char *img1_fp = NULL, const int shrink_factor = 4);
+int		shrink_and_grey			(	const BYTE * i1,
+									const BYTE * i2,
+									BYTE **o1,
+									BYTE **o2,
+									int w,
+									int h,
+									int shrink_factor,
+									int reserve_size
+								);
 
-/*	I/O functions						*/
-int		read_png_grey_and_shrink (const char * const filename, BYTE * * image, SIZE * size, int reserve_size = 0 );
-void	handle_lodepng_error	(int error);
+void	get_disparity			(	const BYTE * const image_left,
+									const BYTE * const image_right,
+									const int image_width,
+									const int image_height,
+									const int window_size,
+									BYTE *disparity_image,
+									const int minimum_disparity,
+									const int maximum_disparity,
+									const int n_threads = 3
+								);
 
 
-/*	OpenCL helpers */
-int   exec_project_gpu  (const char *img0_fp = NULL, const char *img1_fp = NULL, const int maximum_disparity = 64, const int window_size = 9, const int threshold = 8, const int shrink_factor = 4, BYTE ** result = NULL, SIZE *size = NULL);
+void	cross_check_inplace		(	BYTE * const buf,
+									const BYTE * const buf_cross_check,
+									const int w,
+									const int h,
+									int threshold
+								);
 
-/* Inline helpers */
-inline int point_in_image(point const pt, SIZE const size){
-	return (pt.x >= 0 && pt.x < size.cx && pt.y >= 0 && pt.y < size.cy);
-}
+void	occlusion_fill_inplace	(	BYTE * buf,
+									const int w,
+									const int h,
+									int neighbourhood_size
+								);
 
-inline point operator +(point const &a, point const &b){ return point{ a.x + b.x, a.y + b.y }; }
+void	exec_project_cpu		(	const char *img0_arg,
+									const char *img1_arg,
+									const int maximum_disparity = 64,
+									const int window_size = 9,
+									const int threshold = 8,
+									const int shrink_factor = 4,
+									const int neighbourhood_size = 8,
+									const int n_threads = 3,
+									const int skip_depthmapping = 0
+								);
+
+void   exec_project_gpu 		(	const char * const img0_arg,
+									const char * const img1_arg,
+									const int maximum_disparity = 64,
+									const int window_size = 9,
+									const int threshold = 8,
+									const int shrink_factor = 4,
+									const int neighbourhood_size = 8,
+									const int platform_number = 0,
+									const int device_number = 0
+								);
 
 #endif

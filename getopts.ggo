@@ -10,9 +10,13 @@ versiontext "Multithreaded implementation"
 option "use-gpu" - "Use GPU for computation." flag off
 option "maximum-disparity" d "The maximum disparity between images." int default="64" optional
 option "threshold" t "The threshold used for cross-checking." int default="8" optional
-option "window-size" w "The length of zncc window. This parameter represents one side of the window used for zncc. (Block size is square of the value specified here)" int default="8" optional
-option "nthreads" - "Number of threads for zncc computation." int default="1" optional
-option "skip-depthmapping" s "Skip computation of disparity images. Skip computation of disparity images. This option will use supplied images, and if none is supplied, looks for previously output files at ./output/ directory. Missing files will cause the program to terminate." flag off
+option "window-size" w "Side of the window used for zncc. Must be odd. (Ex: 11, window has 121 elements)" int default="9" optional
+option "neighbourhood-size" n "The neighbourhood size for occlusion filling." int default="8" optional
+option "show-status" - "Print status-update messages that describe the ongoing activity." flag off
+option "platform-number" - "The platform number (different from platform ID) varies from 0..N_PLATFORMS-1. Use a tool like clinfo to customize this." int default="0" optional
+option "device-number" - "The device number (different from device ID) varies from 0..N_DEVICES-1. Use a tool like clinfo to customize this." int default="0" optional
+option "nthreads" - "Number of threads for zncc computation. Has no effect when using GPU." int default="1" optional
+option "skip-depthmapping" s "OBSELETE. Previously, this flag had been used to skip computation of preliminary depthmaps, and reuse previously output images. Has no effect when using GPU. This option will use images specified by --image-0 and --image-1 options. if ommitted, it looks for previously output files at ./outputs/ directory, and use them to perform just cross-checking and occlusion-filling. Missing files would cause the program to terminate. `d0_filepath` and `d1_filepath` in zncc.cpp define the default files that will be looked for." flag off
 option "image-0" - "Image 0 filepath" string optional
 option "image-1" - "Image 1 filepath" string optional
 option "shrink-by" - "Shrink factor to downscale image. Typically set to 1 when skipping depthmapping step." int default="4" optional

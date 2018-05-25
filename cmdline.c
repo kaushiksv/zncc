@@ -34,17 +34,21 @@ const char *gengetopt_args_info_versiontext = "Multithreaded implementation";
 const char *gengetopt_args_info_description = "Simple ZNCC depthmap implementation. Looks for im0.png and im1.png in working\ndirectory. Outputs to outputs/ relative to working directory. See zncc.cpp for\ndetails.";
 
 const char *gengetopt_args_info_help[] = {
-  "  -h, --help                   Print help and exit",
-  "  -V, --version                Print version and exit",
-  "      --use-gpu                Use GPU for computation.  (default=off)",
-  "  -d, --maximum-disparity=INT  The maximum disparity between images.\n                                 (default=`64')",
-  "  -t, --threshold=INT          The threshold used for cross-checking.\n                                 (default=`8')",
-  "  -w, --window-size=INT        The length of zncc window. This parameter\n                                 represents one side of the window used for\n                                 zncc. (Block size is square of the value\n                                 specified here)  (default=`8')",
-  "      --nthreads=INT           Number of threads for zncc computation.\n                                 (default=`1')",
-  "  -s, --skip-depthmapping      Skip computation of disparity images. Skip\n                                 computation of disparity images. This option\n                                 will use supplied images, and if none is\n                                 supplied, looks for previously output files at\n                                 ./output/ directory. Missing files will cause\n                                 the program to terminate.  (default=off)",
-  "      --image-0=STRING         Image 0 filepath",
-  "      --image-1=STRING         Image 1 filepath",
-  "      --shrink-by=INT          Shrink factor to downscale image. Typically set\n                                 to 1 when skipping depthmapping step.\n                                 (default=`4')",
+  "  -h, --help                    Print help and exit",
+  "  -V, --version                 Print version and exit",
+  "      --use-gpu                 Use GPU for computation.  (default=off)",
+  "  -d, --maximum-disparity=INT   The maximum disparity between images.\n                                  (default=`64')",
+  "  -t, --threshold=INT           The threshold used for cross-checking.\n                                  (default=`8')",
+  "  -w, --window-size=INT         Side of the window used for zncc. Must be odd.\n                                  (Ex: 11, window has 121 elements)\n                                  (default=`9')",
+  "  -n, --neighbourhood-size=INT  The neighbourhood size for occlusion filling.\n                                  (default=`8')",
+  "      --show-status             Print status-update messages that describe the\n                                  ongoing activity.  (default=off)",
+  "      --platform-number=INT     The platform number (different from platform\n                                  ID) varies from 0..N_PLATFORMS-1. Use a tool\n                                  like clinfo to customize this.  (default=`0')",
+  "      --device-number=INT       The device number (different from device ID)\n                                  varies from 0..N_DEVICES-1. Use a tool like\n                                  clinfo to customize this.  (default=`0')",
+  "      --nthreads=INT            Number of threads for zncc computation. Has no\n                                  effect when using GPU.  (default=`1')",
+  "  -s, --skip-depthmapping       OBSELETE. Previously, this flag had been used\n                                  to skip computation of preliminary depthmaps,\n                                  and reuse previously output images. Has no\n                                  effect when using GPU. This option will use\n                                  images specified by --image-0 and --image-1\n                                  options. if ommitted, it looks for previously\n                                  output files at ./outputs/ directory, and use\n                                  them to perform just cross-checking and\n                                  occlusion-filling. Missing files would cause\n                                  the program to terminate. `d0_filepath` and\n                                  `d1_filepath` in zncc.cpp define the default\n                                  files that will be looked for.  (default=off)",
+  "      --image-0=STRING          Image 0 filepath",
+  "      --image-1=STRING          Image 1 filepath",
+  "      --shrink-by=INT           Shrink factor to downscale image. Typically set\n                                  to 1 when skipping depthmapping step.\n                                  (default=`4')",
   "\nAuthor: Kaushik Sundarajayaraman Venkat\nE-mail: speak2kaushik@gmail.com, kaushik.sv@student.oulu.fi\n",
     0
 };
@@ -77,6 +81,10 @@ void clear_given (struct gengetopt_args_info *args_info)
   args_info->maximum_disparity_given = 0 ;
   args_info->threshold_given = 0 ;
   args_info->window_size_given = 0 ;
+  args_info->neighbourhood_size_given = 0 ;
+  args_info->show_status_given = 0 ;
+  args_info->platform_number_given = 0 ;
+  args_info->device_number_given = 0 ;
   args_info->nthreads_given = 0 ;
   args_info->skip_depthmapping_given = 0 ;
   args_info->image_0_given = 0 ;
@@ -93,8 +101,15 @@ void clear_args (struct gengetopt_args_info *args_info)
   args_info->maximum_disparity_orig = NULL;
   args_info->threshold_arg = 8;
   args_info->threshold_orig = NULL;
-  args_info->window_size_arg = 8;
+  args_info->window_size_arg = 9;
   args_info->window_size_orig = NULL;
+  args_info->neighbourhood_size_arg = 8;
+  args_info->neighbourhood_size_orig = NULL;
+  args_info->show_status_flag = 0;
+  args_info->platform_number_arg = 0;
+  args_info->platform_number_orig = NULL;
+  args_info->device_number_arg = 0;
+  args_info->device_number_orig = NULL;
   args_info->nthreads_arg = 1;
   args_info->nthreads_orig = NULL;
   args_info->skip_depthmapping_flag = 0;
@@ -118,11 +133,15 @@ void init_args_info(struct gengetopt_args_info *args_info)
   args_info->maximum_disparity_help = gengetopt_args_info_help[3] ;
   args_info->threshold_help = gengetopt_args_info_help[4] ;
   args_info->window_size_help = gengetopt_args_info_help[5] ;
-  args_info->nthreads_help = gengetopt_args_info_help[6] ;
-  args_info->skip_depthmapping_help = gengetopt_args_info_help[7] ;
-  args_info->image_0_help = gengetopt_args_info_help[8] ;
-  args_info->image_1_help = gengetopt_args_info_help[9] ;
-  args_info->shrink_by_help = gengetopt_args_info_help[10] ;
+  args_info->neighbourhood_size_help = gengetopt_args_info_help[6] ;
+  args_info->show_status_help = gengetopt_args_info_help[7] ;
+  args_info->platform_number_help = gengetopt_args_info_help[8] ;
+  args_info->device_number_help = gengetopt_args_info_help[9] ;
+  args_info->nthreads_help = gengetopt_args_info_help[10] ;
+  args_info->skip_depthmapping_help = gengetopt_args_info_help[11] ;
+  args_info->image_0_help = gengetopt_args_info_help[12] ;
+  args_info->image_1_help = gengetopt_args_info_help[13] ;
+  args_info->shrink_by_help = gengetopt_args_info_help[14] ;
   
 }
 
@@ -209,6 +228,9 @@ cmdline_parser_release (struct gengetopt_args_info *args_info)
   free_string_field (&(args_info->maximum_disparity_orig));
   free_string_field (&(args_info->threshold_orig));
   free_string_field (&(args_info->window_size_orig));
+  free_string_field (&(args_info->neighbourhood_size_orig));
+  free_string_field (&(args_info->platform_number_orig));
+  free_string_field (&(args_info->device_number_orig));
   free_string_field (&(args_info->nthreads_orig));
   free_string_field (&(args_info->image_0_arg));
   free_string_field (&(args_info->image_0_orig));
@@ -257,6 +279,14 @@ cmdline_parser_dump(FILE *outfile, struct gengetopt_args_info *args_info)
     write_into_file(outfile, "threshold", args_info->threshold_orig, 0);
   if (args_info->window_size_given)
     write_into_file(outfile, "window-size", args_info->window_size_orig, 0);
+  if (args_info->neighbourhood_size_given)
+    write_into_file(outfile, "neighbourhood-size", args_info->neighbourhood_size_orig, 0);
+  if (args_info->show_status_given)
+    write_into_file(outfile, "show-status", 0, 0 );
+  if (args_info->platform_number_given)
+    write_into_file(outfile, "platform-number", args_info->platform_number_orig, 0);
+  if (args_info->device_number_given)
+    write_into_file(outfile, "device-number", args_info->device_number_orig, 0);
   if (args_info->nthreads_given)
     write_into_file(outfile, "nthreads", args_info->nthreads_orig, 0);
   if (args_info->skip_depthmapping_given)
@@ -527,6 +557,10 @@ cmdline_parser_internal (
         { "maximum-disparity",	1, NULL, 'd' },
         { "threshold",	1, NULL, 't' },
         { "window-size",	1, NULL, 'w' },
+        { "neighbourhood-size",	1, NULL, 'n' },
+        { "show-status",	0, NULL, 0 },
+        { "platform-number",	1, NULL, 0 },
+        { "device-number",	1, NULL, 0 },
         { "nthreads",	1, NULL, 0 },
         { "skip-depthmapping",	0, NULL, 's' },
         { "image-0",	1, NULL, 0 },
@@ -535,7 +569,7 @@ cmdline_parser_internal (
         { 0,  0, 0, 0 }
       };
 
-      c = getopt_long (argc, argv, "hVd:t:w:s", long_options, &option_index);
+      c = getopt_long (argc, argv, "hVd:t:w:n:s", long_options, &option_index);
 
       if (c == -1) break;	/* Exit from `while (1)' loop.  */
 
@@ -575,19 +609,31 @@ cmdline_parser_internal (
             goto failure;
         
           break;
-        case 'w':	/* The length of zncc window. This parameter represents one side of the window used for zncc. (Block size is square of the value specified here).  */
+        case 'w':	/* Side of the window used for zncc. Must be odd. (Ex: 11, window has 121 elements).  */
         
         
           if (update_arg( (void *)&(args_info->window_size_arg), 
                &(args_info->window_size_orig), &(args_info->window_size_given),
-              &(local_args_info.window_size_given), optarg, 0, "8", ARG_INT,
+              &(local_args_info.window_size_given), optarg, 0, "9", ARG_INT,
               check_ambiguity, override, 0, 0,
               "window-size", 'w',
               additional_error))
             goto failure;
         
           break;
-        case 's':	/* Skip computation of disparity images. Skip computation of disparity images. This option will use supplied images, and if none is supplied, looks for previously output files at ./output/ directory. Missing files will cause the program to terminate..  */
+        case 'n':	/* The neighbourhood size for occlusion filling..  */
+        
+        
+          if (update_arg( (void *)&(args_info->neighbourhood_size_arg), 
+               &(args_info->neighbourhood_size_orig), &(args_info->neighbourhood_size_given),
+              &(local_args_info.neighbourhood_size_given), optarg, 0, "8", ARG_INT,
+              check_ambiguity, override, 0, 0,
+              "neighbourhood-size", 'n',
+              additional_error))
+            goto failure;
+        
+          break;
+        case 's':	/* OBSELETE. Previously, this flag had been used to skip computation of preliminary depthmaps, and reuse previously output images. Has no effect when using GPU. This option will use images specified by --image-0 and --image-1 options. if ommitted, it looks for previously output files at ./outputs/ directory, and use them to perform just cross-checking and occlusion-filling. Missing files would cause the program to terminate. `d0_filepath` and `d1_filepath` in zncc.cpp define the default files that will be looked for..  */
         
         
           if (update_arg((void *)&(args_info->skip_depthmapping_flag), 0, &(args_info->skip_depthmapping_given),
@@ -611,7 +657,47 @@ cmdline_parser_internal (
               goto failure;
           
           }
-          /* Number of threads for zncc computation..  */
+          /* Print status-update messages that describe the ongoing activity..  */
+          else if (strcmp (long_options[option_index].name, "show-status") == 0)
+          {
+          
+          
+            if (update_arg((void *)&(args_info->show_status_flag), 0, &(args_info->show_status_given),
+                &(local_args_info.show_status_given), optarg, 0, 0, ARG_FLAG,
+                check_ambiguity, override, 1, 0, "show-status", '-',
+                additional_error))
+              goto failure;
+          
+          }
+          /* The platform number (different from platform ID) varies from 0..N_PLATFORMS-1. Use a tool like clinfo to customize this..  */
+          else if (strcmp (long_options[option_index].name, "platform-number") == 0)
+          {
+          
+          
+            if (update_arg( (void *)&(args_info->platform_number_arg), 
+                 &(args_info->platform_number_orig), &(args_info->platform_number_given),
+                &(local_args_info.platform_number_given), optarg, 0, "0", ARG_INT,
+                check_ambiguity, override, 0, 0,
+                "platform-number", '-',
+                additional_error))
+              goto failure;
+          
+          }
+          /* The device number (different from device ID) varies from 0..N_DEVICES-1. Use a tool like clinfo to customize this..  */
+          else if (strcmp (long_options[option_index].name, "device-number") == 0)
+          {
+          
+          
+            if (update_arg( (void *)&(args_info->device_number_arg), 
+                 &(args_info->device_number_orig), &(args_info->device_number_given),
+                &(local_args_info.device_number_given), optarg, 0, "0", ARG_INT,
+                check_ambiguity, override, 0, 0,
+                "device-number", '-',
+                additional_error))
+              goto failure;
+          
+          }
+          /* Number of threads for zncc computation. Has no effect when using GPU..  */
           else if (strcmp (long_options[option_index].name, "nthreads") == 0)
           {
           

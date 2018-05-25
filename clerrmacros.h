@@ -1,367 +1,375 @@
-#ifndef SVK_CL_ERRORS_MACRO
-#define SVK_CL_ERRORS_MACRO
-#define SVK_ALL_CL_ERRORS \
-strcat(s+2, "Sorry buddy, NO matching error !!!"); \
-if(enumber == CL_SUCCESS) strcat(strcat(s, ", "), "CL_SUCCESS"); \
-if(enumber == CL_DEVICE_NOT_FOUND) strcat(strcat(s, ", "), "CL_DEVICE_NOT_FOUND"); \
-if(enumber == CL_DEVICE_NOT_AVAILABLE) strcat(strcat(s, ", "), "CL_DEVICE_NOT_AVAILABLE"); \
-if(enumber == CL_COMPILER_NOT_AVAILABLE) strcat(strcat(s, ", "), "CL_COMPILER_NOT_AVAILABLE"); \
-if(enumber == CL_MEM_OBJECT_ALLOCATION_FAILURE) strcat(strcat(s, ", "), "CL_MEM_OBJECT_ALLOCATION_FAILURE"); \
-if(enumber == CL_OUT_OF_RESOURCES) strcat(strcat(s, ", "), "CL_OUT_OF_RESOURCES"); \
-if(enumber == CL_OUT_OF_HOST_MEMORY) strcat(strcat(s, ", "), "CL_OUT_OF_HOST_MEMORY"); \
-if(enumber == CL_PROFILING_INFO_NOT_AVAILABLE) strcat(strcat(s, ", "), "CL_PROFILING_INFO_NOT_AVAILABLE"); \
-if(enumber == CL_MEM_COPY_OVERLAP) strcat(strcat(s, ", "), "CL_MEM_COPY_OVERLAP"); \
-if(enumber == CL_IMAGE_FORMAT_MISMATCH) strcat(strcat(s, ", "), "CL_IMAGE_FORMAT_MISMATCH"); \
-if(enumber == CL_IMAGE_FORMAT_NOT_SUPPORTED) strcat(strcat(s, ", "), "CL_IMAGE_FORMAT_NOT_SUPPORTED"); \
-if(enumber == CL_BUILD_PROGRAM_FAILURE) strcat(strcat(s, ", "), "CL_BUILD_PROGRAM_FAILURE"); \
-if(enumber == CL_MAP_FAILURE) strcat(strcat(s, ", "), "CL_MAP_FAILURE"); \
-if(enumber == CL_MISALIGNED_SUB_BUFFER_OFFSET) strcat(strcat(s, ", "), "CL_MISALIGNED_SUB_BUFFER_OFFSET"); \
-if(enumber == CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST) strcat(strcat(s, ", "), "CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST"); \
-if(enumber == CL_COMPILE_PROGRAM_FAILURE) strcat(strcat(s, ", "), "CL_COMPILE_PROGRAM_FAILURE"); \
-if(enumber == CL_LINKER_NOT_AVAILABLE) strcat(strcat(s, ", "), "CL_LINKER_NOT_AVAILABLE"); \
-if(enumber == CL_LINK_PROGRAM_FAILURE) strcat(strcat(s, ", "), "CL_LINK_PROGRAM_FAILURE"); \
-if(enumber == CL_DEVICE_PARTITION_FAILED) strcat(strcat(s, ", "), "CL_DEVICE_PARTITION_FAILED"); \
-if(enumber == CL_KERNEL_ARG_INFO_NOT_AVAILABLE) strcat(strcat(s, ", "), "CL_KERNEL_ARG_INFO_NOT_AVAILABLE"); \
-if(enumber == CL_INVALID_VALUE) strcat(strcat(s, ", "), "CL_INVALID_VALUE"); \
-if(enumber == CL_INVALID_DEVICE_TYPE) strcat(strcat(s, ", "), "CL_INVALID_DEVICE_TYPE"); \
-if(enumber == CL_INVALID_PLATFORM) strcat(strcat(s, ", "), "CL_INVALID_PLATFORM"); \
-if(enumber == CL_INVALID_DEVICE) strcat(strcat(s, ", "), "CL_INVALID_DEVICE"); \
-if(enumber == CL_INVALID_CONTEXT) strcat(strcat(s, ", "), "CL_INVALID_CONTEXT"); \
-if(enumber == CL_INVALID_QUEUE_PROPERTIES) strcat(strcat(s, ", "), "CL_INVALID_QUEUE_PROPERTIES"); \
-if(enumber == CL_INVALID_COMMAND_QUEUE) strcat(strcat(s, ", "), "CL_INVALID_COMMAND_QUEUE"); \
-if(enumber == CL_INVALID_HOST_PTR) strcat(strcat(s, ", "), "CL_INVALID_HOST_PTR"); \
-if(enumber == CL_INVALID_MEM_OBJECT) strcat(strcat(s, ", "), "CL_INVALID_MEM_OBJECT"); \
-if(enumber == CL_INVALID_IMAGE_FORMAT_DESCRIPTOR) strcat(strcat(s, ", "), "CL_INVALID_IMAGE_FORMAT_DESCRIPTOR"); \
-if(enumber == CL_INVALID_IMAGE_SIZE) strcat(strcat(s, ", "), "CL_INVALID_IMAGE_SIZE"); \
-if(enumber == CL_INVALID_SAMPLER) strcat(strcat(s, ", "), "CL_INVALID_SAMPLER"); \
-if(enumber == CL_INVALID_BINARY) strcat(strcat(s, ", "), "CL_INVALID_BINARY"); \
-if(enumber == CL_INVALID_BUILD_OPTIONS) strcat(strcat(s, ", "), "CL_INVALID_BUILD_OPTIONS"); \
-if(enumber == CL_INVALID_PROGRAM) strcat(strcat(s, ", "), "CL_INVALID_PROGRAM"); \
-if(enumber == CL_INVALID_PROGRAM_EXECUTABLE) strcat(strcat(s, ", "), "CL_INVALID_PROGRAM_EXECUTABLE"); \
-if(enumber == CL_INVALID_KERNEL_NAME) strcat(strcat(s, ", "), "CL_INVALID_KERNEL_NAME"); \
-if(enumber == CL_INVALID_KERNEL_DEFINITION) strcat(strcat(s, ", "), "CL_INVALID_KERNEL_DEFINITION"); \
-if(enumber == CL_INVALID_KERNEL) strcat(strcat(s, ", "), "CL_INVALID_KERNEL"); \
-if(enumber == CL_INVALID_ARG_INDEX) strcat(strcat(s, ", "), "CL_INVALID_ARG_INDEX"); \
-if(enumber == CL_INVALID_ARG_VALUE) strcat(strcat(s, ", "), "CL_INVALID_ARG_VALUE"); \
-if(enumber == CL_INVALID_ARG_SIZE) strcat(strcat(s, ", "), "CL_INVALID_ARG_SIZE"); \
-if(enumber == CL_INVALID_KERNEL_ARGS) strcat(strcat(s, ", "), "CL_INVALID_KERNEL_ARGS"); \
-if(enumber == CL_INVALID_WORK_DIMENSION) strcat(strcat(s, ", "), "CL_INVALID_WORK_DIMENSION"); \
-if(enumber == CL_INVALID_WORK_GROUP_SIZE) strcat(strcat(s, ", "), "CL_INVALID_WORK_GROUP_SIZE"); \
-if(enumber == CL_INVALID_WORK_ITEM_SIZE) strcat(strcat(s, ", "), "CL_INVALID_WORK_ITEM_SIZE"); \
-if(enumber == CL_INVALID_GLOBAL_OFFSET) strcat(strcat(s, ", "), "CL_INVALID_GLOBAL_OFFSET"); \
-if(enumber == CL_INVALID_EVENT_WAIT_LIST) strcat(strcat(s, ", "), "CL_INVALID_EVENT_WAIT_LIST"); \
-if(enumber == CL_INVALID_EVENT) strcat(strcat(s, ", "), "CL_INVALID_EVENT"); \
-if(enumber == CL_INVALID_OPERATION) strcat(strcat(s, ", "), "CL_INVALID_OPERATION"); \
-if(enumber == CL_INVALID_GL_OBJECT) strcat(strcat(s, ", "), "CL_INVALID_GL_OBJECT"); \
-if(enumber == CL_INVALID_BUFFER_SIZE) strcat(strcat(s, ", "), "CL_INVALID_BUFFER_SIZE"); \
-if(enumber == CL_INVALID_MIP_LEVEL) strcat(strcat(s, ", "), "CL_INVALID_MIP_LEVEL"); \
-if(enumber == CL_INVALID_GLOBAL_WORK_SIZE) strcat(strcat(s, ", "), "CL_INVALID_GLOBAL_WORK_SIZE"); \
-if(enumber == CL_INVALID_PROPERTY) strcat(strcat(s, ", "), "CL_INVALID_PROPERTY"); \
-if(enumber == CL_INVALID_IMAGE_DESCRIPTOR) strcat(strcat(s, ", "), "CL_INVALID_IMAGE_DESCRIPTOR"); \
-if(enumber == CL_INVALID_COMPILER_OPTIONS) strcat(strcat(s, ", "), "CL_INVALID_COMPILER_OPTIONS"); \
-if(enumber == CL_INVALID_LINKER_OPTIONS) strcat(strcat(s, ", "), "CL_INVALID_LINKER_OPTIONS"); \
-if(enumber == CL_INVALID_DEVICE_PARTITION_COUNT) strcat(strcat(s, ", "), "CL_INVALID_DEVICE_PARTITION_COUNT"); \
-if(enumber == CL_VERSION_1_0) strcat(strcat(s, ", "), "CL_VERSION_1_0"); \
-if(enumber == CL_VERSION_1_1) strcat(strcat(s, ", "), "CL_VERSION_1_1"); \
-if(enumber == CL_VERSION_1_2) strcat(strcat(s, ", "), "CL_VERSION_1_2"); \
-if(enumber == CL_FALSE) strcat(strcat(s, ", "), "CL_FALSE"); \
-if(enumber == CL_TRUE) strcat(strcat(s, ", "), "CL_TRUE"); \
-if(enumber == CL_BLOCKING) strcat(strcat(s, ", "), "CL_BLOCKING"); \
-if(enumber == CL_NON_BLOCKING) strcat(strcat(s, ", "), "CL_NON_BLOCKING"); \
-if(enumber == CL_PLATFORM_PROFILE) strcat(strcat(s, ", "), "CL_PLATFORM_PROFILE"); \
-if(enumber == CL_PLATFORM_VERSION) strcat(strcat(s, ", "), "CL_PLATFORM_VERSION"); \
-if(enumber == CL_PLATFORM_NAME) strcat(strcat(s, ", "), "CL_PLATFORM_NAME"); \
-if(enumber == CL_PLATFORM_VENDOR) strcat(strcat(s, ", "), "CL_PLATFORM_VENDOR"); \
-if(enumber == CL_PLATFORM_EXTENSIONS) strcat(strcat(s, ", "), "CL_PLATFORM_EXTENSIONS"); \
-if(enumber == CL_DEVICE_TYPE_DEFAULT) strcat(strcat(s, ", "), "CL_DEVICE_TYPE_DEFAULT"); \
-if(enumber == CL_DEVICE_TYPE_CPU) strcat(strcat(s, ", "), "CL_DEVICE_TYPE_CPU"); \
-if(enumber == CL_DEVICE_TYPE_GPU) strcat(strcat(s, ", "), "CL_DEVICE_TYPE_GPU"); \
-if(enumber == CL_DEVICE_TYPE_ACCELERATOR) strcat(strcat(s, ", "), "CL_DEVICE_TYPE_ACCELERATOR"); \
-if(enumber == CL_DEVICE_TYPE_CUSTOM) strcat(strcat(s, ", "), "CL_DEVICE_TYPE_CUSTOM"); \
-if(enumber == CL_DEVICE_TYPE_ALL) strcat(strcat(s, ", "), "CL_DEVICE_TYPE_ALL"); \
-if(enumber == CL_DEVICE_TYPE) strcat(strcat(s, ", "), "CL_DEVICE_TYPE"); \
-if(enumber == CL_DEVICE_VENDOR_ID) strcat(strcat(s, ", "), "CL_DEVICE_VENDOR_ID"); \
-if(enumber == CL_DEVICE_MAX_COMPUTE_UNITS) strcat(strcat(s, ", "), "CL_DEVICE_MAX_COMPUTE_UNITS"); \
-if(enumber == CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS) strcat(strcat(s, ", "), "CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS"); \
-if(enumber == CL_DEVICE_MAX_WORK_GROUP_SIZE) strcat(strcat(s, ", "), "CL_DEVICE_MAX_WORK_GROUP_SIZE"); \
-if(enumber == CL_DEVICE_MAX_WORK_ITEM_SIZES) strcat(strcat(s, ", "), "CL_DEVICE_MAX_WORK_ITEM_SIZES"); \
-if(enumber == CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR) strcat(strcat(s, ", "), "CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR"); \
-if(enumber == CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT) strcat(strcat(s, ", "), "CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT"); \
-if(enumber == CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT) strcat(strcat(s, ", "), "CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT"); \
-if(enumber == CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG) strcat(strcat(s, ", "), "CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG"); \
-if(enumber == CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT) strcat(strcat(s, ", "), "CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT"); \
-if(enumber == CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE) strcat(strcat(s, ", "), "CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE"); \
-if(enumber == CL_DEVICE_MAX_CLOCK_FREQUENCY) strcat(strcat(s, ", "), "CL_DEVICE_MAX_CLOCK_FREQUENCY"); \
-if(enumber == CL_DEVICE_ADDRESS_BITS) strcat(strcat(s, ", "), "CL_DEVICE_ADDRESS_BITS"); \
-if(enumber == CL_DEVICE_MAX_READ_IMAGE_ARGS) strcat(strcat(s, ", "), "CL_DEVICE_MAX_READ_IMAGE_ARGS"); \
-if(enumber == CL_DEVICE_MAX_WRITE_IMAGE_ARGS) strcat(strcat(s, ", "), "CL_DEVICE_MAX_WRITE_IMAGE_ARGS"); \
-if(enumber == CL_DEVICE_MAX_MEM_ALLOC_SIZE) strcat(strcat(s, ", "), "CL_DEVICE_MAX_MEM_ALLOC_SIZE"); \
-if(enumber == CL_DEVICE_IMAGE2D_MAX_WIDTH) strcat(strcat(s, ", "), "CL_DEVICE_IMAGE2D_MAX_WIDTH"); \
-if(enumber == CL_DEVICE_IMAGE2D_MAX_HEIGHT) strcat(strcat(s, ", "), "CL_DEVICE_IMAGE2D_MAX_HEIGHT"); \
-if(enumber == CL_DEVICE_IMAGE3D_MAX_WIDTH) strcat(strcat(s, ", "), "CL_DEVICE_IMAGE3D_MAX_WIDTH"); \
-if(enumber == CL_DEVICE_IMAGE3D_MAX_HEIGHT) strcat(strcat(s, ", "), "CL_DEVICE_IMAGE3D_MAX_HEIGHT"); \
-if(enumber == CL_DEVICE_IMAGE3D_MAX_DEPTH) strcat(strcat(s, ", "), "CL_DEVICE_IMAGE3D_MAX_DEPTH"); \
-if(enumber == CL_DEVICE_IMAGE_SUPPORT) strcat(strcat(s, ", "), "CL_DEVICE_IMAGE_SUPPORT"); \
-if(enumber == CL_DEVICE_MAX_PARAMETER_SIZE) strcat(strcat(s, ", "), "CL_DEVICE_MAX_PARAMETER_SIZE"); \
-if(enumber == CL_DEVICE_MAX_SAMPLERS) strcat(strcat(s, ", "), "CL_DEVICE_MAX_SAMPLERS"); \
-if(enumber == CL_DEVICE_MEM_BASE_ADDR_ALIGN) strcat(strcat(s, ", "), "CL_DEVICE_MEM_BASE_ADDR_ALIGN"); \
-if(enumber == CL_DEVICE_MIN_DATA_TYPE_ALIGN_SIZE) strcat(strcat(s, ", "), "CL_DEVICE_MIN_DATA_TYPE_ALIGN_SIZE"); \
-if(enumber == CL_DEVICE_SINGLE_FP_CONFIG) strcat(strcat(s, ", "), "CL_DEVICE_SINGLE_FP_CONFIG"); \
-if(enumber == CL_DEVICE_GLOBAL_MEM_CACHE_TYPE) strcat(strcat(s, ", "), "CL_DEVICE_GLOBAL_MEM_CACHE_TYPE"); \
-if(enumber == CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE) strcat(strcat(s, ", "), "CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE"); \
-if(enumber == CL_DEVICE_GLOBAL_MEM_CACHE_SIZE) strcat(strcat(s, ", "), "CL_DEVICE_GLOBAL_MEM_CACHE_SIZE"); \
-if(enumber == CL_DEVICE_GLOBAL_MEM_SIZE) strcat(strcat(s, ", "), "CL_DEVICE_GLOBAL_MEM_SIZE"); \
-if(enumber == CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE) strcat(strcat(s, ", "), "CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE"); \
-if(enumber == CL_DEVICE_MAX_CONSTANT_ARGS) strcat(strcat(s, ", "), "CL_DEVICE_MAX_CONSTANT_ARGS"); \
-if(enumber == CL_DEVICE_LOCAL_MEM_TYPE) strcat(strcat(s, ", "), "CL_DEVICE_LOCAL_MEM_TYPE"); \
-if(enumber == CL_DEVICE_LOCAL_MEM_SIZE) strcat(strcat(s, ", "), "CL_DEVICE_LOCAL_MEM_SIZE"); \
-if(enumber == CL_DEVICE_ERROR_CORRECTION_SUPPORT) strcat(strcat(s, ", "), "CL_DEVICE_ERROR_CORRECTION_SUPPORT"); \
-if(enumber == CL_DEVICE_PROFILING_TIMER_RESOLUTION) strcat(strcat(s, ", "), "CL_DEVICE_PROFILING_TIMER_RESOLUTION"); \
-if(enumber == CL_DEVICE_ENDIAN_LITTLE) strcat(strcat(s, ", "), "CL_DEVICE_ENDIAN_LITTLE"); \
-if(enumber == CL_DEVICE_AVAILABLE) strcat(strcat(s, ", "), "CL_DEVICE_AVAILABLE"); \
-if(enumber == CL_DEVICE_COMPILER_AVAILABLE) strcat(strcat(s, ", "), "CL_DEVICE_COMPILER_AVAILABLE"); \
-if(enumber == CL_DEVICE_EXECUTION_CAPABILITIES) strcat(strcat(s, ", "), "CL_DEVICE_EXECUTION_CAPABILITIES"); \
-if(enumber == CL_DEVICE_QUEUE_PROPERTIES) strcat(strcat(s, ", "), "CL_DEVICE_QUEUE_PROPERTIES"); \
-if(enumber == CL_DEVICE_NAME) strcat(strcat(s, ", "), "CL_DEVICE_NAME"); \
-if(enumber == CL_DEVICE_VENDOR) strcat(strcat(s, ", "), "CL_DEVICE_VENDOR"); \
-if(enumber == CL_DRIVER_VERSION) strcat(strcat(s, ", "), "CL_DRIVER_VERSION"); \
-if(enumber == CL_DEVICE_PROFILE) strcat(strcat(s, ", "), "CL_DEVICE_PROFILE"); \
-if(enumber == CL_DEVICE_VERSION) strcat(strcat(s, ", "), "CL_DEVICE_VERSION"); \
-if(enumber == CL_DEVICE_EXTENSIONS) strcat(strcat(s, ", "), "CL_DEVICE_EXTENSIONS"); \
-if(enumber == CL_DEVICE_PLATFORM) strcat(strcat(s, ", "), "CL_DEVICE_PLATFORM"); \
-if(enumber == CL_DEVICE_DOUBLE_FP_CONFIG) strcat(strcat(s, ", "), "CL_DEVICE_DOUBLE_FP_CONFIG"); \
-if(enumber == CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF) strcat(strcat(s, ", "), "CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF"); \
-if(enumber == CL_DEVICE_HOST_UNIFIED_MEMORY) strcat(strcat(s, ", "), "CL_DEVICE_HOST_UNIFIED_MEMORY"); \
-if(enumber == CL_DEVICE_NATIVE_VECTOR_WIDTH_CHAR) strcat(strcat(s, ", "), "CL_DEVICE_NATIVE_VECTOR_WIDTH_CHAR"); \
-if(enumber == CL_DEVICE_NATIVE_VECTOR_WIDTH_SHORT) strcat(strcat(s, ", "), "CL_DEVICE_NATIVE_VECTOR_WIDTH_SHORT"); \
-if(enumber == CL_DEVICE_NATIVE_VECTOR_WIDTH_INT) strcat(strcat(s, ", "), "CL_DEVICE_NATIVE_VECTOR_WIDTH_INT"); \
-if(enumber == CL_DEVICE_NATIVE_VECTOR_WIDTH_LONG) strcat(strcat(s, ", "), "CL_DEVICE_NATIVE_VECTOR_WIDTH_LONG"); \
-if(enumber == CL_DEVICE_NATIVE_VECTOR_WIDTH_FLOAT) strcat(strcat(s, ", "), "CL_DEVICE_NATIVE_VECTOR_WIDTH_FLOAT"); \
-if(enumber == CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE) strcat(strcat(s, ", "), "CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE"); \
-if(enumber == CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF) strcat(strcat(s, ", "), "CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF"); \
-if(enumber == CL_DEVICE_OPENCL_C_VERSION) strcat(strcat(s, ", "), "CL_DEVICE_OPENCL_C_VERSION"); \
-if(enumber == CL_DEVICE_LINKER_AVAILABLE) strcat(strcat(s, ", "), "CL_DEVICE_LINKER_AVAILABLE"); \
-if(enumber == CL_DEVICE_BUILT_IN_KERNELS) strcat(strcat(s, ", "), "CL_DEVICE_BUILT_IN_KERNELS"); \
-if(enumber == CL_DEVICE_IMAGE_MAX_BUFFER_SIZE) strcat(strcat(s, ", "), "CL_DEVICE_IMAGE_MAX_BUFFER_SIZE"); \
-if(enumber == CL_DEVICE_IMAGE_MAX_ARRAY_SIZE) strcat(strcat(s, ", "), "CL_DEVICE_IMAGE_MAX_ARRAY_SIZE"); \
-if(enumber == CL_DEVICE_PARENT_DEVICE) strcat(strcat(s, ", "), "CL_DEVICE_PARENT_DEVICE"); \
-if(enumber == CL_DEVICE_PARTITION_MAX_SUB_DEVICES) strcat(strcat(s, ", "), "CL_DEVICE_PARTITION_MAX_SUB_DEVICES"); \
-if(enumber == CL_DEVICE_PARTITION_PROPERTIES) strcat(strcat(s, ", "), "CL_DEVICE_PARTITION_PROPERTIES"); \
-if(enumber == CL_DEVICE_PARTITION_AFFINITY_DOMAIN) strcat(strcat(s, ", "), "CL_DEVICE_PARTITION_AFFINITY_DOMAIN"); \
-if(enumber == CL_DEVICE_PARTITION_TYPE) strcat(strcat(s, ", "), "CL_DEVICE_PARTITION_TYPE"); \
-if(enumber == CL_DEVICE_REFERENCE_COUNT) strcat(strcat(s, ", "), "CL_DEVICE_REFERENCE_COUNT"); \
-if(enumber == CL_DEVICE_PREFERRED_INTEROP_USER_SYNC) strcat(strcat(s, ", "), "CL_DEVICE_PREFERRED_INTEROP_USER_SYNC"); \
-if(enumber == CL_DEVICE_PRINTF_BUFFER_SIZE) strcat(strcat(s, ", "), "CL_DEVICE_PRINTF_BUFFER_SIZE"); \
-if(enumber == CL_DEVICE_IMAGE_PITCH_ALIGNMENT) strcat(strcat(s, ", "), "CL_DEVICE_IMAGE_PITCH_ALIGNMENT"); \
-if(enumber == CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT) strcat(strcat(s, ", "), "CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT"); \
-if(enumber == CL_FP_DENORM) strcat(strcat(s, ", "), "CL_FP_DENORM"); \
-if(enumber == CL_FP_INF_NAN) strcat(strcat(s, ", "), "CL_FP_INF_NAN"); \
-if(enumber == CL_FP_ROUND_TO_NEAREST) strcat(strcat(s, ", "), "CL_FP_ROUND_TO_NEAREST"); \
-if(enumber == CL_FP_ROUND_TO_ZERO) strcat(strcat(s, ", "), "CL_FP_ROUND_TO_ZERO"); \
-if(enumber == CL_FP_ROUND_TO_INF) strcat(strcat(s, ", "), "CL_FP_ROUND_TO_INF"); \
-if(enumber == CL_FP_FMA) strcat(strcat(s, ", "), "CL_FP_FMA"); \
-if(enumber == CL_FP_SOFT_FLOAT) strcat(strcat(s, ", "), "CL_FP_SOFT_FLOAT"); \
-if(enumber == CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT) strcat(strcat(s, ", "), "CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT"); \
-if(enumber == CL_NONE) strcat(strcat(s, ", "), "CL_NONE"); \
-if(enumber == CL_READ_ONLY_CACHE) strcat(strcat(s, ", "), "CL_READ_ONLY_CACHE"); \
-if(enumber == CL_READ_WRITE_CACHE) strcat(strcat(s, ", "), "CL_READ_WRITE_CACHE"); \
-if(enumber == CL_LOCAL) strcat(strcat(s, ", "), "CL_LOCAL"); \
-if(enumber == CL_GLOBAL) strcat(strcat(s, ", "), "CL_GLOBAL"); \
-if(enumber == CL_EXEC_KERNEL) strcat(strcat(s, ", "), "CL_EXEC_KERNEL"); \
-if(enumber == CL_EXEC_NATIVE_KERNEL) strcat(strcat(s, ", "), "CL_EXEC_NATIVE_KERNEL"); \
-if(enumber == CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE) strcat(strcat(s, ", "), "CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE"); \
-if(enumber == CL_QUEUE_PROFILING_ENABLE) strcat(strcat(s, ", "), "CL_QUEUE_PROFILING_ENABLE"); \
-if(enumber == CL_CONTEXT_REFERENCE_COUNT) strcat(strcat(s, ", "), "CL_CONTEXT_REFERENCE_COUNT"); \
-if(enumber == CL_CONTEXT_DEVICES) strcat(strcat(s, ", "), "CL_CONTEXT_DEVICES"); \
-if(enumber == CL_CONTEXT_PROPERTIES) strcat(strcat(s, ", "), "CL_CONTEXT_PROPERTIES"); \
-if(enumber == CL_CONTEXT_NUM_DEVICES) strcat(strcat(s, ", "), "CL_CONTEXT_NUM_DEVICES"); \
-if(enumber == CL_CONTEXT_PLATFORM) strcat(strcat(s, ", "), "CL_CONTEXT_PLATFORM"); \
-if(enumber == CL_CONTEXT_INTEROP_USER_SYNC) strcat(strcat(s, ", "), "CL_CONTEXT_INTEROP_USER_SYNC"); \
-if(enumber == CL_DEVICE_PARTITION_EQUALLY) strcat(strcat(s, ", "), "CL_DEVICE_PARTITION_EQUALLY"); \
-if(enumber == CL_DEVICE_PARTITION_BY_COUNTS) strcat(strcat(s, ", "), "CL_DEVICE_PARTITION_BY_COUNTS"); \
-if(enumber == CL_DEVICE_PARTITION_BY_COUNTS_LIST_END) strcat(strcat(s, ", "), "CL_DEVICE_PARTITION_BY_COUNTS_LIST_END"); \
-if(enumber == CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN) strcat(strcat(s, ", "), "CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN"); \
-if(enumber == CL_DEVICE_AFFINITY_DOMAIN_NUMA) strcat(strcat(s, ", "), "CL_DEVICE_AFFINITY_DOMAIN_NUMA"); \
-if(enumber == CL_DEVICE_AFFINITY_DOMAIN_L4_CACHE) strcat(strcat(s, ", "), "CL_DEVICE_AFFINITY_DOMAIN_L4_CACHE"); \
-if(enumber == CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE) strcat(strcat(s, ", "), "CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE"); \
-if(enumber == CL_DEVICE_AFFINITY_DOMAIN_L2_CACHE) strcat(strcat(s, ", "), "CL_DEVICE_AFFINITY_DOMAIN_L2_CACHE"); \
-if(enumber == CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE) strcat(strcat(s, ", "), "CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE"); \
-if(enumber == CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE) strcat(strcat(s, ", "), "CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE"); \
-if(enumber == CL_QUEUE_CONTEXT) strcat(strcat(s, ", "), "CL_QUEUE_CONTEXT"); \
-if(enumber == CL_QUEUE_DEVICE) strcat(strcat(s, ", "), "CL_QUEUE_DEVICE"); \
-if(enumber == CL_QUEUE_REFERENCE_COUNT) strcat(strcat(s, ", "), "CL_QUEUE_REFERENCE_COUNT"); \
-if(enumber == CL_QUEUE_PROPERTIES) strcat(strcat(s, ", "), "CL_QUEUE_PROPERTIES"); \
-if(enumber == CL_MEM_READ_WRITE) strcat(strcat(s, ", "), "CL_MEM_READ_WRITE"); \
-if(enumber == CL_MEM_WRITE_ONLY) strcat(strcat(s, ", "), "CL_MEM_WRITE_ONLY"); \
-if(enumber == CL_MEM_READ_ONLY) strcat(strcat(s, ", "), "CL_MEM_READ_ONLY"); \
-if(enumber == CL_MEM_USE_HOST_PTR) strcat(strcat(s, ", "), "CL_MEM_USE_HOST_PTR"); \
-if(enumber == CL_MEM_ALLOC_HOST_PTR) strcat(strcat(s, ", "), "CL_MEM_ALLOC_HOST_PTR"); \
-if(enumber == CL_MEM_COPY_HOST_PTR) strcat(strcat(s, ", "), "CL_MEM_COPY_HOST_PTR"); \
-if(enumber == CL_MEM_HOST_WRITE_ONLY) strcat(strcat(s, ", "), "CL_MEM_HOST_WRITE_ONLY"); \
-if(enumber == CL_MEM_HOST_READ_ONLY) strcat(strcat(s, ", "), "CL_MEM_HOST_READ_ONLY"); \
-if(enumber == CL_MEM_HOST_NO_ACCESS) strcat(strcat(s, ", "), "CL_MEM_HOST_NO_ACCESS"); \
-if(enumber == CL_MIGRATE_MEM_OBJECT_HOST) strcat(strcat(s, ", "), "CL_MIGRATE_MEM_OBJECT_HOST"); \
-if(enumber == CL_MIGRATE_MEM_OBJECT_CONTENT_UNDEFINED) strcat(strcat(s, ", "), "CL_MIGRATE_MEM_OBJECT_CONTENT_UNDEFINED"); \
-if(enumber == CL_R) strcat(strcat(s, ", "), "CL_R"); \
-if(enumber == CL_A) strcat(strcat(s, ", "), "CL_A"); \
-if(enumber == CL_RG) strcat(strcat(s, ", "), "CL_RG"); \
-if(enumber == CL_RA) strcat(strcat(s, ", "), "CL_RA"); \
-if(enumber == CL_RGB) strcat(strcat(s, ", "), "CL_RGB"); \
-if(enumber == CL_RGBA) strcat(strcat(s, ", "), "CL_RGBA"); \
-if(enumber == CL_BGRA) strcat(strcat(s, ", "), "CL_BGRA"); \
-if(enumber == CL_ARGB) strcat(strcat(s, ", "), "CL_ARGB"); \
-if(enumber == CL_INTENSITY) strcat(strcat(s, ", "), "CL_INTENSITY"); \
-if(enumber == CL_LUMINANCE) strcat(strcat(s, ", "), "CL_LUMINANCE"); \
-if(enumber == CL_Rx) strcat(strcat(s, ", "), "CL_Rx"); \
-if(enumber == CL_RGx) strcat(strcat(s, ", "), "CL_RGx"); \
-if(enumber == CL_RGBx) strcat(strcat(s, ", "), "CL_RGBx"); \
-if(enumber == CL_DEPTH) strcat(strcat(s, ", "), "CL_DEPTH"); \
-if(enumber == CL_DEPTH_STENCIL) strcat(strcat(s, ", "), "CL_DEPTH_STENCIL"); \
-if(enumber == CL_SNORM_INT8) strcat(strcat(s, ", "), "CL_SNORM_INT8"); \
-if(enumber == CL_SNORM_INT16) strcat(strcat(s, ", "), "CL_SNORM_INT16"); \
-if(enumber == CL_UNORM_INT8) strcat(strcat(s, ", "), "CL_UNORM_INT8"); \
-if(enumber == CL_UNORM_INT16) strcat(strcat(s, ", "), "CL_UNORM_INT16"); \
-if(enumber == CL_UNORM_SHORT_565) strcat(strcat(s, ", "), "CL_UNORM_SHORT_565"); \
-if(enumber == CL_UNORM_SHORT_555) strcat(strcat(s, ", "), "CL_UNORM_SHORT_555"); \
-if(enumber == CL_UNORM_INT_101010) strcat(strcat(s, ", "), "CL_UNORM_INT_101010"); \
-if(enumber == CL_SIGNED_INT8) strcat(strcat(s, ", "), "CL_SIGNED_INT8"); \
-if(enumber == CL_SIGNED_INT16) strcat(strcat(s, ", "), "CL_SIGNED_INT16"); \
-if(enumber == CL_SIGNED_INT32) strcat(strcat(s, ", "), "CL_SIGNED_INT32"); \
-if(enumber == CL_UNSIGNED_INT8) strcat(strcat(s, ", "), "CL_UNSIGNED_INT8"); \
-if(enumber == CL_UNSIGNED_INT16) strcat(strcat(s, ", "), "CL_UNSIGNED_INT16"); \
-if(enumber == CL_UNSIGNED_INT32) strcat(strcat(s, ", "), "CL_UNSIGNED_INT32"); \
-if(enumber == CL_HALF_FLOAT) strcat(strcat(s, ", "), "CL_HALF_FLOAT"); \
-if(enumber == CL_FLOAT) strcat(strcat(s, ", "), "CL_FLOAT"); \
-if(enumber == CL_UNORM_INT24) strcat(strcat(s, ", "), "CL_UNORM_INT24"); \
-if(enumber == CL_MEM_OBJECT_BUFFER) strcat(strcat(s, ", "), "CL_MEM_OBJECT_BUFFER"); \
-if(enumber == CL_MEM_OBJECT_IMAGE2D) strcat(strcat(s, ", "), "CL_MEM_OBJECT_IMAGE2D"); \
-if(enumber == CL_MEM_OBJECT_IMAGE3D) strcat(strcat(s, ", "), "CL_MEM_OBJECT_IMAGE3D"); \
-if(enumber == CL_MEM_OBJECT_IMAGE2D_ARRAY) strcat(strcat(s, ", "), "CL_MEM_OBJECT_IMAGE2D_ARRAY"); \
-if(enumber == CL_MEM_OBJECT_IMAGE1D) strcat(strcat(s, ", "), "CL_MEM_OBJECT_IMAGE1D"); \
-if(enumber == CL_MEM_OBJECT_IMAGE1D_ARRAY) strcat(strcat(s, ", "), "CL_MEM_OBJECT_IMAGE1D_ARRAY"); \
-if(enumber == CL_MEM_OBJECT_IMAGE1D_BUFFER) strcat(strcat(s, ", "), "CL_MEM_OBJECT_IMAGE1D_BUFFER"); \
-if(enumber == CL_MEM_TYPE) strcat(strcat(s, ", "), "CL_MEM_TYPE"); \
-if(enumber == CL_MEM_FLAGS) strcat(strcat(s, ", "), "CL_MEM_FLAGS"); \
-if(enumber == CL_MEM_SIZE) strcat(strcat(s, ", "), "CL_MEM_SIZE"); \
-if(enumber == CL_MEM_HOST_PTR) strcat(strcat(s, ", "), "CL_MEM_HOST_PTR"); \
-if(enumber == CL_MEM_MAP_COUNT) strcat(strcat(s, ", "), "CL_MEM_MAP_COUNT"); \
-if(enumber == CL_MEM_REFERENCE_COUNT) strcat(strcat(s, ", "), "CL_MEM_REFERENCE_COUNT"); \
-if(enumber == CL_MEM_CONTEXT) strcat(strcat(s, ", "), "CL_MEM_CONTEXT"); \
-if(enumber == CL_MEM_ASSOCIATED_MEMOBJECT) strcat(strcat(s, ", "), "CL_MEM_ASSOCIATED_MEMOBJECT"); \
-if(enumber == CL_MEM_OFFSET) strcat(strcat(s, ", "), "CL_MEM_OFFSET"); \
-if(enumber == CL_IMAGE_FORMAT) strcat(strcat(s, ", "), "CL_IMAGE_FORMAT"); \
-if(enumber == CL_IMAGE_ELEMENT_SIZE) strcat(strcat(s, ", "), "CL_IMAGE_ELEMENT_SIZE"); \
-if(enumber == CL_IMAGE_ROW_PITCH) strcat(strcat(s, ", "), "CL_IMAGE_ROW_PITCH"); \
-if(enumber == CL_IMAGE_SLICE_PITCH) strcat(strcat(s, ", "), "CL_IMAGE_SLICE_PITCH"); \
-if(enumber == CL_IMAGE_WIDTH) strcat(strcat(s, ", "), "CL_IMAGE_WIDTH"); \
-if(enumber == CL_IMAGE_HEIGHT) strcat(strcat(s, ", "), "CL_IMAGE_HEIGHT"); \
-if(enumber == CL_IMAGE_DEPTH) strcat(strcat(s, ", "), "CL_IMAGE_DEPTH"); \
-if(enumber == CL_IMAGE_ARRAY_SIZE) strcat(strcat(s, ", "), "CL_IMAGE_ARRAY_SIZE"); \
-if(enumber == CL_IMAGE_BUFFER) strcat(strcat(s, ", "), "CL_IMAGE_BUFFER"); \
-if(enumber == CL_IMAGE_NUM_MIP_LEVELS) strcat(strcat(s, ", "), "CL_IMAGE_NUM_MIP_LEVELS"); \
-if(enumber == CL_IMAGE_NUM_SAMPLES) strcat(strcat(s, ", "), "CL_IMAGE_NUM_SAMPLES"); \
-if(enumber == CL_ADDRESS_NONE) strcat(strcat(s, ", "), "CL_ADDRESS_NONE"); \
-if(enumber == CL_ADDRESS_CLAMP_TO_EDGE) strcat(strcat(s, ", "), "CL_ADDRESS_CLAMP_TO_EDGE"); \
-if(enumber == CL_ADDRESS_CLAMP) strcat(strcat(s, ", "), "CL_ADDRESS_CLAMP"); \
-if(enumber == CL_ADDRESS_REPEAT) strcat(strcat(s, ", "), "CL_ADDRESS_REPEAT"); \
-if(enumber == CL_ADDRESS_MIRRORED_REPEAT) strcat(strcat(s, ", "), "CL_ADDRESS_MIRRORED_REPEAT"); \
-if(enumber == CL_FILTER_NEAREST) strcat(strcat(s, ", "), "CL_FILTER_NEAREST"); \
-if(enumber == CL_FILTER_LINEAR) strcat(strcat(s, ", "), "CL_FILTER_LINEAR"); \
-if(enumber == CL_SAMPLER_REFERENCE_COUNT) strcat(strcat(s, ", "), "CL_SAMPLER_REFERENCE_COUNT"); \
-if(enumber == CL_SAMPLER_CONTEXT) strcat(strcat(s, ", "), "CL_SAMPLER_CONTEXT"); \
-if(enumber == CL_SAMPLER_NORMALIZED_COORDS) strcat(strcat(s, ", "), "CL_SAMPLER_NORMALIZED_COORDS"); \
-if(enumber == CL_SAMPLER_ADDRESSING_MODE) strcat(strcat(s, ", "), "CL_SAMPLER_ADDRESSING_MODE"); \
-if(enumber == CL_SAMPLER_FILTER_MODE) strcat(strcat(s, ", "), "CL_SAMPLER_FILTER_MODE"); \
-if(enumber == CL_MAP_READ) strcat(strcat(s, ", "), "CL_MAP_READ"); \
-if(enumber == CL_MAP_WRITE) strcat(strcat(s, ", "), "CL_MAP_WRITE"); \
-if(enumber == CL_MAP_WRITE_INVALIDATE_REGION) strcat(strcat(s, ", "), "CL_MAP_WRITE_INVALIDATE_REGION"); \
-if(enumber == CL_PROGRAM_REFERENCE_COUNT) strcat(strcat(s, ", "), "CL_PROGRAM_REFERENCE_COUNT"); \
-if(enumber == CL_PROGRAM_CONTEXT) strcat(strcat(s, ", "), "CL_PROGRAM_CONTEXT"); \
-if(enumber == CL_PROGRAM_NUM_DEVICES) strcat(strcat(s, ", "), "CL_PROGRAM_NUM_DEVICES"); \
-if(enumber == CL_PROGRAM_DEVICES) strcat(strcat(s, ", "), "CL_PROGRAM_DEVICES"); \
-if(enumber == CL_PROGRAM_SOURCE) strcat(strcat(s, ", "), "CL_PROGRAM_SOURCE"); \
-if(enumber == CL_PROGRAM_BINARY_SIZES) strcat(strcat(s, ", "), "CL_PROGRAM_BINARY_SIZES"); \
-if(enumber == CL_PROGRAM_BINARIES) strcat(strcat(s, ", "), "CL_PROGRAM_BINARIES"); \
-if(enumber == CL_PROGRAM_NUM_KERNELS) strcat(strcat(s, ", "), "CL_PROGRAM_NUM_KERNELS"); \
-if(enumber == CL_PROGRAM_KERNEL_NAMES) strcat(strcat(s, ", "), "CL_PROGRAM_KERNEL_NAMES"); \
-if(enumber == CL_PROGRAM_BUILD_STATUS) strcat(strcat(s, ", "), "CL_PROGRAM_BUILD_STATUS"); \
-if(enumber == CL_PROGRAM_BUILD_OPTIONS) strcat(strcat(s, ", "), "CL_PROGRAM_BUILD_OPTIONS"); \
-if(enumber == CL_PROGRAM_BUILD_LOG) strcat(strcat(s, ", "), "CL_PROGRAM_BUILD_LOG"); \
-if(enumber == CL_PROGRAM_BINARY_TYPE) strcat(strcat(s, ", "), "CL_PROGRAM_BINARY_TYPE"); \
-if(enumber == CL_PROGRAM_BINARY_TYPE_NONE) strcat(strcat(s, ", "), "CL_PROGRAM_BINARY_TYPE_NONE"); \
-if(enumber == CL_PROGRAM_BINARY_TYPE_COMPILED_OBJECT) strcat(strcat(s, ", "), "CL_PROGRAM_BINARY_TYPE_COMPILED_OBJECT"); \
-if(enumber == CL_PROGRAM_BINARY_TYPE_LIBRARY) strcat(strcat(s, ", "), "CL_PROGRAM_BINARY_TYPE_LIBRARY"); \
-if(enumber == CL_PROGRAM_BINARY_TYPE_EXECUTABLE) strcat(strcat(s, ", "), "CL_PROGRAM_BINARY_TYPE_EXECUTABLE"); \
-if(enumber == CL_BUILD_SUCCESS) strcat(strcat(s, ", "), "CL_BUILD_SUCCESS"); \
-if(enumber == CL_BUILD_NONE) strcat(strcat(s, ", "), "CL_BUILD_NONE"); \
-if(enumber == CL_BUILD_ERROR) strcat(strcat(s, ", "), "CL_BUILD_ERROR"); \
-if(enumber == CL_BUILD_IN_PROGRESS) strcat(strcat(s, ", "), "CL_BUILD_IN_PROGRESS"); \
-if(enumber == CL_KERNEL_FUNCTION_NAME) strcat(strcat(s, ", "), "CL_KERNEL_FUNCTION_NAME"); \
-if(enumber == CL_KERNEL_NUM_ARGS) strcat(strcat(s, ", "), "CL_KERNEL_NUM_ARGS"); \
-if(enumber == CL_KERNEL_REFERENCE_COUNT) strcat(strcat(s, ", "), "CL_KERNEL_REFERENCE_COUNT"); \
-if(enumber == CL_KERNEL_CONTEXT) strcat(strcat(s, ", "), "CL_KERNEL_CONTEXT"); \
-if(enumber == CL_KERNEL_PROGRAM) strcat(strcat(s, ", "), "CL_KERNEL_PROGRAM"); \
-if(enumber == CL_KERNEL_ATTRIBUTES) strcat(strcat(s, ", "), "CL_KERNEL_ATTRIBUTES"); \
-if(enumber == CL_KERNEL_ARG_ADDRESS_QUALIFIER) strcat(strcat(s, ", "), "CL_KERNEL_ARG_ADDRESS_QUALIFIER"); \
-if(enumber == CL_KERNEL_ARG_ACCESS_QUALIFIER) strcat(strcat(s, ", "), "CL_KERNEL_ARG_ACCESS_QUALIFIER"); \
-if(enumber == CL_KERNEL_ARG_TYPE_NAME) strcat(strcat(s, ", "), "CL_KERNEL_ARG_TYPE_NAME"); \
-if(enumber == CL_KERNEL_ARG_TYPE_QUALIFIER) strcat(strcat(s, ", "), "CL_KERNEL_ARG_TYPE_QUALIFIER"); \
-if(enumber == CL_KERNEL_ARG_NAME) strcat(strcat(s, ", "), "CL_KERNEL_ARG_NAME"); \
-if(enumber == CL_KERNEL_ARG_ADDRESS_GLOBAL) strcat(strcat(s, ", "), "CL_KERNEL_ARG_ADDRESS_GLOBAL"); \
-if(enumber == CL_KERNEL_ARG_ADDRESS_LOCAL) strcat(strcat(s, ", "), "CL_KERNEL_ARG_ADDRESS_LOCAL"); \
-if(enumber == CL_KERNEL_ARG_ADDRESS_CONSTANT) strcat(strcat(s, ", "), "CL_KERNEL_ARG_ADDRESS_CONSTANT"); \
-if(enumber == CL_KERNEL_ARG_ADDRESS_PRIVATE) strcat(strcat(s, ", "), "CL_KERNEL_ARG_ADDRESS_PRIVATE"); \
-if(enumber == CL_KERNEL_ARG_ACCESS_READ_ONLY) strcat(strcat(s, ", "), "CL_KERNEL_ARG_ACCESS_READ_ONLY"); \
-if(enumber == CL_KERNEL_ARG_ACCESS_WRITE_ONLY) strcat(strcat(s, ", "), "CL_KERNEL_ARG_ACCESS_WRITE_ONLY"); \
-if(enumber == CL_KERNEL_ARG_ACCESS_READ_WRITE) strcat(strcat(s, ", "), "CL_KERNEL_ARG_ACCESS_READ_WRITE"); \
-if(enumber == CL_KERNEL_ARG_ACCESS_NONE) strcat(strcat(s, ", "), "CL_KERNEL_ARG_ACCESS_NONE"); \
-if(enumber == CL_KERNEL_ARG_TYPE_NONE) strcat(strcat(s, ", "), "CL_KERNEL_ARG_TYPE_NONE"); \
-if(enumber == CL_KERNEL_ARG_TYPE_CONST) strcat(strcat(s, ", "), "CL_KERNEL_ARG_TYPE_CONST"); \
-if(enumber == CL_KERNEL_ARG_TYPE_RESTRICT) strcat(strcat(s, ", "), "CL_KERNEL_ARG_TYPE_RESTRICT"); \
-if(enumber == CL_KERNEL_ARG_TYPE_VOLATILE) strcat(strcat(s, ", "), "CL_KERNEL_ARG_TYPE_VOLATILE"); \
-if(enumber == CL_KERNEL_WORK_GROUP_SIZE) strcat(strcat(s, ", "), "CL_KERNEL_WORK_GROUP_SIZE"); \
-if(enumber == CL_KERNEL_COMPILE_WORK_GROUP_SIZE) strcat(strcat(s, ", "), "CL_KERNEL_COMPILE_WORK_GROUP_SIZE"); \
-if(enumber == CL_KERNEL_LOCAL_MEM_SIZE) strcat(strcat(s, ", "), "CL_KERNEL_LOCAL_MEM_SIZE"); \
-if(enumber == CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE) strcat(strcat(s, ", "), "CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE"); \
-if(enumber == CL_KERNEL_PRIVATE_MEM_SIZE) strcat(strcat(s, ", "), "CL_KERNEL_PRIVATE_MEM_SIZE"); \
-if(enumber == CL_KERNEL_GLOBAL_WORK_SIZE) strcat(strcat(s, ", "), "CL_KERNEL_GLOBAL_WORK_SIZE"); \
-if(enumber == CL_EVENT_COMMAND_QUEUE) strcat(strcat(s, ", "), "CL_EVENT_COMMAND_QUEUE"); \
-if(enumber == CL_EVENT_COMMAND_TYPE) strcat(strcat(s, ", "), "CL_EVENT_COMMAND_TYPE"); \
-if(enumber == CL_EVENT_REFERENCE_COUNT) strcat(strcat(s, ", "), "CL_EVENT_REFERENCE_COUNT"); \
-if(enumber == CL_EVENT_COMMAND_EXECUTION_STATUS) strcat(strcat(s, ", "), "CL_EVENT_COMMAND_EXECUTION_STATUS"); \
-if(enumber == CL_EVENT_CONTEXT) strcat(strcat(s, ", "), "CL_EVENT_CONTEXT"); \
-if(enumber == CL_COMMAND_NDRANGE_KERNEL) strcat(strcat(s, ", "), "CL_COMMAND_NDRANGE_KERNEL"); \
-if(enumber == CL_COMMAND_TASK) strcat(strcat(s, ", "), "CL_COMMAND_TASK"); \
-if(enumber == CL_COMMAND_NATIVE_KERNEL) strcat(strcat(s, ", "), "CL_COMMAND_NATIVE_KERNEL"); \
-if(enumber == CL_COMMAND_READ_BUFFER) strcat(strcat(s, ", "), "CL_COMMAND_READ_BUFFER"); \
-if(enumber == CL_COMMAND_WRITE_BUFFER) strcat(strcat(s, ", "), "CL_COMMAND_WRITE_BUFFER"); \
-if(enumber == CL_COMMAND_COPY_BUFFER) strcat(strcat(s, ", "), "CL_COMMAND_COPY_BUFFER"); \
-if(enumber == CL_COMMAND_READ_IMAGE) strcat(strcat(s, ", "), "CL_COMMAND_READ_IMAGE"); \
-if(enumber == CL_COMMAND_WRITE_IMAGE) strcat(strcat(s, ", "), "CL_COMMAND_WRITE_IMAGE"); \
-if(enumber == CL_COMMAND_COPY_IMAGE) strcat(strcat(s, ", "), "CL_COMMAND_COPY_IMAGE"); \
-if(enumber == CL_COMMAND_COPY_IMAGE_TO_BUFFER) strcat(strcat(s, ", "), "CL_COMMAND_COPY_IMAGE_TO_BUFFER"); \
-if(enumber == CL_COMMAND_COPY_BUFFER_TO_IMAGE) strcat(strcat(s, ", "), "CL_COMMAND_COPY_BUFFER_TO_IMAGE"); \
-if(enumber == CL_COMMAND_MAP_BUFFER) strcat(strcat(s, ", "), "CL_COMMAND_MAP_BUFFER"); \
-if(enumber == CL_COMMAND_MAP_IMAGE) strcat(strcat(s, ", "), "CL_COMMAND_MAP_IMAGE"); \
-if(enumber == CL_COMMAND_UNMAP_MEM_OBJECT) strcat(strcat(s, ", "), "CL_COMMAND_UNMAP_MEM_OBJECT"); \
-if(enumber == CL_COMMAND_MARKER) strcat(strcat(s, ", "), "CL_COMMAND_MARKER"); \
-if(enumber == CL_COMMAND_ACQUIRE_GL_OBJECTS) strcat(strcat(s, ", "), "CL_COMMAND_ACQUIRE_GL_OBJECTS"); \
-if(enumber == CL_COMMAND_RELEASE_GL_OBJECTS) strcat(strcat(s, ", "), "CL_COMMAND_RELEASE_GL_OBJECTS"); \
-if(enumber == CL_COMMAND_READ_BUFFER_RECT) strcat(strcat(s, ", "), "CL_COMMAND_READ_BUFFER_RECT"); \
-if(enumber == CL_COMMAND_WRITE_BUFFER_RECT) strcat(strcat(s, ", "), "CL_COMMAND_WRITE_BUFFER_RECT"); \
-if(enumber == CL_COMMAND_COPY_BUFFER_RECT) strcat(strcat(s, ", "), "CL_COMMAND_COPY_BUFFER_RECT"); \
-if(enumber == CL_COMMAND_USER) strcat(strcat(s, ", "), "CL_COMMAND_USER"); \
-if(enumber == CL_COMMAND_BARRIER) strcat(strcat(s, ", "), "CL_COMMAND_BARRIER"); \
-if(enumber == CL_COMMAND_MIGRATE_MEM_OBJECTS) strcat(strcat(s, ", "), "CL_COMMAND_MIGRATE_MEM_OBJECTS"); \
-if(enumber == CL_COMMAND_FILL_BUFFER) strcat(strcat(s, ", "), "CL_COMMAND_FILL_BUFFER"); \
-if(enumber == CL_COMMAND_FILL_IMAGE) strcat(strcat(s, ", "), "CL_COMMAND_FILL_IMAGE"); \
-if(enumber == CL_COMPLETE) strcat(strcat(s, ", "), "CL_COMPLETE"); \
-if(enumber == CL_RUNNING) strcat(strcat(s, ", "), "CL_RUNNING"); \
-if(enumber == CL_SUBMITTED) strcat(strcat(s, ", "), "CL_SUBMITTED"); \
-if(enumber == CL_QUEUED) strcat(strcat(s, ", "), "CL_QUEUED"); \
-if(enumber == CL_BUFFER_CREATE_TYPE_REGION) strcat(strcat(s, ", "), "CL_BUFFER_CREATE_TYPE_REGION"); \
-if(enumber == CL_PROFILING_COMMAND_QUEUED) strcat(strcat(s, ", "), "CL_PROFILING_COMMAND_QUEUED"); \
-if(enumber == CL_PROFILING_COMMAND_SUBMIT) strcat(strcat(s, ", "), "CL_PROFILING_COMMAND_SUBMIT"); \
-if(enumber == CL_PROFILING_COMMAND_START) strcat(strcat(s, ", "), "CL_PROFILING_COMMAND_START"); \
-if(enumber == CL_PROFILING_COMMAND_END) strcat(strcat(s, ", "), "CL_PROFILING_COMMAND_END");
+#ifndef SVK_CL_ERROR_MACRO_H
+
+#define SVK_CL_ERROR_MACRO_H
+
+#define CHECK_CL_ERROR(EMACRO)		if(enumber == EMACRO) strcat(strcat(s, ", "), #EMACRO);
+
+#define FIND_STRINGIFY_APPEND_ALL_CL_ERRORS \
+									strcat(s+2, "No matching CL_ error macro !!!");                      \
+									CHECK_CL_ERROR ( CL_SUCCESS                                        ) \
+									CHECK_CL_ERROR ( CL_DEVICE_NOT_FOUND                               ) \
+									CHECK_CL_ERROR ( CL_DEVICE_NOT_AVAILABLE                           ) \
+									CHECK_CL_ERROR ( CL_COMPILER_NOT_AVAILABLE                         ) \
+									CHECK_CL_ERROR ( CL_MEM_OBJECT_ALLOCATION_FAILURE                  ) \
+									CHECK_CL_ERROR ( CL_OUT_OF_RESOURCES                               ) \
+									CHECK_CL_ERROR ( CL_OUT_OF_HOST_MEMORY                             ) \
+									CHECK_CL_ERROR ( CL_PROFILING_INFO_NOT_AVAILABLE                   ) \
+									CHECK_CL_ERROR ( CL_MEM_COPY_OVERLAP                               ) \
+									CHECK_CL_ERROR ( CL_IMAGE_FORMAT_MISMATCH                          ) \
+									CHECK_CL_ERROR ( CL_IMAGE_FORMAT_NOT_SUPPORTED                     ) \
+									CHECK_CL_ERROR ( CL_BUILD_PROGRAM_FAILURE                          ) \
+									CHECK_CL_ERROR ( CL_MAP_FAILURE                                    ) \
+									CHECK_CL_ERROR ( CL_MISALIGNED_SUB_BUFFER_OFFSET                   ) \
+									CHECK_CL_ERROR ( CL_EXEC_STATUS_ERROR_FOR_EVENTS_IN_WAIT_LIST      ) \
+									CHECK_CL_ERROR ( CL_COMPILE_PROGRAM_FAILURE                        ) \
+									CHECK_CL_ERROR ( CL_LINKER_NOT_AVAILABLE                           ) \
+									CHECK_CL_ERROR ( CL_LINK_PROGRAM_FAILURE                           ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PARTITION_FAILED                        ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_INFO_NOT_AVAILABLE                  ) \
+									CHECK_CL_ERROR ( CL_INVALID_VALUE                                  ) \
+									CHECK_CL_ERROR ( CL_INVALID_DEVICE_TYPE                            ) \
+									CHECK_CL_ERROR ( CL_INVALID_PLATFORM                               ) \
+									CHECK_CL_ERROR ( CL_INVALID_DEVICE                                 ) \
+									CHECK_CL_ERROR ( CL_INVALID_CONTEXT                                ) \
+									CHECK_CL_ERROR ( CL_INVALID_QUEUE_PROPERTIES                       ) \
+									CHECK_CL_ERROR ( CL_INVALID_COMMAND_QUEUE                          ) \
+									CHECK_CL_ERROR ( CL_INVALID_HOST_PTR                               ) \
+									CHECK_CL_ERROR ( CL_INVALID_MEM_OBJECT                             ) \
+									CHECK_CL_ERROR ( CL_INVALID_IMAGE_FORMAT_DESCRIPTOR                ) \
+									CHECK_CL_ERROR ( CL_INVALID_IMAGE_SIZE                             ) \
+									CHECK_CL_ERROR ( CL_INVALID_SAMPLER                                ) \
+									CHECK_CL_ERROR ( CL_INVALID_BINARY                                 ) \
+									CHECK_CL_ERROR ( CL_INVALID_BUILD_OPTIONS                          ) \
+									CHECK_CL_ERROR ( CL_INVALID_PROGRAM                                ) \
+									CHECK_CL_ERROR ( CL_INVALID_PROGRAM_EXECUTABLE                     ) \
+									CHECK_CL_ERROR ( CL_INVALID_KERNEL_NAME                            ) \
+									CHECK_CL_ERROR ( CL_INVALID_KERNEL_DEFINITION                      ) \
+									CHECK_CL_ERROR ( CL_INVALID_KERNEL                                 ) \
+									CHECK_CL_ERROR ( CL_INVALID_ARG_INDEX                              ) \
+									CHECK_CL_ERROR ( CL_INVALID_ARG_VALUE                              ) \
+									CHECK_CL_ERROR ( CL_INVALID_ARG_SIZE                               ) \
+									CHECK_CL_ERROR ( CL_INVALID_KERNEL_ARGS                            ) \
+									CHECK_CL_ERROR ( CL_INVALID_WORK_DIMENSION                         ) \
+									CHECK_CL_ERROR ( CL_INVALID_WORK_GROUP_SIZE                        ) \
+									CHECK_CL_ERROR ( CL_INVALID_WORK_ITEM_SIZE                         ) \
+									CHECK_CL_ERROR ( CL_INVALID_GLOBAL_OFFSET                          ) \
+									CHECK_CL_ERROR ( CL_INVALID_EVENT_WAIT_LIST                        ) \
+									CHECK_CL_ERROR ( CL_INVALID_EVENT                                  ) \
+									CHECK_CL_ERROR ( CL_INVALID_OPERATION                              ) \
+									CHECK_CL_ERROR ( CL_INVALID_GL_OBJECT                              ) \
+									CHECK_CL_ERROR ( CL_INVALID_BUFFER_SIZE                            ) \
+									CHECK_CL_ERROR ( CL_INVALID_MIP_LEVEL                              ) \
+									CHECK_CL_ERROR ( CL_INVALID_GLOBAL_WORK_SIZE                       ) \
+									CHECK_CL_ERROR ( CL_INVALID_PROPERTY                               ) \
+									CHECK_CL_ERROR ( CL_INVALID_IMAGE_DESCRIPTOR                       ) \
+									CHECK_CL_ERROR ( CL_INVALID_COMPILER_OPTIONS                       ) \
+									CHECK_CL_ERROR ( CL_INVALID_LINKER_OPTIONS                         ) \
+									CHECK_CL_ERROR ( CL_INVALID_DEVICE_PARTITION_COUNT                 ) \
+									CHECK_CL_ERROR ( CL_VERSION_1_0                                    ) \
+									CHECK_CL_ERROR ( CL_VERSION_1_1                                    ) \
+									CHECK_CL_ERROR ( CL_VERSION_1_2                                    ) \
+									CHECK_CL_ERROR ( CL_FALSE                                          ) \
+									CHECK_CL_ERROR ( CL_TRUE                                           ) \
+									CHECK_CL_ERROR ( CL_BLOCKING                                       ) \
+									CHECK_CL_ERROR ( CL_NON_BLOCKING                                   ) \
+									CHECK_CL_ERROR ( CL_PLATFORM_PROFILE                               ) \
+									CHECK_CL_ERROR ( CL_PLATFORM_VERSION                               ) \
+									CHECK_CL_ERROR ( CL_PLATFORM_NAME                                  ) \
+									CHECK_CL_ERROR ( CL_PLATFORM_VENDOR                                ) \
+									CHECK_CL_ERROR ( CL_PLATFORM_EXTENSIONS                            ) \
+									CHECK_CL_ERROR ( CL_DEVICE_TYPE_DEFAULT                            ) \
+									CHECK_CL_ERROR ( CL_DEVICE_TYPE_CPU                                ) \
+									CHECK_CL_ERROR ( CL_DEVICE_TYPE_GPU                                ) \
+									CHECK_CL_ERROR ( CL_DEVICE_TYPE_ACCELERATOR                        ) \
+									CHECK_CL_ERROR ( CL_DEVICE_TYPE_CUSTOM                             ) \
+									CHECK_CL_ERROR ( CL_DEVICE_TYPE_ALL                                ) \
+									CHECK_CL_ERROR ( CL_DEVICE_TYPE                                    ) \
+									CHECK_CL_ERROR ( CL_DEVICE_VENDOR_ID                               ) \
+									CHECK_CL_ERROR ( CL_DEVICE_MAX_COMPUTE_UNITS                       ) \
+									CHECK_CL_ERROR ( CL_DEVICE_MAX_WORK_ITEM_DIMENSIONS                ) \
+									CHECK_CL_ERROR ( CL_DEVICE_MAX_WORK_GROUP_SIZE                     ) \
+									CHECK_CL_ERROR ( CL_DEVICE_MAX_WORK_ITEM_SIZES                     ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PREFERRED_VECTOR_WIDTH_CHAR             ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PREFERRED_VECTOR_WIDTH_SHORT            ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PREFERRED_VECTOR_WIDTH_INT              ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PREFERRED_VECTOR_WIDTH_LONG             ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PREFERRED_VECTOR_WIDTH_FLOAT            ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PREFERRED_VECTOR_WIDTH_DOUBLE           ) \
+									CHECK_CL_ERROR ( CL_DEVICE_MAX_CLOCK_FREQUENCY                     ) \
+									CHECK_CL_ERROR ( CL_DEVICE_ADDRESS_BITS                            ) \
+									CHECK_CL_ERROR ( CL_DEVICE_MAX_READ_IMAGE_ARGS                     ) \
+									CHECK_CL_ERROR ( CL_DEVICE_MAX_WRITE_IMAGE_ARGS                    ) \
+									CHECK_CL_ERROR ( CL_DEVICE_MAX_MEM_ALLOC_SIZE                      ) \
+									CHECK_CL_ERROR ( CL_DEVICE_IMAGE2D_MAX_WIDTH                       ) \
+									CHECK_CL_ERROR ( CL_DEVICE_IMAGE2D_MAX_HEIGHT                      ) \
+									CHECK_CL_ERROR ( CL_DEVICE_IMAGE3D_MAX_WIDTH                       ) \
+									CHECK_CL_ERROR ( CL_DEVICE_IMAGE3D_MAX_HEIGHT                      ) \
+									CHECK_CL_ERROR ( CL_DEVICE_IMAGE3D_MAX_DEPTH                       ) \
+									CHECK_CL_ERROR ( CL_DEVICE_IMAGE_SUPPORT                           ) \
+									CHECK_CL_ERROR ( CL_DEVICE_MAX_PARAMETER_SIZE                      ) \
+									CHECK_CL_ERROR ( CL_DEVICE_MAX_SAMPLERS                            ) \
+									CHECK_CL_ERROR ( CL_DEVICE_MEM_BASE_ADDR_ALIGN                     ) \
+									CHECK_CL_ERROR ( CL_DEVICE_MIN_DATA_TYPE_ALIGN_SIZE                ) \
+									CHECK_CL_ERROR ( CL_DEVICE_SINGLE_FP_CONFIG                        ) \
+									CHECK_CL_ERROR ( CL_DEVICE_GLOBAL_MEM_CACHE_TYPE                   ) \
+									CHECK_CL_ERROR ( CL_DEVICE_GLOBAL_MEM_CACHELINE_SIZE               ) \
+									CHECK_CL_ERROR ( CL_DEVICE_GLOBAL_MEM_CACHE_SIZE                   ) \
+									CHECK_CL_ERROR ( CL_DEVICE_GLOBAL_MEM_SIZE                         ) \
+									CHECK_CL_ERROR ( CL_DEVICE_MAX_CONSTANT_BUFFER_SIZE                ) \
+									CHECK_CL_ERROR ( CL_DEVICE_MAX_CONSTANT_ARGS                       ) \
+									CHECK_CL_ERROR ( CL_DEVICE_LOCAL_MEM_TYPE                          ) \
+									CHECK_CL_ERROR ( CL_DEVICE_LOCAL_MEM_SIZE                          ) \
+									CHECK_CL_ERROR ( CL_DEVICE_ERROR_CORRECTION_SUPPORT                ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PROFILING_TIMER_RESOLUTION              ) \
+									CHECK_CL_ERROR ( CL_DEVICE_ENDIAN_LITTLE                           ) \
+									CHECK_CL_ERROR ( CL_DEVICE_AVAILABLE                               ) \
+									CHECK_CL_ERROR ( CL_DEVICE_COMPILER_AVAILABLE                      ) \
+									CHECK_CL_ERROR ( CL_DEVICE_EXECUTION_CAPABILITIES                  ) \
+									CHECK_CL_ERROR ( CL_DEVICE_QUEUE_PROPERTIES                        ) \
+									CHECK_CL_ERROR ( CL_DEVICE_NAME                                    ) \
+									CHECK_CL_ERROR ( CL_DEVICE_VENDOR                                  ) \
+									CHECK_CL_ERROR ( CL_DRIVER_VERSION                                 ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PROFILE                                 ) \
+									CHECK_CL_ERROR ( CL_DEVICE_VERSION                                 ) \
+									CHECK_CL_ERROR ( CL_DEVICE_EXTENSIONS                              ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PLATFORM                                ) \
+									CHECK_CL_ERROR ( CL_DEVICE_DOUBLE_FP_CONFIG                        ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PREFERRED_VECTOR_WIDTH_HALF             ) \
+									CHECK_CL_ERROR ( CL_DEVICE_HOST_UNIFIED_MEMORY                     ) \
+									CHECK_CL_ERROR ( CL_DEVICE_NATIVE_VECTOR_WIDTH_CHAR                ) \
+									CHECK_CL_ERROR ( CL_DEVICE_NATIVE_VECTOR_WIDTH_SHORT               ) \
+									CHECK_CL_ERROR ( CL_DEVICE_NATIVE_VECTOR_WIDTH_INT                 ) \
+									CHECK_CL_ERROR ( CL_DEVICE_NATIVE_VECTOR_WIDTH_LONG                ) \
+									CHECK_CL_ERROR ( CL_DEVICE_NATIVE_VECTOR_WIDTH_FLOAT               ) \
+									CHECK_CL_ERROR ( CL_DEVICE_NATIVE_VECTOR_WIDTH_DOUBLE              ) \
+									CHECK_CL_ERROR ( CL_DEVICE_NATIVE_VECTOR_WIDTH_HALF                ) \
+									CHECK_CL_ERROR ( CL_DEVICE_OPENCL_C_VERSION                        ) \
+									CHECK_CL_ERROR ( CL_DEVICE_LINKER_AVAILABLE                        ) \
+									CHECK_CL_ERROR ( CL_DEVICE_BUILT_IN_KERNELS                        ) \
+									CHECK_CL_ERROR ( CL_DEVICE_IMAGE_MAX_BUFFER_SIZE                   ) \
+									CHECK_CL_ERROR ( CL_DEVICE_IMAGE_MAX_ARRAY_SIZE                    ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PARENT_DEVICE                           ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PARTITION_MAX_SUB_DEVICES               ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PARTITION_PROPERTIES                    ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PARTITION_AFFINITY_DOMAIN               ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PARTITION_TYPE                          ) \
+									CHECK_CL_ERROR ( CL_DEVICE_REFERENCE_COUNT                         ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PREFERRED_INTEROP_USER_SYNC             ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PRINTF_BUFFER_SIZE                      ) \
+									CHECK_CL_ERROR ( CL_DEVICE_IMAGE_PITCH_ALIGNMENT                   ) \
+									CHECK_CL_ERROR ( CL_DEVICE_IMAGE_BASE_ADDRESS_ALIGNMENT            ) \
+									CHECK_CL_ERROR ( CL_FP_DENORM                                      ) \
+									CHECK_CL_ERROR ( CL_FP_INF_NAN                                     ) \
+									CHECK_CL_ERROR ( CL_FP_ROUND_TO_NEAREST                            ) \
+									CHECK_CL_ERROR ( CL_FP_ROUND_TO_ZERO                               ) \
+									CHECK_CL_ERROR ( CL_FP_ROUND_TO_INF                                ) \
+									CHECK_CL_ERROR ( CL_FP_FMA                                         ) \
+									CHECK_CL_ERROR ( CL_FP_SOFT_FLOAT                                  ) \
+									CHECK_CL_ERROR ( CL_FP_CORRECTLY_ROUNDED_DIVIDE_SQRT               ) \
+									CHECK_CL_ERROR ( CL_NONE                                           ) \
+									CHECK_CL_ERROR ( CL_READ_ONLY_CACHE                                ) \
+									CHECK_CL_ERROR ( CL_READ_WRITE_CACHE                               ) \
+									CHECK_CL_ERROR ( CL_LOCAL                                          ) \
+									CHECK_CL_ERROR ( CL_GLOBAL                                         ) \
+									CHECK_CL_ERROR ( CL_EXEC_KERNEL                                    ) \
+									CHECK_CL_ERROR ( CL_EXEC_NATIVE_KERNEL                             ) \
+									CHECK_CL_ERROR ( CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE            ) \
+									CHECK_CL_ERROR ( CL_QUEUE_PROFILING_ENABLE                         ) \
+									CHECK_CL_ERROR ( CL_CONTEXT_REFERENCE_COUNT                        ) \
+									CHECK_CL_ERROR ( CL_CONTEXT_DEVICES                                ) \
+									CHECK_CL_ERROR ( CL_CONTEXT_PROPERTIES                             ) \
+									CHECK_CL_ERROR ( CL_CONTEXT_NUM_DEVICES                            ) \
+									CHECK_CL_ERROR ( CL_CONTEXT_PLATFORM                               ) \
+									CHECK_CL_ERROR ( CL_CONTEXT_INTEROP_USER_SYNC                      ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PARTITION_EQUALLY                       ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PARTITION_BY_COUNTS                     ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PARTITION_BY_COUNTS_LIST_END            ) \
+									CHECK_CL_ERROR ( CL_DEVICE_PARTITION_BY_AFFINITY_DOMAIN            ) \
+									CHECK_CL_ERROR ( CL_DEVICE_AFFINITY_DOMAIN_NUMA                    ) \
+									CHECK_CL_ERROR ( CL_DEVICE_AFFINITY_DOMAIN_L4_CACHE                ) \
+									CHECK_CL_ERROR ( CL_DEVICE_AFFINITY_DOMAIN_L3_CACHE                ) \
+									CHECK_CL_ERROR ( CL_DEVICE_AFFINITY_DOMAIN_L2_CACHE                ) \
+									CHECK_CL_ERROR ( CL_DEVICE_AFFINITY_DOMAIN_L1_CACHE                ) \
+									CHECK_CL_ERROR ( CL_DEVICE_AFFINITY_DOMAIN_NEXT_PARTITIONABLE      ) \
+									CHECK_CL_ERROR ( CL_QUEUE_CONTEXT                                  ) \
+									CHECK_CL_ERROR ( CL_QUEUE_DEVICE                                   ) \
+									CHECK_CL_ERROR ( CL_QUEUE_REFERENCE_COUNT                          ) \
+									CHECK_CL_ERROR ( CL_QUEUE_PROPERTIES                               ) \
+									CHECK_CL_ERROR ( CL_MEM_READ_WRITE                                 ) \
+									CHECK_CL_ERROR ( CL_MEM_WRITE_ONLY                                 ) \
+									CHECK_CL_ERROR ( CL_MEM_READ_ONLY                                  ) \
+									CHECK_CL_ERROR ( CL_MEM_USE_HOST_PTR                               ) \
+									CHECK_CL_ERROR ( CL_MEM_ALLOC_HOST_PTR                             ) \
+									CHECK_CL_ERROR ( CL_MEM_COPY_HOST_PTR                              ) \
+									CHECK_CL_ERROR ( CL_MEM_HOST_WRITE_ONLY                            ) \
+									CHECK_CL_ERROR ( CL_MEM_HOST_READ_ONLY                             ) \
+									CHECK_CL_ERROR ( CL_MEM_HOST_NO_ACCESS                             ) \
+									CHECK_CL_ERROR ( CL_MIGRATE_MEM_OBJECT_HOST                        ) \
+									CHECK_CL_ERROR ( CL_MIGRATE_MEM_OBJECT_CONTENT_UNDEFINED           ) \
+									CHECK_CL_ERROR ( CL_R                                              ) \
+									CHECK_CL_ERROR ( CL_A                                              ) \
+									CHECK_CL_ERROR ( CL_RG                                             ) \
+									CHECK_CL_ERROR ( CL_RA                                             ) \
+									CHECK_CL_ERROR ( CL_RGB                                            ) \
+									CHECK_CL_ERROR ( CL_RGBA                                           ) \
+									CHECK_CL_ERROR ( CL_BGRA                                           ) \
+									CHECK_CL_ERROR ( CL_ARGB                                           ) \
+									CHECK_CL_ERROR ( CL_INTENSITY                                      ) \
+									CHECK_CL_ERROR ( CL_LUMINANCE                                      ) \
+									CHECK_CL_ERROR ( CL_Rx                                             ) \
+									CHECK_CL_ERROR ( CL_RGx                                            ) \
+									CHECK_CL_ERROR ( CL_RGBx                                           ) \
+									CHECK_CL_ERROR ( CL_DEPTH                                          ) \
+									CHECK_CL_ERROR ( CL_DEPTH_STENCIL                                  ) \
+									CHECK_CL_ERROR ( CL_SNORM_INT8                                     ) \
+									CHECK_CL_ERROR ( CL_SNORM_INT16                                    ) \
+									CHECK_CL_ERROR ( CL_UNORM_INT8                                     ) \
+									CHECK_CL_ERROR ( CL_UNORM_INT16                                    ) \
+									CHECK_CL_ERROR ( CL_UNORM_SHORT_565                                ) \
+									CHECK_CL_ERROR ( CL_UNORM_SHORT_555                                ) \
+									CHECK_CL_ERROR ( CL_UNORM_INT_101010                               ) \
+									CHECK_CL_ERROR ( CL_SIGNED_INT8                                    ) \
+									CHECK_CL_ERROR ( CL_SIGNED_INT16                                   ) \
+									CHECK_CL_ERROR ( CL_SIGNED_INT32                                   ) \
+									CHECK_CL_ERROR ( CL_UNSIGNED_INT8                                  ) \
+									CHECK_CL_ERROR ( CL_UNSIGNED_INT16                                 ) \
+									CHECK_CL_ERROR ( CL_UNSIGNED_INT32                                 ) \
+									CHECK_CL_ERROR ( CL_HALF_FLOAT                                     ) \
+									CHECK_CL_ERROR ( CL_FLOAT                                          ) \
+									CHECK_CL_ERROR ( CL_UNORM_INT24                                    ) \
+									CHECK_CL_ERROR ( CL_MEM_OBJECT_BUFFER                              ) \
+									CHECK_CL_ERROR ( CL_MEM_OBJECT_IMAGE2D                             ) \
+									CHECK_CL_ERROR ( CL_MEM_OBJECT_IMAGE3D                             ) \
+									CHECK_CL_ERROR ( CL_MEM_OBJECT_IMAGE2D_ARRAY                       ) \
+									CHECK_CL_ERROR ( CL_MEM_OBJECT_IMAGE1D                             ) \
+									CHECK_CL_ERROR ( CL_MEM_OBJECT_IMAGE1D_ARRAY                       ) \
+									CHECK_CL_ERROR ( CL_MEM_OBJECT_IMAGE1D_BUFFER                      ) \
+									CHECK_CL_ERROR ( CL_MEM_TYPE                                       ) \
+									CHECK_CL_ERROR ( CL_MEM_FLAGS                                      ) \
+									CHECK_CL_ERROR ( CL_MEM_SIZE                                       ) \
+									CHECK_CL_ERROR ( CL_MEM_HOST_PTR                                   ) \
+									CHECK_CL_ERROR ( CL_MEM_MAP_COUNT                                  ) \
+									CHECK_CL_ERROR ( CL_MEM_REFERENCE_COUNT                            ) \
+									CHECK_CL_ERROR ( CL_MEM_CONTEXT                                    ) \
+									CHECK_CL_ERROR ( CL_MEM_ASSOCIATED_MEMOBJECT                       ) \
+									CHECK_CL_ERROR ( CL_MEM_OFFSET                                     ) \
+									CHECK_CL_ERROR ( CL_IMAGE_FORMAT                                   ) \
+									CHECK_CL_ERROR ( CL_IMAGE_ELEMENT_SIZE                             ) \
+									CHECK_CL_ERROR ( CL_IMAGE_ROW_PITCH                                ) \
+									CHECK_CL_ERROR ( CL_IMAGE_SLICE_PITCH                              ) \
+									CHECK_CL_ERROR ( CL_IMAGE_WIDTH                                    ) \
+									CHECK_CL_ERROR ( CL_IMAGE_HEIGHT                                   ) \
+									CHECK_CL_ERROR ( CL_IMAGE_DEPTH                                    ) \
+									CHECK_CL_ERROR ( CL_IMAGE_ARRAY_SIZE                               ) \
+									CHECK_CL_ERROR ( CL_IMAGE_BUFFER                                   ) \
+									CHECK_CL_ERROR ( CL_IMAGE_NUM_MIP_LEVELS                           ) \
+									CHECK_CL_ERROR ( CL_IMAGE_NUM_SAMPLES                              ) \
+									CHECK_CL_ERROR ( CL_ADDRESS_NONE                                   ) \
+									CHECK_CL_ERROR ( CL_ADDRESS_CLAMP_TO_EDGE                          ) \
+									CHECK_CL_ERROR ( CL_ADDRESS_CLAMP                                  ) \
+									CHECK_CL_ERROR ( CL_ADDRESS_REPEAT                                 ) \
+									CHECK_CL_ERROR ( CL_ADDRESS_MIRRORED_REPEAT                        ) \
+									CHECK_CL_ERROR ( CL_FILTER_NEAREST                                 ) \
+									CHECK_CL_ERROR ( CL_FILTER_LINEAR                                  ) \
+									CHECK_CL_ERROR ( CL_SAMPLER_REFERENCE_COUNT                        ) \
+									CHECK_CL_ERROR ( CL_SAMPLER_CONTEXT                                ) \
+									CHECK_CL_ERROR ( CL_SAMPLER_NORMALIZED_COORDS                      ) \
+									CHECK_CL_ERROR ( CL_SAMPLER_ADDRESSING_MODE                        ) \
+									CHECK_CL_ERROR ( CL_SAMPLER_FILTER_MODE                            ) \
+									CHECK_CL_ERROR ( CL_MAP_READ                                       ) \
+									CHECK_CL_ERROR ( CL_MAP_WRITE                                      ) \
+									CHECK_CL_ERROR ( CL_MAP_WRITE_INVALIDATE_REGION                    ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_REFERENCE_COUNT                        ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_CONTEXT                                ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_NUM_DEVICES                            ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_DEVICES                                ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_SOURCE                                 ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_BINARY_SIZES                           ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_BINARIES                               ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_NUM_KERNELS                            ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_KERNEL_NAMES                           ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_BUILD_STATUS                           ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_BUILD_OPTIONS                          ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_BUILD_LOG                              ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_BINARY_TYPE                            ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_BINARY_TYPE_NONE                       ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_BINARY_TYPE_COMPILED_OBJECT            ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_BINARY_TYPE_LIBRARY                    ) \
+									CHECK_CL_ERROR ( CL_PROGRAM_BINARY_TYPE_EXECUTABLE                 ) \
+									CHECK_CL_ERROR ( CL_BUILD_SUCCESS                                  ) \
+									CHECK_CL_ERROR ( CL_BUILD_NONE                                     ) \
+									CHECK_CL_ERROR ( CL_BUILD_ERROR                                    ) \
+									CHECK_CL_ERROR ( CL_BUILD_IN_PROGRESS                              ) \
+									CHECK_CL_ERROR ( CL_KERNEL_FUNCTION_NAME                           ) \
+									CHECK_CL_ERROR ( CL_KERNEL_NUM_ARGS                                ) \
+									CHECK_CL_ERROR ( CL_KERNEL_REFERENCE_COUNT                         ) \
+									CHECK_CL_ERROR ( CL_KERNEL_CONTEXT                                 ) \
+									CHECK_CL_ERROR ( CL_KERNEL_PROGRAM                                 ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ATTRIBUTES                              ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_ADDRESS_QUALIFIER                   ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_ACCESS_QUALIFIER                    ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_TYPE_NAME                           ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_TYPE_QUALIFIER                      ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_NAME                                ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_ADDRESS_GLOBAL                      ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_ADDRESS_LOCAL                       ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_ADDRESS_CONSTANT                    ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_ADDRESS_PRIVATE                     ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_ACCESS_READ_ONLY                    ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_ACCESS_WRITE_ONLY                   ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_ACCESS_READ_WRITE                   ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_ACCESS_NONE                         ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_TYPE_NONE                           ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_TYPE_CONST                          ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_TYPE_RESTRICT                       ) \
+									CHECK_CL_ERROR ( CL_KERNEL_ARG_TYPE_VOLATILE                       ) \
+									CHECK_CL_ERROR ( CL_KERNEL_WORK_GROUP_SIZE                         ) \
+									CHECK_CL_ERROR ( CL_KERNEL_COMPILE_WORK_GROUP_SIZE                 ) \
+									CHECK_CL_ERROR ( CL_KERNEL_LOCAL_MEM_SIZE                          ) \
+									CHECK_CL_ERROR ( CL_KERNEL_PREFERRED_WORK_GROUP_SIZE_MULTIPLE      ) \
+									CHECK_CL_ERROR ( CL_KERNEL_PRIVATE_MEM_SIZE                        ) \
+									CHECK_CL_ERROR ( CL_KERNEL_GLOBAL_WORK_SIZE                        ) \
+									CHECK_CL_ERROR ( CL_EVENT_COMMAND_QUEUE                            ) \
+									CHECK_CL_ERROR ( CL_EVENT_COMMAND_TYPE                             ) \
+									CHECK_CL_ERROR ( CL_EVENT_REFERENCE_COUNT                          ) \
+									CHECK_CL_ERROR ( CL_EVENT_COMMAND_EXECUTION_STATUS                 ) \
+									CHECK_CL_ERROR ( CL_EVENT_CONTEXT                                  ) \
+									CHECK_CL_ERROR ( CL_COMMAND_NDRANGE_KERNEL                         ) \
+									CHECK_CL_ERROR ( CL_COMMAND_TASK                                   ) \
+									CHECK_CL_ERROR ( CL_COMMAND_NATIVE_KERNEL                          ) \
+									CHECK_CL_ERROR ( CL_COMMAND_READ_BUFFER                            ) \
+									CHECK_CL_ERROR ( CL_COMMAND_WRITE_BUFFER                           ) \
+									CHECK_CL_ERROR ( CL_COMMAND_COPY_BUFFER                            ) \
+									CHECK_CL_ERROR ( CL_COMMAND_READ_IMAGE                             ) \
+									CHECK_CL_ERROR ( CL_COMMAND_WRITE_IMAGE                            ) \
+									CHECK_CL_ERROR ( CL_COMMAND_COPY_IMAGE                             ) \
+									CHECK_CL_ERROR ( CL_COMMAND_COPY_IMAGE_TO_BUFFER                   ) \
+									CHECK_CL_ERROR ( CL_COMMAND_COPY_BUFFER_TO_IMAGE                   ) \
+									CHECK_CL_ERROR ( CL_COMMAND_MAP_BUFFER                             ) \
+									CHECK_CL_ERROR ( CL_COMMAND_MAP_IMAGE                              ) \
+									CHECK_CL_ERROR ( CL_COMMAND_UNMAP_MEM_OBJECT                       ) \
+									CHECK_CL_ERROR ( CL_COMMAND_MARKER                                 ) \
+									CHECK_CL_ERROR ( CL_COMMAND_ACQUIRE_GL_OBJECTS                     ) \
+									CHECK_CL_ERROR ( CL_COMMAND_RELEASE_GL_OBJECTS                     ) \
+									CHECK_CL_ERROR ( CL_COMMAND_READ_BUFFER_RECT                       ) \
+									CHECK_CL_ERROR ( CL_COMMAND_WRITE_BUFFER_RECT                      ) \
+									CHECK_CL_ERROR ( CL_COMMAND_COPY_BUFFER_RECT                       ) \
+									CHECK_CL_ERROR ( CL_COMMAND_USER                                   ) \
+									CHECK_CL_ERROR ( CL_COMMAND_BARRIER                                ) \
+									CHECK_CL_ERROR ( CL_COMMAND_MIGRATE_MEM_OBJECTS                    ) \
+									CHECK_CL_ERROR ( CL_COMMAND_FILL_BUFFER                            ) \
+									CHECK_CL_ERROR ( CL_COMMAND_FILL_IMAGE                             ) \
+									CHECK_CL_ERROR ( CL_COMPLETE                                       ) \
+									CHECK_CL_ERROR ( CL_RUNNING                                        ) \
+									CHECK_CL_ERROR ( CL_SUBMITTED                                      ) \
+									CHECK_CL_ERROR ( CL_QUEUED                                         ) \
+									CHECK_CL_ERROR ( CL_BUFFER_CREATE_TYPE_REGION                      ) \
+									CHECK_CL_ERROR ( CL_PROFILING_COMMAND_QUEUED                       ) \
+									CHECK_CL_ERROR ( CL_PROFILING_COMMAND_SUBMIT                       ) \
+									CHECK_CL_ERROR ( CL_PROFILING_COMMAND_START                        ) \
+									CHECK_CL_ERROR ( CL_PROFILING_COMMAND_END                          ) 
+
 #endif
+
+
+									
