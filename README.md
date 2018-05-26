@@ -37,16 +37,21 @@ Example commands for CPU only computation:
 
 Compilation:
 ```
-      $ echo $LD_LIBRARY_PATH
-      :/usr/local/cuda-9.1/lib64
+      ## Ensure paths are ok
+
+      $ echo $LIBRARY_PATH
+      /usr/local/cuda-8.0/targets/x86_64-linux/lib
+      $ echo $CPLUS_INCLUDE_PATH
+      /usr/local/cuda-8.0/targets/x86_64-linux/include
 
       ## CPU ONLY VERSION:
       $ make cpu
-      ./zncc --use-gpu
+      $ ./zncc --use-gpu
       Recompile with GPU support :)
 
+      ## WITH GPU SUPPORT:
       $ make
-      ./zncc --use-gpu
+      $ ./zncc --use-gpu
       la 26.5.2018 10.42.28 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood = 08, t_sg = 0.0000 ms;  t_d0 = 39.0000 ms;  t_d1 = 39.0000 ms;  t_cc = 0.0000 ms;  t_of = 0.0000 ms
 ```
 
