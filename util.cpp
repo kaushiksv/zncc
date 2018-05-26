@@ -41,6 +41,7 @@ void handle_lodepng_error(int error){
         char s[128];
         sprintf_s(s, 128, "%d\n%s", error, lodepng_error_text(error));
         std::cout<<"Error: "<<s<<std::endl;
+        abort();
     }
 }
 
