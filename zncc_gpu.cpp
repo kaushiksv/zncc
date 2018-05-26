@@ -1,16 +1,4 @@
-#include <iostream>
-#include <stdio.h>
-#include <pthread.h>
-#include <math.h>
-#include <stdlib.h>
-#include <algorithm>
-#include <sys/time.h>
-#include <CL/cl.h>
-#include <sys/time.h>
-#include <assert.h>
-#include <unistd.h>
-#include "zncc.h"
-#include "util.h"
+#include "includes.h"
 
 // To store CL objects globally yet neatly.
 namespace cl_objects {

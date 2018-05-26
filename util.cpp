@@ -1,11 +1,4 @@
-#include <iostream>
-#include <stdio.h>
-#include <CL/cl.h>
-#include <string.h>
-#include "util.h"
-#include "zncc.h"
-#include "lodepng.h"
-#include "clerrmacros.h"
+#include "includes.h"
 
 int update_status_b = 0;
 
@@ -21,14 +14,6 @@ unsigned char * read_file(const char * const filename) {
     fread(buffer, 1, length, f);
     fclose(f);
     return buffer;
-}
-
-void cl_decode_error(cl_int enumber){
-    char *s = (char *)calloc(102400);
-    // Defined in clerrmacros.h
-    FIND_STRINGIFY_APPEND_ALL_CL_ERRORS 
-    puts(s+2);
-    free(s);
 }
 
 void pfn_notify(const char *errinfo, const void *private_info, size_t cb, void *user_data)
@@ -55,3 +40,13 @@ void calc_elapsed_times (struct timeval *t, double *elapsedTimes, int t_n){
         }
     }
 }
+
+#ifdef GPU_SUPPORT
+void cl_decode_error(cl_int enumber){
+    char *s = (char *)calloc(102400);
+    // Defined in clerrmacros.h
+    FIND_STRINGIFY_APPEND_ALL_CL_ERRORS 
+    puts(s+2);
+    free(s);
+}
+#endif

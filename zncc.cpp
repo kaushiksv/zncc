@@ -1,13 +1,4 @@
-#include <iostream>
-#include <stdio.h>
-#include <pthread.h>
-#include <math.h>
-#include <stdlib.h>
-#include <algorithm>
-#include <sys/time.h>
-#include <CL/cl.h>
-#include "zncc.h"
-#include "util.h"
+#include "includes.h"
 
 /*
 	Single function to scale down 2 images by 'shrink_factor' and greyscale them from RGBA format.

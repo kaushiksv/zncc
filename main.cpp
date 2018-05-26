@@ -1,15 +1,4 @@
-#include <iostream>
-#include <stdio.h>
-#include <memory.h>
-#include "lodepng.h"
-#include "zncc.h"
-#include <limits.h>
-#include <stdlib.h>
-#include <pthread.h>
-#include <CL/cl.h>
-#include "cmdline.h"
-#include "zncc.h"
-#include "util.h"
+#include "includes.h"
 
 #define EXEC_PROJ_ARGS_COMMON	args_info.image_0_given?args_info.image_0_arg:NULL, \
 								args_info.image_1_given?args_info.image_1_arg:NULL, \
@@ -61,7 +50,12 @@ int main(int argc, char *argv[]){
 	::update_status_b = args_info.show_status_flag;
 
 	if(args_info.use_gpu_flag){
+#ifdef GPU_SUPPORT
 		exec_project_gpu( EXEC_PROJ_ARGS_COMMON, EXEC_PROJ_ARGS_GPUONLY );
+#else
+		printf("Recompile with GPU support :)\n");
+		return 1;
+#endif
 	} else {
 		exec_project_cpu( EXEC_PROJ_ARGS_COMMON, EXEC_PROJ_ARGS_CPUONLY );
 	}

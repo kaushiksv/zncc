@@ -1,13 +1,7 @@
-
-#include <iostream>
-#include <stdio.h>
-#include <CL/cl.h>
-#include "lodepng.h"
-#include "util.h"
-
 #ifndef ZNCC_H
 #define ZNCC_H
 
+#include "includes.h"
 
 #define TRUE	1
 #define FALSE	0
@@ -23,6 +17,7 @@
 
 #define sprintf_s snprintf
 
+#ifdef GPU_SUPPORT
 /*
   The following macros CL_CHECK and CL_CHECK_ERR were originally written by Clifford Wolf
   and available at URL: http://svn.clifford.at/tools/trunk/examples/cldemo.c
@@ -49,7 +44,8 @@
      }                                                                          \
      _ret;                                                                      \
    })
-
+#endif
+   
 typedef unsigned char BYTE;
 
 struct zncc_worker_args {

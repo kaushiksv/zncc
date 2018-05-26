@@ -1,8 +1,10 @@
-#include <iostream>
-#include <stdio.h>
+// #include <iostream>
+// #include <stdio.h>
 
 #ifndef SVK_UTIL_H
 #define SVK_UTIL_H
+
+#include "includes.h"
 
 #define in_range(x, a, b) 		(x>=a && x<=b)
 
@@ -29,10 +31,13 @@ extern int update_status_b;
 
 
 void 				calc_elapsed_times	(struct timeval *t, double *elapsedTimes, int t_n);
-void				cl_decode_error		(cl_int enumber);
 void				handle_lodepng_error(int error);
 void 				pfn_notify			(const char *errinfo, const void *private_info, size_t cb, void *user_data);
 unsigned char * 	read_file			(const char * const filename);
+
+#ifdef GPU_SUPPORT
+void				cl_decode_error		(cl_int enumber);
+#endif
 
 /* Inline functions */
 

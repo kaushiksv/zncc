@@ -1,5 +1,9 @@
 CC=g++
-CFLAGS=-g -std=gnu++11 -pthread -I. -lOpenCL
+CFLAGS=-g -std=gnu++11 -pthread -I.
+CLFLAGS=-lOpenCL -DGPU_SUPPORT
 #-Wall
-zncc: main.cpp zncc.cpp lodepng.cpp cmdline.c util.cpp zncc_gpu.cpp zncc.h lodepng.h cmdline.h util.h
-	$(CC) -o zncc main.cpp zncc.cpp lodepng.cpp cmdline.c util.cpp zncc_gpu.cpp $(CFLAGS) 
+gpu: main.cpp zncc.cpp lodepng.cpp cmdline.c util.cpp zncc_gpu.cpp
+	$(CC) -o zncc main.cpp zncc.cpp lodepng.cpp cmdline.c util.cpp zncc_gpu.cpp $(CFLAGS) $(CLFLAGS)
+
+cpu: main.cpp zncc.cpp lodepng.cpp cmdline.c util.cpp
+	$(CC) -o zncc main.cpp zncc.cpp lodepng.cpp cmdline.c util.cpp $(CFLAGS) 
