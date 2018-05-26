@@ -1,9 +1,9 @@
 package "zncc"
-version "1.0"
+version "2.0"
 #purpose "Generate ZNCC based depthmap of two given images im0.png and im1.png"
 usage "zncc [OPTIONS]"
-description "Simple ZNCC depthmap implementation. Looks for im0.png and im1.png in working directory. Outputs to outputs/ relative to working directory. See zncc.cpp for details."
-versiontext "Multithreaded implementation"
+description "Computes ZNCC based depthmap. Looks for im0.png and im1.png in working directory. Outputs to outputs/depthmap.png relative to working directory. See zncc.cpp for details."
+versiontext "Multithreaded and OpenCL (GPU) implementation"
 
 #args "<command line options>"
 
@@ -29,6 +29,9 @@ option "shrink-by" - "Shrink factor to downscale image. Typically set to 1 when 
 #{hidden}
 #option <long> <short> "<desc>" flag <on/off>
 
+text "\n"
+text "In CPU mode, set shell variable INTIMG=1 before invoking to output intermediary files."
+text "\n"
 section "About"
 text "\n"
 text "Author: Kaushik Sundarajayaraman Venkat\n"

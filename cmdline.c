@@ -29,9 +29,9 @@ const char *gengetopt_args_info_purpose = "";
 
 const char *gengetopt_args_info_usage = "Usage: zncc [OPTIONS]";
 
-const char *gengetopt_args_info_versiontext = "Multithreaded implementation";
+const char *gengetopt_args_info_versiontext = "Multithreaded and OpenCL (GPU) implementation";
 
-const char *gengetopt_args_info_description = "Simple ZNCC depthmap implementation. Looks for im0.png and im1.png in working\ndirectory. Outputs to outputs/ relative to working directory. See zncc.cpp for\ndetails.";
+const char *gengetopt_args_info_description = "Computes ZNCC based depthmap. Looks for im0.png and im1.png in working\ndirectory. Outputs to outputs/depthmap.png relative to working directory. See\nzncc.cpp for details.";
 
 const char *gengetopt_args_info_help[] = {
   "  -h, --help                    Print help and exit",
@@ -49,7 +49,7 @@ const char *gengetopt_args_info_help[] = {
   "      --image-0=STRING          Image 0 filepath",
   "      --image-1=STRING          Image 1 filepath",
   "      --shrink-by=INT           Shrink factor to downscale image. Typically set\n                                  to 1 when skipping depthmapping step.\n                                  (default=`4')",
-  "\nAuthor: Kaushik Sundarajayaraman Venkat\nE-mail: speak2kaushik@gmail.com, kaushik.sv@student.oulu.fi\n",
+  "\nIn CPU mode, set shell variable INTIMG=1 before invoking to output intermediary\nfiles.\n\nAuthor: Kaushik Sundarajayaraman Venkat\nE-mail: speak2kaushik@gmail.com, kaushik.sv@student.oulu.fi\n",
     0
 };
 

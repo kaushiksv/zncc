@@ -44,8 +44,8 @@ void opencl_init(int platform_number, int device_number, char *build_options){
 		abort();
 	}
 	CL_CHECK(clGetDeviceIDs(platforms[platform_number], CL_DEVICE_TYPE_GPU, 100, devices, &devices_n));
-	if (devices_n == 0) {
-		puts("No devices. Aborting...");
+	if (devices_n == 0 || !in_range(device_number, 0, devices_n-1)) {
+		puts("No device or invalid device number. Aborting...");
 		abort();
 	}
 	device = devices[device_number];
@@ -315,11 +315,11 @@ void exec_project_gpu	(	const char * const img0_arg,
 
 	CL_CHECK(clWaitForEvents(1, &kernel_completion[4]));
 	// CL_CHECK(clReleaseEvent(kernel_completion[4]));
-	status_update("Copying to host memory....");
+	status_update("Copying to host memory....\n");
 
 	CL_CHECK(clWaitForEvents(1, &kernel_completion[5]));
 	// CL_CHECK(clReleaseEvent(kernel_completion[5]));
-	status_update("Done.");
+	status_update("Done.\n");
 
 	clFinish(queue);
 
