@@ -406,8 +406,10 @@ void exec_project_cpu(	const char *img0_arg,
 	gettimeofday(&t[6], NULL);
 	cross_check_inplace(disparity_image_0, disparity_image_1, small_w, small_h, threshold);
 	gettimeofday(&t[7], NULL);
-	error = lodepng::encode(cc_filepath, disparity_image_0, small_w, small_h,  LCT_GREY, 8U);
-	handle_lodepng_error(error);
+	if(output_intermediate_images){
+		error = lodepng::encode(cc_filepath, disparity_image_0, small_w, small_h,  LCT_GREY, 8U);
+		handle_lodepng_error(error);
+	}
 
 	status_update("Occlusion fill...\n");
 	gettimeofday(&t[8], NULL);
