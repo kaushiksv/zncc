@@ -147,11 +147,7 @@ void get_disparity(const BYTE * const image_left, const BYTE * const image_right
 	const int gap = (window_size - 1) / 2;
 	int xstart, xend, ystart, yend, t;
 	
-#ifdef _MSC_VER
-	std::thread **threads = (std::thread **)(malloc(n_threads*sizeof(std::thread *)));
-#else
 	pthread_t *threads = new pthread_t[n_threads];
-#endif
 	zncc_worker_args *s = new zncc_worker_args[n_threads];
 
 	xstart = ystart = gap;
@@ -160,27 +156,14 @@ void get_disparity(const BYTE * const image_left, const BYTE * const image_right
 
 	for (t = 0; t < n_threads; t++){
 		pack_zncc_worker_args(s+t, xstart, xend, ystart+(t*(yend-ystart)/n_threads), ystart+((t+1)*(yend-ystart)/n_threads), image_left, image_right, image_width, image_height, window_size, minimum_disparity, maximum_disparity, disparity_image);
-#ifdef _MSC_VER
-		threads[t] = new std::thread{ zncc_worker, s+t };
-#else
 		pthread_create(threads+t, NULL, (void *(*)(void *))(zncc_worker), (void *)(s+t));
-#endif
 	}
 
 	for (t = 0; t < n_threads; t++) {
-#ifdef _MSC_VER
-		threads[t]->join();
-#else
 		pthread_join(threads[t], NULL);
-#endif
 	}
 
 	delete[] s;
-#ifdef _MSC_VER
-	for (t = 0; t < n_threads; t++){
-		delete threads[t];
-	}
-#endif
 	delete[] threads;
 
 }
