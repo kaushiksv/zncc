@@ -57,39 +57,58 @@ im0.png and im1.png are used by default. Every call will append a line to perfor
 ## Options
 
 	$ ./zncc --help
-	zncc 1.0
+	zncc 2.0
 
-	Multithreaded implementation
+	Multithreaded and OpenCL (GPU) implementation
 
 	Usage: zncc [OPTIONS]
 
-	Simple ZNCC depthmap implementation. Looks for im0.png and im1.png in working
-	directory. Outputs to outputs/ relative to working directory. See zncc.cpp for
-	details.
+	Computes ZNCC based depthmap. Looks for im0.png and im1.png in working
+	directory. Outputs to outputs/depthmap.png relative to working directory. See
+	zncc.cpp for details.
 
-	  -h, --help                   Print help and exit
-	  -V, --version                Print version and exit
-	  -d, --maximum-disparity=INT  The maximum disparity between images.
-	                                 (default=`65')
-	  -t, --threshold=INT          The threshold used for cross-checking.
-	                                 (default=`8')
-	  -w, --window-size=INT        The length of zncc window. This parameter
-	                                 represents one side of the window used for
-	                                 zncc. (Block size is square of the value
-	                                 specified here)  (default=`8')
-	      --nthreads=INT           Number of threads for zncc computation.
-	                                 (default=`1')
-	  -s, --skip-depthmapping      Skip computation of disparity images. Skip
-	                                 computation of disparity images. This option
-	                                 will use supplied images, and if none is
-	                                 supplied, looks for previously output files at
-	                                 ./output/ directory. Missing files will cause
-	                                 the program to terminate.  (default=off)
-	      --image-0=STRING         Image 0 filepath
-	      --image-1=STRING         Image 1 filepath
-	      --shrink-by=INT          Shrink factor to downscale image. Typically set
-	                                 to 1 when skipping depthmapping step.
-	                                 (default=`4')
+	  -h, --help                    Print help and exit
+	  -V, --version                 Print version and exit
+	      --use-gpu                 Use GPU for computation.  (default=off)
+	  -d, --maximum-disparity=INT   The maximum disparity between images.
+	                                  (default=`64')
+	  -t, --threshold=INT           The threshold used for cross-checking.
+	                                  (default=`8')
+	  -w, --window-size=INT         Side of the window used for zncc. Must be odd.
+	                                  (Ex: 11, window has 121 elements)
+	                                  (default=`9')
+	  -n, --neighbourhood-size=INT  The neighbourhood size for occlusion filling.
+	                                  (default=`8')
+	      --show-status             Print status-update messages that describe the
+	                                  ongoing activity.  (default=off)
+	      --platform-number=INT     The platform number (different from platform
+	                                  ID) varies from 0..N_PLATFORMS-1. Use a tool
+	                                  like clinfo to customize this.  (default=`0')
+	      --device-number=INT       The device number (different from device ID)
+	                                  varies from 0..N_DEVICES-1. Use a tool like
+	                                  clinfo to customize this.  (default=`0')
+	      --nthreads=INT            Number of threads for zncc computation. Has no
+	                                  effect when using GPU.  (default=`1')
+	  -s, --skip-depthmapping       OBSELETE. Previously, this flag had been used
+	                                  to skip computation of preliminary depthmaps,
+	                                  and reuse previously output images. Has no
+	                                  effect when using GPU. This option will use
+	                                  images specified by --image-0 and --image-1
+	                                  options. if ommitted, it looks for previously
+	                                  output files at ./outputs/ directory, and use
+	                                  them to perform just cross-checking and
+	                                  occlusion-filling. Missing files would cause
+	                                  the program to terminate. `d0_filepath` and
+	                                  `d1_filepath` in zncc.cpp define the default
+	                                  files that will be looked for.  (default=off)
+	      --image-0=STRING          Image 0 filepath
+	      --image-1=STRING          Image 1 filepath
+	      --shrink-by=INT           Shrink factor to downscale image. Typically set
+	                                  to 1 when skipping depthmapping step.
+	                                  (default=`4')
+
+	In CPU mode, set shell variable INTIMG=1 before invoking to output intermediary
+	files.
 
 	Author: Kaushik Sundarajayaraman Venkat
 	E-mail: speak2kaushik@gmail.com, kaushik.sv@student.oulu.fi
