@@ -114,8 +114,6 @@ void exec_project_gpu	(	const char * const img0_arg,
     double 				elapsedTimes[5];
 	std::vector<BYTE> 	im0_vector, im1_vector;
 
-	opencl_init(platform_number, device_number);
-
 	im0_filepath = img0_arg?img0_arg:im0_filepath;
 	im1_filepath = img1_arg?img1_arg:im1_filepath;
 
