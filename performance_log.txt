@@ -52,3 +52,225 @@ pe 25.5.2018 22.45.37 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood
 
 pe 25.5.2018 22.54.50 +0300 ::  maxdisp = 64;  winsize = 05;  thres = 08;  nhood = 08, t_sg = 7.7170 ms;  t_d0 = 23.6100 ms;  t_d1 = 23.0690 ms;  t_cc = 0.1110 ms;  t_of = 0.1620 ms
 
+la 26.5.2018 03.51.52 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood = 08, t_sg = 9.1350 ms;  t_d0 = 39.1080 ms;  t_d1 = 38.9270 ms;  t_cc = 0.0900 ms;  t_of = 0.1320 ms
+
+la 26.5.2018 03.52.00 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood = 08, t_sg = 8.6690 ms;  t_d0 = 40.0300 ms;  t_d1 = 39.0360 ms;  t_cc = 0.0980 ms;  t_of = 0.1320 ms
+
+la 26.5.2018 03.52.10 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood = 08, t_sg = 8.7570 ms;  t_d0 = 40.0980 ms;  t_d1 = 38.9030 ms;  t_cc = 0.0930 ms;  t_of = 0.1310 ms
+
+la 26.5.2018 03.52.13 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood = 08, t_sg = 8.7030 ms;  t_d0 = 36.3740 ms;  t_d1 = 35.6450 ms;  t_cc = 0.0940 ms;  t_of = 0.1210 ms
+
+la 26.5.2018 03.52.19 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood = 08, t_sg = 8.7570 ms;  t_d0 = 31.7320 ms;  t_d1 = 31.1470 ms;  t_cc = 0.0850 ms;  t_of = 0.1070 ms
+
+la 26.5.2018 03.52.34 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood = 08, t_sg = 8.7380 ms;  t_d0 = 31.5720 ms;  t_d1 = 31.3320 ms;  t_cc = 0.0840 ms;  t_of = 0.1080 ms
+
+la 26.5.2018 03.52.37 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood = 08, t_sg = 8.9070 ms;  t_d0 = 31.8350 ms;  t_d1 = 31.2980 ms;  t_cc = 0.0860 ms;  t_of = 0.1070 ms
+
+la 26.5.2018 03.52.42 +0300 ::  maxdisp = 64;  winsize = 13;  thres = 08;  nhood = 08, t_sg = 8.7420 ms;  t_d0 = 59.0500 ms;  t_d1 = 59.0520 ms;  t_cc = 0.0700 ms;  t_of = 0.0980 ms
+
+la 26.5.2018 03.52.46 +0300 ::  maxdisp = 64;  winsize = 13;  thres = 08;  nhood = 08, t_sg = 8.5870 ms;  t_d0 = 59.5830 ms;  t_d1 = 59.0020 ms;  t_cc = 0.0860 ms;  t_of = 0.0990 ms
+
+la 26.5.2018 03.52.49 +0300 ::  maxdisp = 64;  winsize = 13;  thres = 08;  nhood = 08, t_sg = 8.6720 ms;  t_d0 = 60.3590 ms;  t_d1 = 59.0780 ms;  t_cc = 0.0730 ms;  t_of = 0.0980 ms
+
+la 26.5.2018 03.52.52 +0300 ::  maxdisp = 64;  winsize = 13;  thres = 08;  nhood = 08, t_sg = 8.6060 ms;  t_d0 = 60.2110 ms;  t_d1 = 59.0700 ms;  t_cc = 0.0800 ms;  t_of = 0.0980 ms
+
+la 26.5.2018 03.52.55 +0300 ::  maxdisp = 64;  winsize = 13;  thres = 08;  nhood = 08, t_sg = 8.6650 ms;  t_d0 = 59.8080 ms;  t_d1 = 59.0870 ms;  t_cc = 0.0730 ms;  t_of = 0.0980 ms
+
+la 26.5.2018 03.52.58 +0300 ::  maxdisp = 64;  winsize = 13;  thres = 08;  nhood = 08, t_sg = 8.6740 ms;  t_d0 = 75.0370 ms;  t_d1 = 74.2150 ms;  t_cc = 0.0890 ms;  t_of = 0.1210 ms
+
+la 26.5.2018 03.53.02 +0300 ::  maxdisp = 64;  winsize = 13;  thres = 08;  nhood = 08, t_sg = 8.6460 ms;  t_d0 = 68.2790 ms;  t_d1 = 65.2350 ms;  t_cc = 0.0790 ms;  t_of = 0.1020 ms
+
+la 26.5.2018 03.53.54 +0300 ::  maxdisp = 64;  winsize = 07;  thres = 08;  nhood = 08, t_sg = 8.7190 ms;  t_d0 = 24.6780 ms;  t_d1 = 24.6690 ms;  t_cc = 0.0910 ms;  t_of = 0.1420 ms
+
+la 26.5.2018 03.53.57 +0300 ::  maxdisp = 64;  winsize = 07;  thres = 08;  nhood = 08, t_sg = 8.6620 ms;  t_d0 = 25.5770 ms;  t_d1 = 24.8550 ms;  t_cc = 0.1080 ms;  t_of = 0.1420 ms
+
+la 26.5.2018 03.54.00 +0300 ::  maxdisp = 64;  winsize = 07;  thres = 08;  nhood = 08, t_sg = 9.2540 ms;  t_d0 = 24.6710 ms;  t_d1 = 24.5800 ms;  t_cc = 0.0910 ms;  t_of = 0.1420 ms
+
+la 26.5.2018 03.54.02 +0300 ::  maxdisp = 64;  winsize = 07;  thres = 08;  nhood = 08, t_sg = 9.1910 ms;  t_d0 = 25.6940 ms;  t_d1 = 24.8590 ms;  t_cc = 0.1040 ms;  t_of = 0.1430 ms
+
+la 26.5.2018 03.54.10 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 08;  nhood = 08, t_sg = 9.3450 ms;  t_d0 = 98.1080 ms;  t_d1 = 90.0530 ms;  t_cc = 0.0840 ms;  t_of = 0.1090 ms
+
+la 26.5.2018 03.54.13 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 08;  nhood = 08, t_sg = 9.2200 ms;  t_d0 = 81.9230 ms;  t_d1 = 81.0800 ms;  t_cc = 0.0760 ms;  t_of = 0.1000 ms
+
+la 26.5.2018 03.54.20 +0300 ::  maxdisp = 64;  winsize = 35;  thres = 08;  nhood = 08, t_sg = 9.2260 ms;  t_d0 = 397.8360 ms;  t_d1 = 399.3200 ms;  t_cc = 0.0940 ms;  t_of = 0.0780 ms
+
+la 26.5.2018 03.54.25 +0300 ::  maxdisp = 64;  winsize = 35;  thres = 08;  nhood = 08, t_sg = 9.1880 ms;  t_d0 = 397.3180 ms;  t_d1 = 397.2560 ms;  t_cc = 0.0950 ms;  t_of = 0.0780 ms
+
+la 26.5.2018 03.54.29 +0300 ::  maxdisp = 64;  winsize = 35;  thres = 08;  nhood = 08, t_sg = 9.1920 ms;  t_d0 = 397.2010 ms;  t_d1 = 397.2940 ms;  t_cc = 0.0950 ms;  t_of = 0.0770 ms
+
+la 26.5.2018 03.55.54 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 08;  nhood = 08, t_sg = 9.2320 ms;  t_d0 = 711.6350 ms;  t_d1 = 651.4990 ms;  t_cc = 0.0960 ms;  t_of = 0.0720 ms
+
+la 26.5.2018 03.56.03 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 08;  nhood = 08, t_sg = 9.4110 ms;  t_d0 = 716.5430 ms;  t_d1 = 656.2160 ms;  t_cc = 0.0930 ms;  t_of = 0.0720 ms
+
+la 26.5.2018 03.56.16 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 08;  nhood = 08, t_sg = 9.3650 ms;  t_d0 = 652.5480 ms;  t_d1 = 651.2450 ms;  t_cc = 0.1030 ms;  t_of = 0.0720 ms
+
+la 26.5.2018 04.03.21 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 08;  nhood = 256, t_sg = 8.6980 ms;  t_d0 = 710.3850 ms;  t_d1 = 652.2260 ms;  t_cc = 0.0960 ms;  t_of = 0.0740 ms
+
+la 26.5.2018 04.04.25 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 08;  nhood = 256, t_sg = 8.9390 ms;  t_d0 = 704.5560 ms;  t_d1 = 652.0550 ms;  t_cc = 0.0970 ms;  t_of = 0.0740 ms
+
+la 26.5.2018 04.04.55 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 05;  nhood = 256, t_sg = 8.9150 ms;  t_d0 = 692.3440 ms;  t_d1 = 650.7910 ms;  t_cc = 0.1070 ms;  t_of = 0.0900 ms
+
+la 26.5.2018 04.07.22 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 05;  nhood = 256, t_sg = 8.7300 ms;  t_d0 = 718.1680 ms;  t_d1 = 652.1430 ms;  t_cc = 0.1060 ms;  t_of = 0.1170 ms
+
+la 26.5.2018 04.08.24 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 05;  nhood = 05, t_sg = 9.1160 ms;  t_d0 = 719.9740 ms;  t_d1 = 653.0190 ms;  t_cc = 0.1040 ms;  t_of = 0.0880 ms
+
+la 26.5.2018 04.08.30 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 05;  nhood = 05, t_sg = 8.6190 ms;  t_d0 = 654.4310 ms;  t_d1 = 654.5960 ms;  t_cc = 0.1050 ms;  t_of = 0.0880 ms
+
+la 26.5.2018 04.08.41 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 05;  nhood = 500, t_sg = 8.6760 ms;  t_d0 = 655.4240 ms;  t_d1 = 654.6960 ms;  t_cc = 0.1060 ms;  t_of = 0.1180 ms
+
+la 26.5.2018 04.08.55 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 05;  nhood = 700, t_sg = 9.1460 ms;  t_d0 = 697.1890 ms;  t_d1 = 654.6940 ms;  t_cc = 0.1130 ms;  t_of = 0.1160 ms
+
+la 26.5.2018 04.12.20 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 05;  nhood = 700, t_sg = 8.6520 ms;  t_d0 = 731.5590 ms;  t_d1 = 651.2090 ms;  t_cc = 0.1050 ms;  t_of = 0.1200 ms
+
+la 26.5.2018 04.15.04 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 05;  nhood = 700, t_sg = 8.6740 ms;  t_d0 = 723.0180 ms;  t_d1 = 652.6130 ms;  t_cc = 0.1040 ms;  t_of = 0.0130 ms
+
+la 26.5.2018 04.15.18 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 08;  nhood = 700, t_sg = 8.6960 ms;  t_d0 = 701.6270 ms;  t_d1 = 652.6750 ms;  t_cc = 0.0970 ms;  t_of = 0.0140 ms
+
+la 26.5.2018 04.15.58 +0300 ::  maxdisp = 64;  winsize = 35;  thres = 08;  nhood = 700, t_sg = 8.6910 ms;  t_d0 = 463.9610 ms;  t_d1 = 400.8220 ms;  t_cc = 0.0930 ms;  t_of = 0.0130 ms
+
+la 26.5.2018 04.16.10 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood = 700, t_sg = 8.6530 ms;  t_d0 = 31.3590 ms;  t_d1 = 31.3380 ms;  t_cc = 0.0730 ms;  t_of = 0.0130 ms
+
+la 26.5.2018 04.17.58 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood = 700, t_sg = 8.7850 ms;  t_d0 = 39.0420 ms;  t_d1 = 39.0360 ms;  t_cc = 0.0170 ms;  t_of = 0.0140 ms
+
+la 26.5.2018 04.18.28 +0300 ::  maxdisp = 64;  winsize = 05;  thres = 08;  nhood = 08, t_sg = 8.6510 ms;  t_d0 = 12.8790 ms;  t_d1 = 12.8590 ms;  t_cc = 0.0160 ms;  t_of = 0.0150 ms
+
+la 26.5.2018 04.18.33 +0300 ::  maxdisp = 64;  winsize = 13;  thres = 08;  nhood = 08, t_sg = 8.7230 ms;  t_d0 = 74.1640 ms;  t_d1 = 68.5830 ms;  t_cc = 0.0150 ms;  t_of = 0.0140 ms
+
+la 26.5.2018 04.18.40 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 08;  nhood = 08, t_sg = 8.6630 ms;  t_d0 = 89.0180 ms;  t_d1 = 89.0390 ms;  t_cc = 0.0170 ms;  t_of = 0.0140 ms
+
+la 26.5.2018 04.18.44 +0300 ::  maxdisp = 64;  winsize = 19;  thres = 08;  nhood = 08, t_sg = 8.5830 ms;  t_d0 = 127.8890 ms;  t_d1 = 124.9800 ms;  t_cc = 0.0210 ms;  t_of = 0.0130 ms
+
+la 26.5.2018 04.19.24 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 08;  nhood = 08, t_sg = 8.6740 ms;  t_d0 = 98.1010 ms;  t_d1 = 89.8670 ms;  t_cc = 0.0770 ms;  t_of = 0.0140 ms
+
+la 26.5.2018 04.19.33 +0300 ::  maxdisp = 64;  winsize = 19;  thres = 08;  nhood = 08, t_sg = 8.7620 ms;  t_d0 = 128.1670 ms;  t_d1 = 125.7540 ms;  t_cc = 0.0710 ms;  t_of = 0.0130 ms
+
+la 26.5.2018 04.20.56 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 05;  nhood = 256, t_sg = 8.6870 ms;  t_d0 = 718.4120 ms;  t_d1 = 654.1560 ms;  t_cc = 0.1050 ms;  t_of = 37.6550 ms
+
+la 26.5.2018 04.22.13 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 05;  nhood = 08, t_sg = 9.1740 ms;  t_d0 = 700.0240 ms;  t_d1 = 652.9390 ms;  t_cc = 0.1060 ms;  t_of = 0.1850 ms
+
+la 26.5.2018 04.22.47 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 05;  nhood = 08, t_sg = 8.8600 ms;  t_d0 = 703.0690 ms;  t_d1 = 653.2850 ms;  t_cc = 0.1050 ms;  t_of = 0.0130 ms
+
+la 26.5.2018 04.23.20 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 08;  nhood = 08, t_sg = 8.6720 ms;  t_d0 = 704.3980 ms;  t_d1 = 655.0350 ms;  t_cc = 0.0930 ms;  t_of = 0.0130 ms
+
+la 26.5.2018 04.23.36 +0300 ::  maxdisp = 64;  winsize = 19;  thres = 08;  nhood = 08, t_sg = 8.6260 ms;  t_d0 = 124.4380 ms;  t_d1 = 124.5430 ms;  t_cc = 0.0760 ms;  t_of = 0.0130 ms
+
+la 26.5.2018 04.23.46 +0300 ::  maxdisp = 64;  winsize = 19;  thres = 08;  nhood = 08, t_sg = 8.6870 ms;  t_d0 = 124.7180 ms;  t_d1 = 124.0290 ms;  t_cc = 0.0810 ms;  t_of = 0.0130 ms
+
+la 26.5.2018 04.23.54 +0300 ::  maxdisp = 64;  winsize = 19;  thres = 08;  nhood = 08, t_sg = 8.6160 ms;  t_d0 = 125.4820 ms;  t_d1 = 124.9310 ms;  t_cc = 0.0780 ms;  t_of = 0.0130 ms
+
+la 26.5.2018 04.23.59 +0300 ::  maxdisp = 64;  winsize = 19;  thres = 25;  nhood = 08, t_sg = 8.6490 ms;  t_d0 = 124.9210 ms;  t_d1 = 124.1290 ms;  t_cc = 0.0660 ms;  t_of = 0.0130 ms
+
+la 26.5.2018 04.38.42 +0300 ::  maxdisp = 64;  winsize = 19;  thres = 25;  nhood = 50, t_sg = 8.6650 ms;  t_d0 = 141.2200 ms;  t_d1 = 126.3840 ms;  t_cc = 0.0620 ms;  t_of = 0.0830 ms
+
+la 26.5.2018 04.40.55 +0300 ::  maxdisp = 64;  winsize = 19;  thres = 25;  nhood = 35, t_sg = 9.4180 ms;  t_d0 = 149.0250 ms;  t_d1 = 137.7950 ms;  t_cc = 0.0650 ms;  t_of = 0.0870 ms
+
+la 26.5.2018 04.41.05 +0300 ::  maxdisp = 64;  winsize = 19;  thres = 25;  nhood = 15, t_sg = 8.9000 ms;  t_d0 = 155.9460 ms;  t_d1 = 147.5710 ms;  t_cc = 0.0740 ms;  t_of = 0.0960 ms
+
+la 26.5.2018 04.43.21 +0300 ::  maxdisp = 64;  winsize = 35;  thres = 25;  nhood = 15, t_sg = 8.6330 ms;  t_d0 = 444.9430 ms;  t_d1 = 395.3970 ms;  t_cc = 0.0870 ms;  t_of = 0.0770 ms
+
+la 26.5.2018 04.43.42 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 25;  nhood = 15, t_sg = 8.7430 ms;  t_d0 = 705.1250 ms;  t_d1 = 650.9890 ms;  t_cc = 0.0890 ms;  t_of = 0.0720 ms
+
+la 26.5.2018 04.44.07 +0300 ::  maxdisp = 64;  winsize = 45;  thres = 15;  nhood = 15, t_sg = 8.6690 ms;  t_d0 = 652.8630 ms;  t_d1 = 653.0800 ms;  t_cc = 0.0910 ms;  t_of = 0.1010 ms
+
+la 26.5.2018 04.44.16 +0300 ::  maxdisp = 64;  winsize = 21;  thres = 15;  nhood = 15, t_sg = 8.6350 ms;  t_d0 = 149.3390 ms;  t_d1 = 149.4000 ms;  t_cc = 0.0730 ms;  t_of = 0.1120 ms
+
+la 26.5.2018 04.44.40 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood = 15, t_sg = 8.7970 ms;  t_d0 = 38.9260 ms;  t_d1 = 38.8330 ms;  t_cc = 0.0860 ms;  t_of = 0.1590 ms
+
+la 26.5.2018 04.44.54 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood = 25, t_sg = 8.6560 ms;  t_d0 = 31.1840 ms;  t_d1 = 31.8930 ms;  t_cc = 0.0950 ms;  t_of = 0.1270 ms
+
+la 26.5.2018 04.45.27 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood = 35, t_sg = 9.3690 ms;  t_d0 = 39.8640 ms;  t_d1 = 39.0870 ms;  t_cc = 0.0910 ms;  t_of = 0.1580 ms
+
+la 26.5.2018 04.45.36 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 15;  nhood = 35, t_sg = 8.6600 ms;  t_d0 = 35.6320 ms;  t_d1 = 35.7060 ms;  t_cc = 0.0940 ms;  t_of = 0.1240 ms
+
+la 26.5.2018 04.45.47 +0300 ::  maxdisp = 64;  winsize = 11;  thres = 15;  nhood = 35, t_sg = 8.6570 ms;  t_d0 = 43.2940 ms;  t_d1 = 43.2840 ms;  t_cc = 0.0690 ms;  t_of = 0.1080 ms
+
+la 26.5.2018 04.45.56 +0300 ::  maxdisp = 64;  winsize = 13;  thres = 15;  nhood = 35, t_sg = 8.9300 ms;  t_d0 = 59.2610 ms;  t_d1 = 59.2940 ms;  t_cc = 0.0880 ms;  t_of = 0.1110 ms
+
+la 26.5.2018 04.48.17 +0300 ::  maxdisp = 64;  winsize = 13;  thres = 15;  nhood = 35, t_sg = 8.9020 ms;  t_d0 = 74.8910 ms;  t_d1 = 73.8310 ms;  t_cc = 0.0780 ms;  t_of = 0.1220 ms
+
+la 26.5.2018 04.48.35 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 15;  nhood = 35, t_sg = 8.7880 ms;  t_d0 = 98.1000 ms;  t_d1 = 97.8170 ms;  t_cc = 0.0780 ms;  t_of = 0.1230 ms
+
+la 26.5.2018 04.48.52 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 25;  nhood = 35, t_sg = 8.5890 ms;  t_d0 = 89.6570 ms;  t_d1 = 82.3050 ms;  t_cc = 0.0700 ms;  t_of = 0.0850 ms
+
+la 26.5.2018 04.49.09 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 8.8520 ms;  t_d0 = 78.6380 ms;  t_d1 = 78.0470 ms;  t_cc = 0.0790 ms;  t_of = 0.1540 ms
+
+la 26.5.2018 04.49.26 +0300 ::  maxdisp = 64;  winsize = 05;  thres = 05;  nhood = 35, t_sg = 8.6650 ms;  t_d0 = 12.8680 ms;  t_d1 = 12.9010 ms;  t_cc = 0.1060 ms;  t_of = 0.2060 ms
+
+la 26.5.2018 04.50.13 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 9.1650 ms;  t_d0 = 98.9090 ms;  t_d1 = 90.9710 ms;  t_cc = 0.0920 ms;  t_of = 0.1740 ms
+
+la 26.5.2018 04.50.22 +0300 ::  maxdisp = 64;  winsize = 19;  thres = 05;  nhood = 35, t_sg = 8.7010 ms;  t_d0 = 126.2270 ms;  t_d1 = 125.2570 ms;  t_cc = 0.0830 ms;  t_of = 0.1640 ms
+
+la 26.5.2018 04.50.30 +0300 ::  maxdisp = 64;  winsize = 17;  thres = 05;  nhood = 35, t_sg = 8.6950 ms;  t_d0 = 122.8670 ms;  t_d1 = 113.4350 ms;  t_cc = 0.0820 ms;  t_of = 0.1770 ms
+
+la 26.5.2018 04.50.37 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 8.7860 ms;  t_d0 = 81.8570 ms;  t_d1 = 81.0590 ms;  t_cc = 0.0850 ms;  t_of = 0.1600 ms
+
+la 26.5.2018 04.50.47 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 25;  nhood = 35, t_sg = 8.6060 ms;  t_d0 = 78.8280 ms;  t_d1 = 78.1380 ms;  t_cc = 0.0690 ms;  t_of = 0.0820 ms
+
+la 26.5.2018 04.51.01 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 35;  nhood = 35, t_sg = 8.7030 ms;  t_d0 = 78.9020 ms;  t_d1 = 78.1310 ms;  t_cc = 0.0700 ms;  t_of = 0.0740 ms
+
+la 26.5.2018 04.51.10 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 08;  nhood = 35, t_sg = 8.6750 ms;  t_d0 = 78.9110 ms;  t_d1 = 78.1910 ms;  t_cc = 0.0750 ms;  t_of = 0.1250 ms
+
+la 26.5.2018 04.51.18 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 13;  nhood = 35, t_sg = 8.7140 ms;  t_d0 = 98.9140 ms;  t_d1 = 90.1110 ms;  t_cc = 0.0790 ms;  t_of = 0.1240 ms
+
+la 26.5.2018 04.51.26 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 20;  nhood = 35, t_sg = 8.6530 ms;  t_d0 = 78.8950 ms;  t_d1 = 78.1240 ms;  t_cc = 0.0700 ms;  t_of = 0.0890 ms
+
+la 26.5.2018 04.51.33 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 8.7710 ms;  t_d0 = 78.8510 ms;  t_d1 = 78.1350 ms;  t_cc = 0.0830 ms;  t_of = 0.1530 ms
+
+la 26.5.2018 04.51.41 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 20;  nhood = 35, t_sg = 8.6880 ms;  t_d0 = 78.8920 ms;  t_d1 = 78.1500 ms;  t_cc = 0.0700 ms;  t_of = 0.0880 ms
+
+la 26.5.2018 05.06.44 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 8.6790 ms;  t_d0 = 98.3040 ms;  t_d1 = 91.4400 ms;  t_cc = 0.0930 ms;  t_of = 0.1620 ms
+
+la 26.5.2018 05.06.51 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 8.6550 ms;  t_d0 = 99.1670 ms;  t_d1 = 97.9660 ms;  t_cc = 0.1280 ms;  t_of = 0.3220 ms
+
+la 26.5.2018 05.07.18 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 8.6850 ms;  t_d0 = 89.0900 ms;  t_d1 = 88.9310 ms;  t_cc = 0.0780 ms;  t_of = 0.1600 ms
+
+la 26.5.2018 05.07.23 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 8.8180 ms;  t_d0 = 83.1380 ms;  t_d1 = 78.1720 ms;  t_cc = 0.1100 ms;  t_of = 0.1560 ms
+
+la 26.5.2018 05.07.27 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 8.6710 ms;  t_d0 = 79.1830 ms;  t_d1 = 78.0950 ms;  t_cc = 0.0810 ms;  t_of = 0.1550 ms
+
+la 26.5.2018 05.07.30 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 8.7560 ms;  t_d0 = 79.3100 ms;  t_d1 = 78.3430 ms;  t_cc = 0.0870 ms;  t_of = 0.1550 ms
+
+la 26.5.2018 05.07.43 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 9.4500 ms;  t_d0 = 98.3230 ms;  t_d1 = 96.0390 ms;  t_cc = 0.1290 ms;  t_of = 0.2940 ms
+
+la 26.5.2018 05.07.47 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 9.5470 ms;  t_d0 = 89.5790 ms;  t_d1 = 85.3610 ms;  t_cc = 0.1200 ms;  t_of = 309.3050 ms
+
+la 26.5.2018 05.07.49 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 9.2910 ms;  t_d0 = 79.5180 ms;  t_d1 = 78.5480 ms;  t_cc = 0.1290 ms;  t_of = 0.2140 ms
+
+la 26.5.2018 05.07.52 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 9.1710 ms;  t_d0 = 79.5140 ms;  t_d1 = 78.5460 ms;  t_cc = 0.1120 ms;  t_of = 0.2250 ms
+
+la 26.5.2018 05.07.54 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 9.4570 ms;  t_d0 = 80.8150 ms;  t_d1 = 78.6340 ms;  t_cc = 0.1220 ms;  t_of = 0.2750 ms
+
+la 26.5.2018 05.07.58 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 9.1710 ms;  t_d0 = 79.5430 ms;  t_d1 = 78.5740 ms;  t_cc = 0.1150 ms;  t_of = 0.2470 ms
+
+la 26.5.2018 05.08.01 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 9.1730 ms;  t_d0 = 79.5310 ms;  t_d1 = 78.5600 ms;  t_cc = 0.1170 ms;  t_of = 0.2780 ms
+
+la 26.5.2018 05.08.04 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 9.1960 ms;  t_d0 = 79.6080 ms;  t_d1 = 78.5230 ms;  t_cc = 0.1160 ms;  t_of = 0.2470 ms
+
+la 26.5.2018 07.09.07 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 35, t_sg = 8.8340 ms;  t_d0 = 102.5820 ms;  t_d1 = 93.2980 ms;  t_cc = 0.0990 ms;  t_of = 0.1770 ms
+
+la 26.5.2018 07.31.56 +0300 ::  maxdisp = 64;  winsize = 15;  thres = 05;  nhood = 25, t_sg = 8.7150 ms;  t_d0 = 97.9600 ms;  t_d1 = 88.9550 ms;  t_cc = 0.0790 ms;  t_of = 0.1760 ms
+
+la 26.5.2018 07.38.32 +0300 :: maxdisp = 64;  thres = 05;  winsize = 09;  nhood = 25, nthreads = 04;  t_sg = 4.9430 ms;  t_d0 = 6510.1150 ms;  t_d1 = 6504.7340 ms;  t_cc = 1.9600 ms;  t_of = 2.9690 ms
+
+la 26.5.2018 07.40.58 +0300 :: maxdisp = 64;  thres = 05;  winsize = 19;  nhood = 25, nthreads = 04;  t_sg = 4.9030 ms;  t_d0 = 27632.0700 ms;  t_d1 = 27698.4290 ms;  t_cc = 1.7940 ms;  t_of = 2.6760 ms
+
+la 26.5.2018 07.42.03 +0300 ::  maxdisp = 64;  winsize = 19;  thres = 05;  nhood = 25, t_sg = 8.7080 ms;  t_d0 = 159.7060 ms;  t_d1 = 151.0970 ms;  t_cc = 0.1070 ms;  t_of = 0.1800 ms
+
+la 26.5.2018 08.21.11 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood = 08, t_sg = 8.7030 ms;  t_d0 = 38.9100 ms;  t_d1 = 38.8970 ms;  t_cc = 0.0840 ms;  t_of = 0.1550 ms
+
+la 26.5.2018 08.21.22 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood = 08, t_sg = 8.7390 ms;  t_d0 = 39.8160 ms;  t_d1 = 38.1460 ms;  t_cc = 0.0870 ms;  t_of = 0.1360 ms
+
+la 26.5.2018 08.21.25 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 08;  nhood = 08, t_sg = 8.6850 ms;  t_d0 = 34.3660 ms;  t_d1 = 34.0970 ms;  t_cc = 0.0910 ms;  t_of = 0.1360 ms
+
+la 26.5.2018 08.22.19 +0300 :: maxdisp = 64;  thres = 08;  winsize = 09;  nhood = 08, nthreads = 04;  t_sg = 4.9870 ms;  t_d0 = 6508.1180 ms;  t_d1 = 6494.6810 ms;  t_cc = 1.9950 ms;  t_of = 2.6040 ms
+
+la 26.5.2018 08.24.52 +0300 :: maxdisp = 64;  thres = 08;  winsize = 09;  nhood = 08, nthreads = 04;  t_sg = 4.9180 ms;  t_d0 = 6527.0670 ms;  t_d1 = 6514.2210 ms;  t_cc = 1.9140 ms;  t_of = 2.7240 ms
+
+la 26.5.2018 08.25.51 +0300 :: maxdisp = 64;  thres = 08;  winsize = 09;  nhood = 08, nthreads = 04;  t_sg = 4.9030 ms;  t_d0 = 6896.2090 ms;  t_d1 = 6921.3900 ms;  t_cc = 1.5420 ms;  t_of = 2.6030 ms
+
+la 26.5.2018 09.18.20 +0300 ::  maxdisp = 64;  winsize = 19;  thres = 13;  nhood = 08, t_sg = 0.0000 ms;  t_d0 = 150.0000 ms;  t_d1 = 140.0000 ms;  t_cc = 0.0000 ms;  t_of = 0.0000 ms
+
+la 26.5.2018 09.18.55 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 13;  nhood = 08, t_sg = 0.0000 ms;  t_d0 = 33.0000 ms;  t_d1 = 32.0000 ms;  t_cc = 0.0000 ms;  t_of = 0.0000 ms
+
+la 26.5.2018 09.21.43 +0300 ::  maxdisp = 64;  winsize = 25;  thres = 13;  nhood = 08, t_sg = 0.0000 ms;  t_d0 = 258.0000 ms;  t_d1 = 229.0000 ms;  t_cc = 0.0000 ms;  t_of = 0.0000 ms
+

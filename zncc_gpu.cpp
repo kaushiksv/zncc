@@ -14,7 +14,7 @@ namespace cl_objects {
 	cl_kernel			kernel_cc;
 	cl_kernel			kernel_ofill;
 	cl_command_queue	queue;
-	cl_event			kernel_completion[5];
+	cl_event			kernel_completion[6];
 	cl_mem				im0_raw_buffer, im0_small_buffer, im0_sub_buffer;
 	cl_mem				im1_raw_buffer, im1_small_buffer, im1_sub_buffer;
 	cl_mem				dmap1, dmap2, cchk, ofill;
@@ -74,7 +74,7 @@ void opencl_init(int platform_number, int device_number, char *build_options){
 		abort();
 	}
 	CL_CHECK(clUnloadCompiler());
-	queue = CL_CHECK_ERR(clCreateCommandQueue(context, device, 0, &_err));
+	queue = CL_CHECK_ERR(clCreateCommandQueue(context, device, CL_QUEUE_PROFILING_ENABLE, &_err));
 
 	kernel_sgrey = CL_CHECK_ERR(clCreateKernel(program, "shrink_and_grey", &_err));
 	kernel_zncc = CL_CHECK_ERR(clCreateKernel(program, "compute_disparity", &_err));
@@ -156,8 +156,6 @@ void exec_project_gpu	(	const char * const img0_arg,
 	// Passed to kernel to deal with negative disparity
 	int 				maxdisp_offset = 0;
 	BYTE *				zncc_kernel_src = NULL;
-	struct timeval 		t[10];
-    double 				elapsedTimes[5];
 	std::vector<BYTE> 	im0_vector, im1_vector;
 
 	// Use input filepaths if given in command line argument
@@ -243,28 +241,26 @@ void exec_project_gpu	(	const char * const img0_arg,
 	CL_CHECK(clSetKernelArg(kernel_zncc, 5, sizeof(window_size), &window_size));
 	CL_CHECK(clSetKernelArg(kernel_zncc, 6, sizeof(maxdisp_offset), &maxdisp_offset));
 
-	
-	// Enque and wait for shrink_and_grey kernel to finish
-	status_update("Shrink/grey...\n");
-	gettimeofday(&t[0], NULL);
-	CL_CHECK(clEnqueueNDRangeKernel(queue, kernel_sgrey, 2, NULL, global_work_size_sgrey, NULL, 0, NULL, &kernel_completion[0]));
-	CL_CHECK((clWaitForEvents(1, &kernel_completion[0])));
-	gettimeofday(&t[1], NULL);
-	CL_CHECK(clReleaseEvent(kernel_completion[0]));
-	
-	// Enque and wait for compute_disparity kernel to finish
-	status_update("Computing depthmap 1 of 2\n");
-	gettimeofday(&t[2], NULL);
-	CL_CHECK(clEnqueueNDRangeKernel(queue, kernel_zncc, 3, NULL, global_work_size_zncc, local_size_zncc, 0, NULL, &kernel_completion[1]));
-	CL_CHECK(clWaitForEvents(1, &kernel_completion[1]));
-	gettimeofday(&t[3], NULL);
-	CL_CHECK(clReleaseEvent(kernel_completion[1]));
 
-	status_update("Computing depthmap 2 of 2\n");
-	// To deal with negative disparity
-	maxdisp_offset = -64;
+	// Enqueue both consequtively.	
+	status_update("Shrink/grey...\n");
+	CL_CHECK(clEnqueueNDRangeKernel(queue, kernel_sgrey, 2, NULL, global_work_size_sgrey, NULL, 0, NULL, &kernel_completion[0]));
+	CL_CHECK(clEnqueueNDRangeKernel(queue, kernel_zncc, 3, NULL, global_work_size_zncc, local_size_zncc, 1, &kernel_completion[0], &kernel_completion[1]));
+
+	CL_CHECK((clWaitForEvents(1, &kernel_completion[0])));
+	// CL_CHECK(clReleaseEvent(kernel_completion[0]));
+	status_update("Computing depthmap 1 of 2\n");
+
+	CL_CHECK(clWaitForEvents(1, &kernel_completion[1]));
+	// CL_CHECK(clReleaseEvent(kernel_completion[1]));
+
+	//////// Same kernel, different set of args.
+	//////// So WAITING before we set another set of args.
+	//////// Can be changed to improve speed slightly.
 
 	// Set args for 2nd preliminary depthmap
+	// To deal with negative disparity
+	maxdisp_offset = -64;
 	CL_CHECK(clSetKernelArg(kernel_zncc, 0, sizeof(im1_sub_buffer), &im1_sub_buffer));
 	CL_CHECK(clSetKernelArg(kernel_zncc, 1, sizeof(im0_sub_buffer), &im0_sub_buffer));
 	CL_CHECK(clSetKernelArg(kernel_zncc, 2, sizeof(dmap2), &dmap2));
@@ -273,62 +269,74 @@ void exec_project_gpu	(	const char * const img0_arg,
 	CL_CHECK(clSetKernelArg(kernel_zncc, 5, sizeof(window_size), &window_size));
 	CL_CHECK(clSetKernelArg(kernel_zncc, 6, sizeof(maxdisp_offset), &maxdisp_offset));
 
-	// Enque and wait for second prelim depthmap
-	gettimeofday(&t[4], NULL);
-	CL_CHECK(clEnqueueNDRangeKernel(queue, kernel_zncc, 3, NULL, global_work_size_zncc, local_size_zncc, 0, NULL, &kernel_completion[2]));
-	CL_CHECK(clWaitForEvents(1, &kernel_completion[2]));
-	gettimeofday(&t[5], NULL);
-	CL_CHECK(clReleaseEvent(kernel_completion[2]));
-
-	// Set args, enqueue, wait for completion of cross checking
-	status_update("Cross checking...\n");
+	// Set args for cross-check
 	size_t global_work_size_cc[2]    =  { size_t(result_h), size_t(result_w) };
 	CL_CHECK(clSetKernelArg(kernel_cc, 0, sizeof(dmap1), &dmap1));
 	CL_CHECK(clSetKernelArg(kernel_cc, 1, sizeof(dmap2), &dmap2));
 	CL_CHECK(clSetKernelArg(kernel_cc, 2, sizeof(threshold), &threshold));
-	gettimeofday(&t[6], NULL);
-	CL_CHECK(clEnqueueNDRangeKernel(queue, kernel_cc, 2, NULL, global_work_size_cc, NULL, 0, NULL, &kernel_completion[3]));
-	CL_CHECK(clWaitForEvents(1, &kernel_completion[3]));
-	gettimeofday(&t[7], NULL);
-	CL_CHECK(clReleaseEvent(kernel_completion[3]));
 
-	// Set args, enqueue, wait for completion of occlusion filling
-	status_update("Occlusion fill...\n");
-
-	// Ignore black (0) boundaries
-	size_t global_work_size_ofill[2] = {
-									size_t(result_h) - 2 * half_win,
-									size_t(result_w) - 2 * half_win
-								};
+	// Set args for occlusion-fill
+	size_t global_work_size_ofill[2] =	{
+	// 										Ignore boundaries with black (pixel value 0)
+											size_t(result_h) - 2 * half_win,
+											size_t(result_w) - 2 * half_win
+										};
 	CL_CHECK(clSetKernelArg(kernel_ofill, 0, sizeof(dmap1), &dmap1));
 	CL_CHECK(clSetKernelArg(kernel_ofill, 1, sizeof(half_win), &half_win));
 	CL_CHECK(clSetKernelArg(kernel_ofill, 2, sizeof(neighbourhood_size), &neighbourhood_size));
-	gettimeofday(&t[8], NULL);
-	CL_CHECK(clEnqueueNDRangeKernel(queue, kernel_ofill, 2, NULL, global_work_size_ofill, NULL, 0, NULL, &kernel_completion[4]));
-	CL_CHECK(clWaitForEvents(1, &kernel_completion[4]));
-	gettimeofday(&t[9], NULL);
-	CL_CHECK(clReleaseEvent(kernel_completion[4]));
-	status_update("Done");
-
-	// Select buffer to use for copying (for debugging)
+	// Select cl_mem to copy from (variable added for easy debugging)
 	cl_mem copy_from_buf_cl = dmap1;
 
-	// Copy to host memory from GPU memory.
+
+	// Enque all the three kernels consecutively.
+	status_update("Computing depthmap 2 of 2\n");
+	CL_CHECK(clEnqueueNDRangeKernel(queue, kernel_zncc, 3, NULL, global_work_size_zncc, local_size_zncc, 0, NULL, &kernel_completion[2]));
+	CL_CHECK(clEnqueueNDRangeKernel(queue, kernel_cc, 2, NULL, global_work_size_cc, NULL, 1, &kernel_completion[2], &kernel_completion[3]));
+	CL_CHECK(clEnqueueNDRangeKernel(queue, kernel_ofill, 2, NULL, global_work_size_ofill, NULL, 1, &kernel_completion[3], &kernel_completion[4]));
+
+	// Enqueue copying to host memory from GPU memory.
 	CL_CHECK(clEnqueueReadBuffer(	queue,
 									copy_from_buf_cl,
 									CL_TRUE,
 									0 , //i*sizeof(int)
 									num_elements_small,
 									temp,
-									0,
-									NULL,
-									NULL	));
+									1,
+									&kernel_completion[4],
+									&kernel_completion[5]	));
 
-	calc_elapsed_times(t, elapsedTimes, 10);
+	CL_CHECK(clWaitForEvents(1, &kernel_completion[2]));
+	// CL_CHECK(clReleaseEvent(kernel_completion[2]));
+	status_update("Cross checking...\n");
+
+	CL_CHECK(clWaitForEvents(1, &kernel_completion[3]));
+	// CL_CHECK(clReleaseEvent(kernel_completion[3]));
+	status_update("Occlusion fill...\n");
+
+	CL_CHECK(clWaitForEvents(1, &kernel_completion[4]));
+	// CL_CHECK(clReleaseEvent(kernel_completion[4]));
+	status_update("Copying to host memory....");
+
+	CL_CHECK(clWaitForEvents(1, &kernel_completion[5]));
+	// CL_CHECK(clReleaseEvent(kernel_completion[5]));
+	status_update("Done.");
+
+	clFinish(queue);
+
+	cl_ulong time_start[6];
+	cl_ulong time_end[6];
+	double running_time[6];
+
+	for(int i=0; i<6; i++){
+		clGetEventProfilingInfo(kernel_completion[i], CL_PROFILING_COMMAND_START, sizeof(cl_ulong), &time_start[i], NULL);
+		clGetEventProfilingInfo(kernel_completion[i], CL_PROFILING_COMMAND_END, sizeof(cl_ulong), &time_end[i], NULL);
+		CL_CHECK(clReleaseEvent( kernel_completion[i] ));
+		running_time[i] = (time_end[i]-time_start[i])/1000000; // To ms
+	}
 
 	// Print timings on screen and append to file.
 	sprintf_s(s, sizeof(s), "echo \"$(date) ::  maxdisp = %02d;  winsize = %02d;  thres = %02d;  nhood = %02d, t_sg = %0.4lf ms;  t_d0 = %0.4lf ms;  t_d1 = %0.4lf ms;  t_cc = %0.4lf ms;  t_of = %0.4lf ms\n\"",
-				maximum_disparity, window_size, threshold, neighbourhood_size, elapsedTimes[0], elapsedTimes[1], elapsedTimes[2], elapsedTimes[3], elapsedTimes[4]);
+				maximum_disparity, window_size, threshold, neighbourhood_size, running_time[0], running_time[1], running_time[2], running_time[3], running_time[4]);
 	system(s);
 	sprintf_s(s + strlen(s), sizeof(s), " >> \"%s\"", LOGFILE);
 	system(s);
