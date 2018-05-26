@@ -209,6 +209,7 @@ void exec_project_gpu	(	const char * const img0_arg,
 								};
 	CL_CHECK(clSetKernelArg(kernel_ofill, 0, sizeof(dmap1), &dmap1));
 	CL_CHECK(clSetKernelArg(kernel_ofill, 1, sizeof(half_win), &half_win));
+	CL_CHECK(clSetKernelArg(kernel_ofill, 2, sizeof(neighbourhood_size), &neighbourhood_size));
 	gettimeofday(&t[8], NULL);
 	CL_CHECK(clEnqueueNDRangeKernel(queue, kernel_ofill, 2, NULL, global_work_size_ofill, NULL, 0, NULL, &kernel_completion[4]));
 	CL_CHECK(clWaitForEvents(1, &kernel_completion[4]));

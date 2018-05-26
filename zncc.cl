@@ -144,19 +144,18 @@ __kernel void cross_check_inplace(uchar_g *buf, uchar_gc *buf_cross_check, const
 		buf[i*w + j] = 0;
 }
 
-__kernel void occlusion_fill_inplace(uchar_g *image, const int half_win){
-	const int neighbourhood_size = 8;
-	int i = get_global_id(0) + half_win;
-	int j = get_global_id(1) + half_win;
-	int h = get_global_size(0);
-	int w = get_global_size(1);
+__kernel void occlusion_fill_inplace(uchar_g *image, const int half_win, const int neighbourhood_size){
+	const int i = get_global_id(0) + half_win;
+	const int j = get_global_id(1) + half_win;
+	const int h = get_global_size(0) + 2*half_win;
+	const int w = get_global_size(1) + 2*half_win;
 	int left, right, bottom, top, x, y, r;
 	if (image[i*w + j] == 0)
 	{
 		for(r=0; r<neighbourhood_size; r++)
 		{
-			left = j-r; right = j+r;
-			top = i-r; bottom = i+r;
+			left = j - r; right = j + r;
+			top = i - r; bottom = i + r;
 			if(left<0) left = 0;
 			if(right>=w) right = w-1;
 			if(top<0) top = 0;
