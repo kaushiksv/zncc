@@ -49,7 +49,7 @@ void opencl_init(int platform_number, int device_number, char *build_options){
 		abort();
 	}
 	device = devices[device_number];
-	context = CL_CHECK_ERR(clCreateContext(NULL, 1, devices, &pfn_notify, NULL, &_err));
+	context = CL_CHECK_ERR(clCreateContext(NULL, 1, &device, &pfn_notify, NULL, &_err));
 
 	////////////////////////////////////////////////////////////////
 	////////
