@@ -274,3 +274,19 @@ la 26.5.2018 09.18.55 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 13;  nhood
 
 la 26.5.2018 09.21.43 +0300 ::  maxdisp = 64;  winsize = 25;  thres = 13;  nhood = 08, t_sg = 0.0000 ms;  t_d0 = 258.0000 ms;  t_d1 = 229.0000 ms;  t_cc = 0.0000 ms;  t_of = 0.0000 ms
 
+la 26.5.2018 09.29.34 +0300 ::  maxdisp = 64;  winsize = 25;  thres = 13;  nhood = 08, t_sg = 0.0000 ms;  t_d0 = 256.0000 ms;  t_d1 = 226.0000 ms;  t_cc = 0.0000 ms;  t_of = 0.0000 ms
+
+la 26.5.2018 09.29.42 +0300 ::  maxdisp = 64;  winsize = 25;  thres = 13;  nhood = 08, t_sg = 0.0000 ms;  t_d0 = 209.0000 ms;  t_d1 = 208.0000 ms;  t_cc = 0.0000 ms;  t_of = 0.0000 ms
+
+la 26.5.2018 09.29.50 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 13;  nhood = 08, t_sg = 0.0000 ms;  t_d0 = 31.0000 ms;  t_d1 = 31.0000 ms;  t_cc = 0.0000 ms;  t_of = 0.0000 ms
+
+la 26.5.2018 09.29.57 +0300 ::  maxdisp = 64;  winsize = 09;  thres = 13;  nhood = 08, t_sg = 0.0000 ms;  t_d0 = 31.0000 ms;  t_d1 = 31.0000 ms;  t_cc = 0.0000 ms;  t_of = 0.0000 ms
+
+la 26.5.2018 09.30.36 +0300 :: maxdisp = 64;  thres = 13;  winsize = 09;  nhood = 08, nthreads = 04;  t_sg = 4.9170 ms;  t_d0 = 6499.2560 ms;  t_d1 = 6552.3190 ms;  t_cc = 1.4890 ms;  t_of = 2.7110 ms
+
+la 26.5.2018 09.31.08 +0300 :: maxdisp = 64;  thres = 13;  winsize = 09;  nhood = 08, nthreads = 04;  t_sg = 4.9230 ms;  t_d0 = 6534.7300 ms;  t_d1 = 6544.8500 ms;  t_cc = 1.5440 ms;  t_of = 2.7200 ms
+
+la 26.5.2018 09.33.21 +0300 :: maxdisp = 64;  thres = 13;  winsize = 19;  nhood = 08, nthreads = 04;  t_sg = 5.0070 ms;  t_d0 = 27724.9120 ms;  t_d1 = 27983.6300 ms;  t_cc = 1.2940 ms;  t_of = 3.6750 ms
+
+la 26.5.2018 09.33.37 +0300 ::  maxdisp = 64;  winsize = 19;  thres = 13;  nhood = 08, t_sg = 0.0000 ms;  t_d0 = 159.0000 ms;  t_d1 = 146.0000 ms;  t_cc = 0.0000 ms;  t_of = 0.0000 ms
+
