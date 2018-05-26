@@ -32,7 +32,7 @@ namespace cl_objects {
 	cl_buffer_region	buffer_region;
 };
 
-void opencl_init(int platform_number, int device_number){
+void opencl_init(int platform_number, int device_number, char *build_options){
 	
 	using namespace cl_objects;
 
@@ -56,7 +56,7 @@ void opencl_init(int platform_number, int device_number){
 		abort();
 	}
 	program = CL_CHECK_ERR(clCreateProgramWithSource(context, 1, (const char **)&zncc_kernel_src, NULL, &_err));
-	if (clBuildProgram(program, 1, &device, "", NULL, NULL) != CL_SUCCESS) {
+	if (clBuildProgram(program, 1, &device, build_options, NULL, NULL) != CL_SUCCESS) {
 		clGetProgramBuildInfo(program, device, CL_PROGRAM_BUILD_LOG, sizeof(buffer), buffer, NULL);
 		fprintf(stderr, "CL Compilation-1 failed:\n%s", buffer);
 		abort();
@@ -102,6 +102,7 @@ void exec_project_gpu	(	const char * const img0_arg,
 	const char 			*im0_filepath = "im0.png";
 	const char 			*im1_filepath = "im1.png";
 	char				s[512];
+	char				build_options[512]="";
 	const int 			half_win = (window_size-1)/2;
 	const int &			reserve_size = maximum_disparity;
 	unsigned int 		im0_w, im0_h, im1_w, im1_h, error, num_elements_small;
@@ -129,6 +130,10 @@ void exec_project_gpu	(	const char * const img0_arg,
 	
 	result_h = int(im0_h / shrink_factor);
 	result_w = int(im0_w / shrink_factor);
+	//
+	sprintf_s(build_options, sizeof(build_options), "-D WINDOW_SIZE=%d -D IMAGE_WIDTH=%d -D IMAGE_HEIGHT=%d -cl-mad-enable", window_size, result_w, result_h);
+	opencl_init(0, 0, build_options);
+
 	num_elements_small = result_h * result_w;
 	allocation_size = num_elements_small + 2*reserve_size; // For output small image
 	BYTE *temp = (BYTE *)(calloc(allocation_size, 1));

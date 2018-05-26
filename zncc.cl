@@ -27,7 +27,7 @@ __kernel void shrink_and_grey(	uchar_gc	*i1,
 /*
 	  compute_disparity:
 	Kernel to compute best disparity value at (x,y) by computing ZNCC values.
-	`disparity_offset` is used to deal with negative disparity.
+	`DISPARITY_OFFSET` is used to deal with negative disparity.
 	global_work_size : [ img_h x img_w x maximum_disparity ]
 	local_work_size  : [   1   x   1   x maximum_disparity ]
 	One work-group deals with specific pixel (x,y), for all possible d values.
@@ -35,23 +35,37 @@ __kernel void shrink_and_grey(	uchar_gc	*i1,
 	However, this limitation is assumed ok for now.
 	For more info about the system configuration used, see documentation.
 */
+
+#ifndef IMAGE_WIDTH
+#define IMAGE_WIDTH image_width
+#endif
+#ifndef IMAGE_HEIGHT
+#define IMAGE_HEIGHT image_height
+#endif
+#ifndef WINDOW_SIZE
+#define WINDOW_SIZE window_size
+#endif
+#ifndef DISPARITY_OFFSET
+#define DISPARITY_OFFSET disparity_offset
+#endif
+
 __kernel void compute_disparity(
 					__global const uchar * const image_left,
 					__global const uchar * const image_right,	
 					__global unsigned char *disparity_image,
 					const int image_width,
 					const int image_height,
-					int window_size,
+					const int window_size,
 					const int disparity_offset){
 
 	const int y = get_global_id(0);
 	const int x = get_global_id(1);
 	const int d = get_global_id(2);
-	const int half_win = ((window_size) - 1) / 2;
+	const int half_win = ((WINDOW_SIZE) - 1) / 2;
 
-	if(x<half_win || y<half_win || x>(image_width-half_win) || y>(image_height-half_win)) return;
+	if(x<half_win || y<half_win || x>(IMAGE_WIDTH-half_win) || y>(IMAGE_HEIGHT-half_win)) return;
 
-	const int xy_addr = y*image_width + x;
+	const int xy_addr = y*IMAGE_WIDTH + x;
 	const int maximum_disparity = get_local_size(DISPARITY_DIMENSION);
 
 	// Consider removing global keyword.
@@ -70,15 +84,15 @@ __kernel void compute_disparity(
 	// One time calculation of mean and std of left window.
 	if(d == 0){
 		mean_l = 0.0; std_l = 0.0;
-		for(i = y - half_win; i < y + half_win; i++){
-			for(j = x - half_win; j < x + half_win; j++){
-				mean_l += window_left[i*image_width + j];
+		for(i = -half_win; i <= half_win; i++){
+			for(j = -half_win; j <= half_win; j++){
+				mean_l += window_left[i*IMAGE_WIDTH + j];
 			}
 		}
-		mean_l = mean_l/(window_size*window_size);
-		for(i = y - half_win; i < y + half_win; i++){
-			for(j = x - half_win; j < x + half_win; j++){
-				pixel_left = window_left[i*image_width + j] - mean_l;
+		mean_l = mean_l/(WINDOW_SIZE*WINDOW_SIZE);
+		for(i = -half_win; i <= half_win; i++){
+			for(j = -half_win; j <= half_win; j++){
+				pixel_left = window_left[i*IMAGE_WIDTH + j] - mean_l;
 				std_l += pixel_left * pixel_left;
 			}
 		}
@@ -89,16 +103,16 @@ __kernel void compute_disparity(
 	// Beyond this point, `__local float` variables `mean_l` and `std_l`
 	// should have valid values and be accessible across all work items in this work group.
 
-	for (i = -((window_size - 1) / 2) ; i <= ((window_size - 1) / 2); i++){
-		for (j = -((window_size - 1) / 2); j <= ((window_size - 1) / 2); j++){
-			mean_r += window_right[i*image_width + (j - (d + disparity_offset))];
+	for (i = -((WINDOW_SIZE - 1) / 2) ; i <= ((WINDOW_SIZE - 1) / 2); i++){
+		for (j = -((WINDOW_SIZE - 1) / 2); j <= ((WINDOW_SIZE - 1) / 2); j++){
+			mean_r += window_right[i*IMAGE_WIDTH + (j - (d + DISPARITY_OFFSET))];
 		}
 	}
-	mean_r /= (window_size*window_size);
-	for (i = -((window_size - 1) / 2); i <= ((window_size - 1) / 2); i++){
-		for (j = -((window_size - 1) / 2); j <= ((window_size - 1) / 2); j++){
-			pixel_left = (window_left[i*image_width + j] - mean_l);
-			pixel_right = (window_right[i*image_width + (j - (d + disparity_offset))] - mean_r);
+	mean_r /= (WINDOW_SIZE*WINDOW_SIZE);
+	for (i = -((WINDOW_SIZE - 1) / 2); i <= ((WINDOW_SIZE - 1) / 2); i++){
+		for (j = -((WINDOW_SIZE - 1) / 2); j <= ((WINDOW_SIZE - 1) / 2); j++){
+			pixel_left = (window_left[i*IMAGE_WIDTH + j] - mean_l);
+			pixel_right = (window_right[i*IMAGE_WIDTH + (j - (d + DISPARITY_OFFSET))] - mean_r);
 			N += (pixel_left * pixel_right);
 			std_r += (pixel_right * pixel_right);
 		}
@@ -112,11 +126,11 @@ __kernel void compute_disparity(
 		for(i=0; i<maximum_disparity; i++){
 			if(znccs[i] > best_zncc){
 				best_zncc = znccs[i];
-				best_disparity = i + disparity_offset;
+				best_disparity = i + DISPARITY_OFFSET;
 			}
 		}
 		// Copy disparity at (x,y) to global memory.
-		disparity_image[y*image_width + x] = (unsigned char)(255*(((float)(abs(best_disparity)))/maximum_disparity));
+		disparity_image[y*IMAGE_WIDTH + x] = (unsigned char)(255*(((float)(abs(best_disparity)))/maximum_disparity));
 	}
 }
 
